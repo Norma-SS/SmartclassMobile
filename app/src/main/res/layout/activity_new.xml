@@ -1,0 +1,604 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="265dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay.">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <RelativeLayout
+                android:fitsSystemWindows="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="0dp"
+                    android:fitsSystemWindows="true"
+                    android:focusableInTouchMode="true" />
+
+
+
+<!--                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator-->
+<!--                    android:id="@+id/dots_indicator"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="4dp"-->
+<!--                    android:layout_marginStart="@dimen/margin_small"-->
+<!--                    android:layout_above="@id/fake_margin"-->
+<!--                    app:dotsColor="@color/white"-->
+<!--                    app:dotsCornerRadius="8dp"-->
+<!--                    app:dotsSize="16dp"-->
+<!--                    app:dotsSpacing="4dp"-->
+<!--                    app:dotsWidthFactor="2.5"-->
+<!--                    app:progressMode="true"-->
+<!--                    app:selectedDotColor="@color/white"-->
+<!--                    android:layout_marginLeft="@dimen/margin_small" />-->
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/fake_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_small"/>
+            </RelativeLayout>
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/main_tb"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="top"
+                    android:background="@drawable/bg_search"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="@dimen/margin_medium"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_small"
+                    android:text="Mau cari apa?"
+                    android:textColor="@color/grey"
+                    android:drawableLeft="@drawable/ic_search"
+                    android:paddingLeft="@dimen/margin_small" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <!--    app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/top_cat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_food"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:text="Makanan"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_minuman"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:text="Minuman"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_kesehatan"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:gravity="center"
+                            android:text="Kesehatan"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_fashion_wanita"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:gravity="center"
+                            android:text="Fashion"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_craft"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:text="Kerajinan"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/top_cat"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_electro"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:text="Elektronik"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_olahraga"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:text="Olahraga"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_furniture"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:text="Furniture"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_carrot"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:text="Hasil Tani"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_lain_lain"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:fontFamily="@font/popin"
+                            android:text="Lain-Lain"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_super_tiny" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_top_produk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:drawableStart="@drawable/ic_star"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:fontFamily="@font/poppin_bold"
+                    android:text="Top Produk"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:drawableLeft="@drawable/ic_star" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:fontFamily="@font/popin"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="Lihat Lainnya"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/font_size_super_tiny"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_small" />
+
+<!--                <com.mlsdev.animatedrv.AnimatedRecyclerView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_below="@id/tv_top_produk"-->
+<!--                    android:clipToPadding="false"-->
+<!--                    android:nestedScrollingEnabled="false"-->
+<!--                    app:animationDuration="600"-->
+<!--                    app:layoutAnimation="@anim/layout_animation_from_bottom_scale"-->
+<!--                    app:layoutManagerOrientation="horizontal"-->
+<!--                    app:layoutManagerReverse="false"-->
+<!--                    app:layoutManagerType="linear"-->
+<!--                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+            </RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"/>
+
+            <!--                subcategory-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_kat_produk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:drawableStart="@drawable/ic_love"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:fontFamily="@font/poppin_bold"
+                    android:text="Produk Lokal"
+                    android:textColor="@color/black"
+                    android:drawableLeft="@drawable/ic_love"
+                    android:layout_marginLeft="@dimen/margin_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:fontFamily="@font/popin"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="Lihat Lainnya"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/font_size_super_tiny"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_small" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_kat_produk"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/banner_sub_category" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:drawableStart="@drawable/ic_star"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:fontFamily="@font/popin"
+                    android:text="Rekomendasi Untukmu"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:drawableLeft="@drawable/ic_star"
+                    android:layout_marginLeft="@dimen/margin_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:fontFamily="@font/popin"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="Lihat Lainnya"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/font_size_super_tiny"
+                    android:textStyle="bold"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+<!--            <com.mlsdev.animatedrv.AnimatedRecyclerView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="@dimen/margin_medium"-->
+<!--                android:clipToPadding="false"-->
+<!--                app:animationDuration="600"-->
+<!--                app:layoutAnimation="@anim/layout_animation_from_bottom_scale"-->
+<!--                app:layoutManagerOrientation="vertical"-->
+<!--                app:layoutManagerReverse="false"-->
+<!--                app:layoutManagerType="linear" />-->
+            <Button
+                android:textAllCaps="false"
+                android:layout_marginBottom="@dimen/margin_large"
+                android:visibility="visible"
+                android:text="Tampilkan lebih banyak"
+                android:textColor="@color/white"
+                android:fontFamily="@font/popin"
+                android:background="@drawable/bg_rounded_primarydarkalpha_20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ProgressBar
+                android:layout_gravity="center_horizontal"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:visibility="gone"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_alpha"
+        android:elevation="6dp"
+        android:visibility="invisible" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

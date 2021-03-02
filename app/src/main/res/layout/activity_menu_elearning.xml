@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back1"
+    tools:context=".MenuElearning">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_secondary_variant"
+        android:gravity="center|center_vertical"
+        android:paddingTop="10dp"
+        android:text="Ruang Belajar Online"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/NmSkl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_secondary_variant"
+        android:gravity="center|center_vertical"
+        android:text="Nama Sekolah"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/design_default_color_secondary_variant"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kelas"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" : "
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/Kls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:gravity="center">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image1"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/agama" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt1"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="PENDIDIKAN AGAMA"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image2"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/indonesia" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt2"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="BAHASA INDONESIA"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ly_notif2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_notif2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image3"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/pkn" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt3"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="P K N"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ly_notif3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_notif3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image4"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/matematika" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt4"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="MATEMATIKA"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ly_notif4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_notif4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image5"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/inggris" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt5"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="BHS INGGRIS"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ly_notif5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_notif5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/fisika" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt6"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="FISIKA"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ly_notif6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_notif6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image7"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/biologi" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt7"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="BIOLOGI"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image8"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/kimia" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt8"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="KIMIA"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/image9"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/geografi" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt9"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="GEOGRAFI"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/sejarah" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt10"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="SEJARAH"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/sosiologi" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt11"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="SOSIOLOGI"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/lain" />
+
+                    <LinearLayout
+                        android:layout_width="76dp"
+                        android:layout_height="110dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="60dp">
+
+                        <TextView
+                            android:id="@+id/txt12"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="LAIN-LAIN"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/count_notification"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="11dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

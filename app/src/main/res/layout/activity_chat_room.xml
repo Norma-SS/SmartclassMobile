@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:fitsSystemWindows="true"
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <androidx.appcompat.widget.Toolbar
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:contentInsetRight="@dimen/margin_medium"
+                app:contentInsetEnd="@dimen/margin_medium"
+                app:contentInsetEndWithActions="@dimen/margin_medium"
+                android:id="@+id/main_tb"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimaryDark">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_lawan_chat"
+                        android:layout_centerVertical="true"
+                        android:src="@color/darker_grey"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp" />
+<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                        android:visibility="gone"-->
+<!--                        android:layout_marginEnd="1dp"-->
+<!--                        android:layout_marginBottom="1dp"-->
+<!--                        android:layout_alignEnd="@id/civ_lawan_chat"-->
+<!--                        android:layout_alignBottom="@id/civ_lawan_chat"-->
+<!--                        android:id="@+id/img_on"-->
+<!--                        android:src="@color/colorOn"-->
+<!--                        android:layout_width="10dp"-->
+<!--                        android:layout_height="10dp"-->
+<!--                        android:layout_marginRight="1dp"-->
+<!--                        android:layout_alignRight="@id/civ_lawan_chat" />-->
+<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                        android:layout_marginEnd="1dp"-->
+<!--                        android:layout_marginBottom="1dp"-->
+<!--                        android:layout_alignEnd="@id/civ_lawan_chat"-->
+<!--                        android:layout_alignBottom="@id/civ_lawan_chat"-->
+<!--                        android:id="@+id/img_off"-->
+<!--                        android:src="@color/colorOff"-->
+<!--                        android:layout_width="10dp"-->
+<!--                        android:layout_height="10dp"-->
+<!--                        android:layout_marginRight="1dp"-->
+<!--                        android:layout_alignRight="@id/civ_lawan_chat" />-->
+
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_toEndOf="@id/civ_lawan_chat"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/civ_lawan_chat"
+                        android:layout_marginLeft="@dimen/margin_small">
+
+                        <TextView
+                            android:id="@+id/tv_nama_lawan_chat"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popin"
+                            android:text="User"
+                            android:textSize="@dimen/font_size_normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/online"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popin"
+                            android:text="Online"
+                            android:visibility="visible"
+                            android:textSize="@dimen/font_size_tiny"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.mlsdev.animatedrv.AnimatedRecyclerView
+        android:id="@+id/rv_message"
+        android:layout_below="@id/appBar"
+        android:layout_above="@id/section_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:background="@color/skat"
+        android:id="@+id/section_bottom"
+        android:paddingTop="@dimen/margin_small"
+        android:paddingBottom="@dimen/margin_small"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:paddingStart="@dimen/margin_medium"
+            android:textSize="@dimen/font_size_default"
+            android:id="@+id/et_message_input"
+            android:padding="@dimen/margin_small"
+            android:background="@drawable/shape_acc_grey"
+            android:layout_marginStart="@dimen/margin_small"
+            android:hint="Tulis Pesan ..."
+            android:layout_toStartOf="@id/btn_send_message"
+            android:layout_alignBottom="@id/btn_send_message"
+            android:layout_alignTop="@id/btn_send_message"
+            android:textAllCaps="false"
+            android:src="@drawable/ic_arrow_back"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingLeft="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_toLeftOf="@id/btn_send_message" />
+
+        <ImageButton
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:padding="12dp"
+            android:layout_alignParentEnd="true"
+            android:textAllCaps="false"
+            android:id="@+id/btn_send_message"
+            android:src="@drawable/ic_send_black_24dp"
+            android:background="@drawable/shape_acc_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+</RelativeLayout>

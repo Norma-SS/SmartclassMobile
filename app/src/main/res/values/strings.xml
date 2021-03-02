@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Smart Class</string>
+    <string-array name="android_dropdown_arrays">
+        <item>pilih status</item>
+        <item>Siswa</item>
+        <item>Orang Tua</item>
+        <item>Wali Murid</item>
+    </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>

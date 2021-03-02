@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "62956255267",
+    "project_id": "yuukbelajar",
+    "storage_bucket": "yuukbelajar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62956255267:android:ca6db74055bd01dbf01996",
+        "android_client_info": {
+          "package_name": "com.projectbelajar.yuukbelajar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "62956255267-seo9gsmbpf6i2e3q0a3mtr8fni0hcpsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQx5ETzW3tYuhiQSHBYpNJ0YgSzWNsvkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "62956255267-seo9gsmbpf6i2e3q0a3mtr8fni0hcpsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

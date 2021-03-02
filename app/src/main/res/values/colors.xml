@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2fb5c0</color>
+    <color name="colorPrimaryDark">#217E86</color>
+    <color name="colorAccent">#FFD34E</color>
+<!--    <color name="white">#fff</color>-->
+<!--    <color name="skat">#ECECEC</color>-->
+<!--    <color name="black">#0E0E0E</color>-->
+<!--    <color name="darker_grey">#aaa</color>-->
+<!--    <color name="colorOn">#71FF6F</color>-->
+<!--    <color name="colorOff">#FF5252</color>-->
+    <color name="toolbar">#080064</color>
+<!--    <color name="background">#F2F2F2</color>-->
+
+<!--    <color name="colorPrimary">#8EE269</color>-->
+<!--    <color name="colorPrimaryDark">#5E9745</color>-->
+    <color name="colorPrimaryDarkAlpha">#805E9745</color>
+<!--    <color name="colorAccent">#FFD34E</color>-->
+    <color name="grey">#5E5E5E</color>
+    <color name="white">#fff</color>
+    <color name="skat">#ECECEC</color>
+    <color name="background">#F2F2F2</color>
+    <color name="black">#0E0E0E</color>
+    <color name="black_alpha">#8D000000</color>
+    <color name="darker_grey">#aaa</color>
+    <color name="colorOn">#007B0C</color>
+    <color name="colorOff">#FF5252</color>
+</resources>

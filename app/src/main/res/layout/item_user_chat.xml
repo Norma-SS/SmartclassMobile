@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_profil_penjual"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="16dp"
+        android:src="@color/darker_grey" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_on"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignEnd="@id/img_profil_penjual"
+        android:layout_alignRight="@id/img_profil_penjual"
+        android:layout_alignBottom="@id/img_profil_penjual"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:src="@color/colorOn"
+        android:visibility="gone" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_off"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignEnd="@id/img_profil_penjual"
+        android:layout_alignRight="@id/img_profil_penjual"
+        android:layout_alignBottom="@id/img_profil_penjual"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:src="@color/colorOff" />
+
+    <TextView
+        android:id="@+id/tv_chatter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_profil_penjual"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/img_profil_penjual"
+        android:layout_toRightOf="@id/img_profil_penjual"
+        android:textSize="24sp"
+        android:fontFamily="@font/poppin_bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tv_short_chat"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_status"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_toEndOf="@id/img_profil_penjual"
+        android:layout_toRightOf="@id/img_profil_penjual"
+        android:ellipsize="end"
+        android:fontFamily="@font/popin"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_chatter"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:drawablePadding="20dp"
+        android:layout_toEndOf="@id/img_profil_penjual"
+        android:layout_toRightOf="@id/img_profil_penjual"
+        android:ellipsize="end"
+        android:fontFamily="@font/popin"
+        android:maxLines="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/img_profil_penjual"
+        android:layout_toRightOf="@id/img_profil_penjual"
+        android:background="@color/skat" />
+
+</RelativeLayout>

@@ -1,0 +1,57 @@
+<FrameLayout
+    android:background="@color/colorPrimaryDark"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/AppTheme"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.mlsdev.animatedrv.AnimatedRecyclerView
+        android:background="@color/white"
+        android:id="@+id/rv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:animationDuration="600"
+        app:layoutAnimation="@anim/layout_animation_random_scale"
+        app:layoutManagerOrientation="vertical"
+        app:layoutManagerReverse="false"
+        app:layoutManagerType="linear" />
+    <ProgressBar
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/pb_current_chat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/obrolan_kosong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_edit_text_null"
+            android:src="@drawable/ic_sad2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:fontFamily="@font/popin"
+            android:textSize="@dimen/font_size_normal"
+            android:text="Belum ada obrolan"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+<!--    <ImageButton-->
+<!--        android:layout_gravity="bottom|end"-->
+<!--        android:layout_marginEnd="@dimen/margin_medium"-->
+<!--        android:layout_marginBottom="@dimen/margin_medium"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="@drawable/circle_notif"-->
+<!--        android:src="@drawable/ic_chat"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"/>-->
+</FrameLayout>
