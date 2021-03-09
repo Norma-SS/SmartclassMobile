@@ -20,6 +20,20 @@ import org.json.JSONObject
 import java.util.*
 
 class Login : AppCompatActivity(), View.OnClickListener {
+
+    // global var
+    var name : String ?= null
+    var level1 : String ?= null
+    var kodesekolah : String ?= null
+    var nis : String ?= null
+    var nip : String ?= null
+    var foto : String ?= null
+    var password : String ?= null
+    var nohp : String ?= null
+    var email : String ?= null
+    var namaSekolah : String ?= null
+    var kelas : String ?= null
+
     //Defining views
     var doubleBackToExitPressedOnce = false
     private var editTextEmail: EditText? = null
@@ -38,10 +52,8 @@ class Login : AppCompatActivity(), View.OnClickListener {
     //firebase
     private var firebaseUser: FirebaseUser? = null
     private var auth: FirebaseAuth? = null
-    private var reference: DatabaseReference? = null
+    private var reference = FirebaseDatabase.getInstance().getReference("Users")
     private var preferences: Preferences? = null
-    private var email: String? = null
-    private var password: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -52,7 +64,6 @@ class Login : AppCompatActivity(), View.OnClickListener {
         preferences = Preferences(this)
         auth = FirebaseAuth.getInstance()
         firebaseUser = FirebaseAuth.getInstance().currentUser
-        reference = FirebaseDatabase.getInstance().reference.child("Users")
         sessionManager = SessionManager(applicationContext)
         context = this@Login
 
@@ -60,27 +71,27 @@ class Login : AppCompatActivity(), View.OnClickListener {
         pDialog = ProgressDialog(context)
         editTextEmail = findViewById<View>(R.id.et_email) as EditText
         editTextPassword = findViewById<View>(R.id.et_password) as EditText
-        ShowPass = findViewById<View>(R.id.showPass) as CheckBox
+//        ShowPass = findViewById<View>(R.id.showPass) as CheckBox
         buttonLogin = findViewById<View>(R.id.buttonLogin) as Button
         buttonLogin!!.setOnClickListener(this)
-        buttonRegister = findViewById<View>(R.id.buttonRegister) as Button
-        buttonRegister!!.setOnClickListener(this)
-        buttonLupa = findViewById<View>(R.id.buttonLupa) as Button
-        buttonLupa!!.setOnClickListener(this)
+//        buttonRegister = findViewById<View>(R.id.buttonRegister) as Button
+//        buttonRegister!!.setOnClickListener(this)
+//        buttonLupa = findViewById<View>(R.id.buttonLupa) as Button
+//        buttonLupa!!.setOnClickListener(this)
 
         //pesanReg = (TextView) findViewById(R.id.btn_reg);
         //pesanLupa = (TextView) findViewById(R.id.btn_lupa);
         email = editTextEmail!!.text.toString().trim { it <= ' ' }
         password = editTextPassword!!.text.toString().trim { it <= ' ' }
-        ShowPass!!.setOnClickListener {
-            if (ShowPass!!.isChecked) {
-                //Saat Checkbox dalam keadaan Checked, maka password akan di tampilkan
-                editTextPassword!!.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            } else {
-                //Jika tidak, maka password akan di sembuyikan
-                editTextPassword!!.transformationMethod = PasswordTransformationMethod.getInstance()
-            }
-        }
+//        ShowPass!!.setOnClickListener {
+//            if (ShowPass!!.isChecked) {
+//                //Saat Checkbox dalam keadaan Checked, maka password akan di tampilkan
+//                editTextPassword!!.transformationMethod = HideReturnsTransformationMethod.getInstance()
+//            } else {
+//                //Jika tidak, maka password akan di sembuyikan
+//                editTextPassword!!.transformationMethod = PasswordTransformationMethod.getInstance()
+//            }
+//        }
     }
 
     override fun onClick(v: View) {
@@ -164,6 +175,7 @@ class Login : AppCompatActivity(), View.OnClickListener {
 //                            startActivity(j);
                         } else if (ket1 == "SUKSES" && (level == "ORANG TUA" || level == "WALI MURID")) {
                             Log.d("login ", " as $level")
+                            loginFireBase(email, password, level, loading)
                             //                            sessionManager.createSession(editTextEmail.getText().toString());
 //                            Toast.makeText(getApplicationContext(), "LOGIN " + ket1, Toast.LENGTH_SHORT).show();
 //                            Intent j = new Intent(Login.this, Tabbed.class);
@@ -208,26 +220,28 @@ class Login : AppCompatActivity(), View.OnClickListener {
     }
 
     //===============================================================================================
-    private fun loginFireBase(email: String?, password: String?, level: String, loading: ProgressDialog?) {
-        auth!!.signInWithEmailAndPassword(email!!, password!!)
+    private fun loginFireBase(email1: String?, password1: String?, level: String, loading: ProgressDialog?) {
+        auth!!.signInWithEmailAndPassword(email1 ?: "", password1 ?: "")
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        reference!!.child(auth!!.currentUser!!.uid).child("email").setValue(email)
-                        reference!!.child(auth!!.currentUser!!.uid).child("password").setValue(password)
-                        reference!!.child(auth!!.currentUser!!.uid).addListenerForSingleValueEvent(object : ValueEventListener {
+                        reference?.addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                loading!!.dismiss()
-                                val name = dataSnapshot.child("nama").value as String?
-                                val level1 = dataSnapshot.child("level").value as String?
-                                val kodesekolah = dataSnapshot.child("kodeSekolah").value as String?
-                                val nis = dataSnapshot.child("nis").value as String?
-                                val nip = dataSnapshot.child("nip").value as String?
-                                val foto = dataSnapshot.child("imgUrl").value as String?
-                                val password = dataSnapshot.child("password").value as String?
-                                val nohp = dataSnapshot.child("username").value as String?
-                                val email = dataSnapshot.child("email").value as String?
-                                val namaSekolah = dataSnapshot.child("namaSekolah").value as String?
-                                val kelas = dataSnapshot.child("kelas").value as String?
+                                for (data in dataSnapshot.children){
+                                    if (auth?.currentUser?.email == data.child("email").value.toString()){
+                                        loading!!.dismiss()
+                                         name = data.child("nama").value.toString()
+                                         level1 = data.child("level").value.toString()
+                                         kodesekolah = data.child("kodeSekolah").value.toString()
+                                         nis = data.child("nis").value.toString()
+                                         nip = data.child("nip").value.toString()
+                                         foto = data.child("imgUrl").value.toString()
+                                         password = data.child("password").value.toString()
+                                         nohp = data.child("username").value.toString()
+                                         email = data.child("email").value.toString()
+                                         namaSekolah = data.child("namaSekolah").value.toString()
+                                         kelas = data.child("kelas").value.toString()
+                                    }
+                                }
                                 //                                    if (level1.equals("DOKTER")) {
 //                                        String klinik = (String) dataSnapshot.child("klinik").getValue();
 //                                        preferences.setValues("klinik", klinik);
@@ -235,19 +249,19 @@ class Login : AppCompatActivity(), View.OnClickListener {
 
 
 //                                    String kodesekolahdokter =(String) dataSnapshot.child("kodesekolah").getValue();
-                                preferences!!.setValues("hp", nohp)
-                                preferences!!.setValues("password", password)
-                                preferences!!.setValues("email", email)
-                                preferences!!.setValues("nama", name)
-                                preferences!!.setValues("level", level)
-                                preferences!!.setValues("kodesekolah", kodesekolah)
-                                preferences!!.setValues("nis", nis)
-                                preferences!!.setValues("nip", nip)
-                                preferences!!.setValues("namaSekolah", namaSekolah)
-                                preferences!!.setValues("kelas", kelas)
-                                preferences!!.setValues("foto", foto)
+                                preferences?.setValues("hp", nohp)
+                                preferences?.setValues("password", password)
+                                preferences?.setValues("email", email)
+                                preferences?.setValues("nama", name)
+                                preferences?.setValues("level", level)
+                                preferences?.setValues("kodesekolah", kodesekolah)
+                                preferences?.setValues("nis", nis)
+                                preferences?.setValues("nip", nip)
+                                preferences?.setValues("namaSekolah", namaSekolah)
+                                preferences?.setValues("kelas", kelas)
+                                preferences?.setValues("foto", foto)
                                 Log.d("LOGIN Firebase ", "Data success " + preferences!!.getValues("nama") + " " + kodesekolah)
-                                sessionManager!!.createSession(editTextEmail!!.text.toString())
+                                sessionManager?.createSession(editTextEmail?.text.toString())
                                 Toast.makeText(applicationContext, "Berhasil login!", Toast.LENGTH_SHORT).show()
                                 when (level) {
                                     "DOKTER" -> {

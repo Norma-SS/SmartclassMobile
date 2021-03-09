@@ -54,7 +54,11 @@ class Tabbed : AppCompatActivity() {
 
 
     var doubleBackToExitPressedOnce = false
-    var getIntent : String ?= null
+    private var preference : Preferences? = null
+
+    init {
+        preference = Preferences(this)
+    }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         var selectedFragment: Fragment? = null
@@ -72,14 +76,10 @@ class Tabbed : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
+        if (preference?.getValues("level") == "SISWA") {
 
-
-        getIntent = intent.getStringExtra("level")
-        Log.d("Test Intent", "$getIntent")
-
-        if (getIntent == "SISWA") {
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
             initFirebase()
             getLastLocation()
