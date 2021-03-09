@@ -35,23 +35,8 @@ class Tabbed : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private var myRef = database.getReference("Users")
-    private var user_parent = ArrayList<User_Parent>()
 
-    var email: String? = null
     var id: String? = null
-    var imgUrl: String? = null
-    var kelas: String? = null
-    var kodeSekolah: String? = null
-    var level: String? = null
-    var nama: String? = null
-    var namaSekolah: String? = null
-    var nis: String? = null
-    var password: String? = null
-    var sort_nama: String? = null
-    var status: String? = null
-    var time: String? = null
-    var username: String? = null
-
 
     var doubleBackToExitPressedOnce = false
     private var preference : Preferences? = null
@@ -80,17 +65,15 @@ class Tabbed : AppCompatActivity() {
 
         if (preference?.getValues("level") == "SISWA") {
 
-
+            initVar()
             initFirebase()
             getLastLocation()
 
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
                 Log.d("Debug fused Location", "${location}")
                 Log.d("Location Provide", "berhasil masuk location Provide")
-                myRef.child(id ?: "")
-                        .setValue(User_Parent(location?.longitude, location?.latitude,
-                                email, id, imgUrl, kelas, kodeSekolah,
-                                level, nama, namaSekolah, nis, password, sort_nama, status, time, username))
+                myRef.child(id ?: "").child("long").setValue(location?.longitude)
+                myRef.child(id ?:"").child("lat").setValue(location?.latitude)
             }
         }
 
@@ -157,37 +140,12 @@ class Tabbed : AppCompatActivity() {
 //        tabhost.addTab(spec);
     }
 
+    private fun initVar() {
+        id = preference?.getValues("id")
+    }
+
     private fun initFirebase() {
 
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("Error Database", error.message)
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (data in snapshot.children) {
-                    if (data.child("email").value.toString() == user?.email ?: false) {
-                        val key = data.key
-
-                        email = data.child("email").value.toString()
-                        id = data.child("id").value.toString()
-                        imgUrl = data.child("imgUrl").value.toString()
-                        kelas = data.child("kelas").value.toString()
-                        kodeSekolah = data.child("kodeSekolah").value.toString()
-                        level = data.child("level").value.toString()
-                        nama = data.child("nama").value.toString()
-                        namaSekolah = data.child("namaSekolah").value.toString()
-                        nis = data.child("nis").value.toString()
-                        password = data.child("password").value.toString()
-                        sort_nama = data.child("sort_nama").value.toString()
-                        status = data.child("status").value.toString()
-                        time = data.child("time").value.toString()
-                        username = data.child("username").value.toString()
-
-                    }
-                }
-            }
-        })
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
     }

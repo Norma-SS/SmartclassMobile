@@ -333,7 +333,10 @@ class CourseFragment : Fragment(), View.OnClickListener {
                 }
                 Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
                 Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
+                Image12!!.setOnClickListener {
+                    startActivity(Intent(context, MapsActivity::class.java))
+                    activity?.finish()
+                }
             }
             R.id.image2 -> {
                 Image2!!.setOnClickListener {

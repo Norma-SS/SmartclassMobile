@@ -22,6 +22,7 @@ import java.util.*
 class Login : AppCompatActivity(), View.OnClickListener {
 
     // global var
+    var id : String ?= null
     var name : String ?= null
     var level1 : String ?= null
     var kodesekolah : String ?= null
@@ -229,6 +230,7 @@ class Login : AppCompatActivity(), View.OnClickListener {
                                 for (data in dataSnapshot.children){
                                     if (auth?.currentUser?.email == data.child("email").value.toString()){
                                         loading!!.dismiss()
+                                         id = data.key
                                          name = data.child("nama").value.toString()
                                          level1 = data.child("level").value.toString()
                                          kodesekolah = data.child("kodeSekolah").value.toString()
@@ -249,11 +251,12 @@ class Login : AppCompatActivity(), View.OnClickListener {
 
 
 //                                    String kodesekolahdokter =(String) dataSnapshot.child("kodesekolah").getValue();
+                                preferences?.setValues("id", id)
                                 preferences?.setValues("hp", nohp)
                                 preferences?.setValues("password", password)
                                 preferences?.setValues("email", email)
                                 preferences?.setValues("nama", name)
-                                preferences?.setValues("level", level)
+                                preferences?.setValues("level", level1)
                                 preferences?.setValues("kodesekolah", kodesekolah)
                                 preferences?.setValues("nis", nis)
                                 preferences?.setValues("nip", nip)
