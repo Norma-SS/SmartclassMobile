@@ -139,9 +139,9 @@ public class InfoGuru extends AppCompatActivity  implements ListView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, InfoGuru2.class);
         HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String nip = map.get(konfigurasi.TAG_ID).toString();
+        String nip = map.get(konfigurasi.TAG_ID);
 
-        final String emlku = new String(nip + "_" + eml);
+        final String emlku = nip + "_" + eml;
         intent.putExtra(konfigurasi.EMP_ID,emlku);
         //Toast.makeText(getApplicationContext(), empId, Toast.LENGTH_LONG).show();
         startActivity(intent);

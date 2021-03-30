@@ -47,7 +47,7 @@ public class SessionManager {
     }
 
     public void checkLogin() {
-        if (!this.is_login()) {
+        if (!is_login()) {
             //Toast.makeText(context, "Belum Login....", Toast.LENGTH_LONG).show();
             Intent i = new Intent(context, Login.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

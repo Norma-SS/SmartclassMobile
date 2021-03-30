@@ -106,8 +106,8 @@ public class LihatJwban extends AppCompatActivity  implements ListView.OnItemCli
 
     private void getJSON() {
 
-        final String kdsoalx = new String(kdsoal);
-        final String emlku = new String(eml);
+        final String kdsoalx = kdsoal;
+        final String emlku = eml;
 
         class GetJSON extends AsyncTask<Void, Void, String> {
 
@@ -146,9 +146,9 @@ public class LihatJwban extends AppCompatActivity  implements ListView.OnItemCli
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, UjianOnline.class);
         HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String kdsoale = map.get(konfigurasi.TAG_IDD).toString();
-        String nourut = map.get(konfigurasi.TAG_NOURUT).toString();
-        String jwb = map.get(konfigurasi.TAG_JWB).toString();
+        String kdsoale = map.get(konfigurasi.TAG_IDD);
+        String nourut = map.get(konfigurasi.TAG_NOURUT);
+        String jwb = map.get(konfigurasi.TAG_JWB);
 
         //Toast.makeText(getApplicationContext(), "menuju ujianol "+nourut, Toast.LENGTH_LONG).show();
 

@@ -50,7 +50,7 @@ public class Elearning extends AppCompatActivity  implements ListView.OnItemClic
         //String materi = i.getStringExtra(konfigurasi.EMP_MATERI);
         //Bundle extras= getIntent().getExtras();
         String materi = getIntent().getStringExtra("materi");
-        eml = new String(emlx+"_"+materi);
+        eml = emlx + "_" + materi;
         //Toast.makeText(getApplicationContext(), "JUDUL MATERI "+eml, Toast.LENGTH_LONG).show();
 
         listView = (ListView) findViewById(R.id.listView);
@@ -144,8 +144,8 @@ public class Elearning extends AppCompatActivity  implements ListView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, Belajar.class);
         HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String empId = map.get(konfigurasi.TAG_ID).toString();
-        String kdchatt = map.get(konfigurasi.TAG_LINK).toString();
+        String empId = map.get(konfigurasi.TAG_ID);
+        String kdchatt = map.get(konfigurasi.TAG_LINK);
 
         intent.putExtra(konfigurasi.EMP_KDCHATT,kdchatt);
         //Toast.makeText(getApplicationContext(), empId, Toast.LENGTH_LONG).show();

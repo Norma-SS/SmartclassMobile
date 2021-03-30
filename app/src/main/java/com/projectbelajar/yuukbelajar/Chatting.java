@@ -174,11 +174,11 @@ public class Chatting extends AppCompatActivity  implements ListView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, Chatt.class);
         HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String empId = map.get(konfigurasi.TAG_ID).toString();
-        String wlkls = map.get(konfigurasi.TAG_STATUS).toString();
-        String kdchatt = map.get(konfigurasi.TAG_KDCHAT).toString();
+        String empId = map.get(konfigurasi.TAG_ID);
+        String wlkls = map.get(konfigurasi.TAG_STATUS);
+        String kdchatt = map.get(konfigurasi.TAG_KDCHAT);
 
-        final String emlku = new String(empId + "_" + eml);
+        final String emlku = empId + "_" + eml;
 
         intent.putExtra(konfigurasi.EMP_ID,emlku);
         intent.putExtra(konfigurasi.EMP_WLKLS,wlkls);

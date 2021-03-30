@@ -142,7 +142,7 @@ public class InfoUts extends AppCompatActivity implements ListView.OnItemClickLi
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     Intent intent = new Intent(this, tampilan.class);
     HashMap<String,String> map =(HashMap)parent.getItemAtPosition(position);
-    String empId = map.get(konfigurasi.TAG_TGL).toString();
+    String empId = map.get(konfigurasi.TAG_TGL);
     //intent.putExtra(konfigurasi.EMP_ID,empId);
     startActivity(intent);
   }

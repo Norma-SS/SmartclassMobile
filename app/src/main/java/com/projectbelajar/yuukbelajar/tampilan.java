@@ -56,7 +56,7 @@ public class tampilan extends AppCompatActivity  implements View.OnClickListener
 
         sessionManager.getUserDetails();
 
-        final CircleImageView Foto =  (CircleImageView) findViewById(R.id.Fotox);
+        final CircleImageView Foto =  (CircleImageView) findViewById(R.id.iv_Meet_photo);
         Nama = (TextView) findViewById(R.id.Namax);
         Stts = (TextView) findViewById(R.id.Sttsx);
         Kls =(TextView) findViewById(R.id.Klsx);

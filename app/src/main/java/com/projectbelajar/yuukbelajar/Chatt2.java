@@ -117,8 +117,8 @@ public class Chatt2 extends AppCompatActivity implements View.OnClickListener{
     private void addEmployee(){
 
         final String epesan = Pesan.getText().toString().trim();
-        final String emlx = new String(emlku);
-        final String emltujuan = new String(eml);
+        final String emlx = emlku;
+        final String emltujuan = eml;
         //Toast.makeText(getApplicationContext(), kdchatt+" => "+eml, Toast.LENGTH_LONG).show();
 
         class AddEmployee extends AsyncTask<Void,Void,String>{

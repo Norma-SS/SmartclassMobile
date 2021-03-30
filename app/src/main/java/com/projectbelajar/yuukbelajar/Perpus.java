@@ -186,7 +186,7 @@ public class Perpus extends AppCompatActivity {
       editTextSkl.setText(desg);
       editTextPesan.setText(pesan);
       //Toast.makeText(getApplicationContext(), "hallooo.."+pesan, Toast.LENGTH_LONG).show();
-      nmx = new String(tingkat);
+      nmx = tingkat;
 
 
 

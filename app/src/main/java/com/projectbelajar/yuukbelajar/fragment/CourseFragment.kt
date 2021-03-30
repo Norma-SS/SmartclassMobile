@@ -6,11 +6,9 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -25,13 +23,15 @@ import com.projectbelajar.yuukbelajar.*
 import com.projectbelajar.yuukbelajar.adapter.ViewPagerAdapter
 import com.projectbelajar.yuukbelajar.chat.activity.ChatActivity
 import com.projectbelajar.yuukbelajar.maps.MapsActivity
+import com.projectbelajar.yuukbelajar.smartmeet.MeetActivity
+import com.projectbelajar.yuukbelajar.smartmeet.StudentMeetActivity
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.android.synthetic.main.fragment_course.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 
-class CourseFragment : Fragment(), View.OnClickListener {
+class CourseFragment : Fragment(R.layout.fragment_course) {
     private var editTextName: TextView? = null
     private var editTextSkl: TextView? = null
 
@@ -44,17 +44,6 @@ class CourseFragment : Fragment(), View.OnClickListener {
     private var jumlah4: Int? = null
     private var jumlah5: Int? = null
     private var jumlah6: Int? = null
-    private var Image1: ImageView? = null
-    private var Image2: ImageView? = null
-    private var Image3: ImageView? = null
-    private var Image4: ImageView? = null
-    private var Image6: ImageView? = null
-    private var Image7: ImageView? = null
-    private var Image8: ImageView? = null
-    private var Image9: ImageView? = null
-    private var Image10: ImageView? = null
-    private var Image11: ImageView? = null
-    private var Image12: ImageView? = null
 
     //===================== info inbox
     private var ly_notif: LinearLayout? = null
@@ -67,6 +56,7 @@ class CourseFragment : Fragment(), View.OnClickListener {
     private var tv_notif3: TextView? = null
     private var tv_notif4: TextView? = null
     private var tv_notif6: TextView? = null
+
     private var adapter: ViewPagerAdapter? = null
     private var carouselBanners = ArrayList<String>()
     private var preferences: Preferences? = null
@@ -75,40 +65,24 @@ class CourseFragment : Fragment(), View.OnClickListener {
     private var numpages = 0
     private var firebaseUser: FirebaseUser? = null
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment CourseFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_course, container, false)
-
-
-        //sessionManager.logout();
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferences = Preferences(activity)
-
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        attachButton()
         when(preferences?.getValues("level")){
             "ORANG TUA", "WALI MURID"-> btn_Course_track.visibility = VISIBLE
             else -> btn_Course_track.visibility = INVISIBLE
-
         }
 
-        btn_Course_track.setOnClickListener{
-            startActivity(Intent(context, MapsActivity::class.java))
-        }
+
         carouselBanners = ArrayList()
         carouselBanners.add("https://www.yuukbelajar.com/gbr/iklan.jpg")
         carouselBanners.add("https://www.yuukbelajar.com/gbr/image1.jpg")
         carouselBanners.add("https://www.yuukbelajar.com/gbr/image2.jpg")
         carouselBanners.add("https://yuukbelajar.com/gbr/image3.png")
+        
         val Iklan = view.findViewById<ImageView>(R.id.Iklan)
         Glide.with(activity).load("https://www.yuukbelajar.com/gbr/iklane1.jpg")
                 .fitCenter() //menyesuaikan ukuran imageview
@@ -137,33 +111,12 @@ class CourseFragment : Fragment(), View.OnClickListener {
 //        mLinearLayout = view.findViewById(R.id.pagesContainer);
         editTextName = view.findViewById(R.id.namasiswa)
         editTextSkl = view.findViewById(R.id.namasekolah)
-        Image1 = view.findViewById(R.id.image1)
-        Image1?.setOnClickListener(this)
-        Image2 = view.findViewById(R.id.image2)
-        Image2?.setOnClickListener(this)
-        Image3 = view.findViewById(R.id.image3)
-        Image3?.setOnClickListener(this)
-        Image4 = view.findViewById(R.id.image4)
-        Image4?.setOnClickListener(this)
-        Image6 = view.findViewById(R.id.image6)
-        Image6?.setOnClickListener(this)
-        Image7 = view.findViewById(R.id.image7)
-        Image7?.setOnClickListener(this)
-        Image8 = view.findViewById(R.id.image8)
-        Image8?.setOnClickListener(this)
-        Image9 = view.findViewById(R.id.image9)
-        Image9?.setOnClickListener(this)
-        Image10 = view.findViewById(R.id.image10)
-        Image10?.setOnClickListener(this)
-        Image11 = view.findViewById(R.id.image11)
-        Image11?.setOnClickListener(this)
-        Image12 = view.findViewById(R.id.image12)
-        Image12?.setOnClickListener(this)
+
         editTextName?.text = "Halo, " + preferences!!.getValues("nama")
         editTextSkl?.text = "Selamat Datang di " + preferences!!.getValues("namaSekolah")
         sessionManager = SessionManager(context)
-        val prefs = this.activity!!.getSharedPreferences(pref_name, Context.MODE_PRIVATE)
-        eml = prefs.getString(SessionManager.password, null)
+        val prefs = activity?.getSharedPreferences(pref_name, Context.MODE_PRIVATE)
+        eml = prefs?.getString(SessionManager.password, null)
 
         class GetEmployee : AsyncTask<Void?, Void?, String?>() {
 
@@ -276,315 +229,75 @@ class CourseFragment : Fragment(), View.OnClickListener {
     //        mIndicator.show();
     //
     //    }
-    override fun onClick(view: View) {
-        when (view.id) {
-            R.id.image1 -> {
-                Image1!!.setOnClickListener {
-                    val i = Intent(activity, InfoSekolah::class.java)
-                    startActivity(i)
-                }
-                Image2!!.setOnClickListener {
-                    val i = Intent(activity, InfoUts::class.java)
-                    startActivity(i)
-                }
-                Image3!!.setOnClickListener {
-                    val i = Intent(activity, InfoUas::class.java)
-                    startActivity(i)
-                }
-                Image4!!.setOnClickListener {
-                    val i = Intent(activity, Harian::class.java)
-                    startActivity(i)
-                }
-                Image6!!.setOnClickListener {
-                    val i = Intent(activity, WaliKls::class.java)
-                    startActivity(i)
-                }
-                Image7!!.setOnClickListener {
-                    firebaseUser = FirebaseAuth.getInstance().currentUser
-                    Log.d("firebaseUser ", " $firebaseUser")
-                    if (firebaseUser == null) {
-                        Toast.makeText(activity, "Kamu belum login!", Toast.LENGTH_LONG).show()
-                    } else {
+
+
+    private fun attachButton(){
+
+        btn_Course_track.setOnClickListener{
+            startActivity(Intent(context, MapsActivity::class.java))
+        }
+
+        image1!!.setOnClickListener {
+            val i = Intent(activity, InfoSekolah::class.java)
+            startActivity(i)
+        }
+        image2!!.setOnClickListener {
+            val i = Intent(activity, InfoUts::class.java)
+            startActivity(i)
+        }
+        image3!!.setOnClickListener {
+            val i = Intent(activity, InfoUas::class.java)
+            startActivity(i)
+        }
+        image4!!.setOnClickListener {
+            val i = Intent(activity, Harian::class.java)
+            startActivity(i)
+        }
+        image6!!.setOnClickListener {
+            val i = Intent(activity, WaliKls::class.java)
+            startActivity(i)
+        }
+        image7!!.setOnClickListener {
+            Log.d("firebaseUser ", " $firebaseUser")
+            if (firebaseUser == null) {
+                Toast.makeText(activity, "Kamu belum login!", Toast.LENGTH_LONG).show()
+            } else {
 //                            Toast.makeText(getActivity(), "Kamu sudah login!", Toast.LENGTH_LONG).show();
-                        if (preferences!!.getValues("level") == "GURU") {
-                            Toast.makeText(activity, "Anda bukan walikelas!", Toast.LENGTH_LONG).show()
-                        } else {
-                            preferences!!.setValues("chatType", "walikelas")
-                            val i = Intent(activity, ChatActivity::class.java)
-                            startActivity(i)
-                        }
-                        //                            Toast.makeText(getActivity(), "chatType " + preferences.getValues("chatType"), Toast.LENGTH_SHORT).show();
+                if (preferences!!.getValues("level") == "GURU") {
+                    Toast.makeText(activity, "Anda bukan walikelas!", Toast.LENGTH_LONG).show()
+                } else {
+                    preferences!!.setValues("chatType", "walikelas")
+                    val i = Intent(context, ChatActivity::class.java)
+                    startActivity(i)
+                }
+                //                            Toast.makeText(getActivity(), "chatType " + preferences.getValues("chatType"), Toast.LENGTH_SHORT).show();
 
 //                            getActivity().finish();
-                    }
-                }
-                Image8!!.setOnClickListener {
-                    val i = Intent(activity, QuizOnline::class.java)
-                    startActivity(i)
-                }
-                Image9!!.setOnClickListener { //Toast.makeText(getApplicationContext(), "hallooo.."+nmx, Toast.LENGTH_LONG).show();
-                    if (nmx == "SD") {
-                        val i = Intent(activity, MenuElearningSd::class.java)
-                        startActivity(i)
-                    } else {
-                        val i = Intent(activity, MenuElearning::class.java)
-                        startActivity(i)
-                    }
-                }
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener {
-                    startActivity(Intent(context, MapsActivity::class.java))
-                    activity?.finish()
-                }
             }
-            R.id.image2 -> {
-                Image2!!.setOnClickListener {
-                    val i = Intent(activity, InfoUts::class.java)
-                    startActivity(i)
-                }
-                Image3!!.setOnClickListener {
-                    val i = Intent(activity, InfoUas::class.java)
-                    startActivity(i)
-                }
-                Image4!!.setOnClickListener {
-                    val i = Intent(activity, Harian::class.java)
-                    startActivity(i)
-                }
-                Image6!!.setOnClickListener {
-                    val i = Intent(activity, WaliKls::class.java)
-                    startActivity(i)
-                }
-                Image7!!.setOnClickListener {
-                    firebaseUser = FirebaseAuth.getInstance().currentUser
-                    Log.d("firebaseUser ", " $firebaseUser")
-                    if (firebaseUser == null) {
-                        Toast.makeText(activity, "Kamu belum login!", Toast.LENGTH_LONG).show()
-                    } else {
-                        if (preferences!!.getValues("level") == "GURU") {
-                            Toast.makeText(activity, "Anda bukan walikelas!", Toast.LENGTH_LONG).show()
-                        } else {
-                            preferences!!.setValues("chatType", "walikelas")
-                            val i = Intent(activity, ChatActivity::class.java)
-                            startActivity(i)
-                        }
-                    }
-                }
-                Image8!!.setOnClickListener {
-                    val i = Intent(activity, QuizOnline::class.java)
-                    startActivity(i)
-                }
-                Image9!!.setOnClickListener {
-                    if (nmx == "SD") {
-                        val i = Intent(activity, MenuElearningSd::class.java)
-                        startActivity(i)
-                    } else {
-                        val i = Intent(activity, MenuElearning::class.java)
-                        startActivity(i)
-                    }
-                }
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
+        }
+        image8!!.setOnClickListener {
+            val i = Intent(activity, QuizOnline::class.java)
+            startActivity(i)
+        }
+        image9!!.setOnClickListener { //Toast.makeText(getApplicationContext(), "hallooo.."+nmx, Toast.LENGTH_LONG).show();
+            if (nmx == "SD") {
+                val i = Intent(activity, MenuElearningSd::class.java)
+                startActivity(i)
+            } else {
+                val i = Intent(activity, MenuElearning::class.java)
+                startActivity(i)
             }
-            R.id.image3 -> {
-                Image3!!.setOnClickListener {
-                    val i = Intent(activity, InfoUas::class.java)
-                    startActivity(i)
-                }
-                Image4!!.setOnClickListener {
-                    val i = Intent(activity, Harian::class.java)
-                    startActivity(i)
-                }
-                Image6!!.setOnClickListener {
-                    val i = Intent(activity, WaliKls::class.java)
-                    startActivity(i)
-                }
-                Image7!!.setOnClickListener {
-                    firebaseUser = FirebaseAuth.getInstance().currentUser
-                    Log.d("firebaseUser ", " $firebaseUser")
-                    if (firebaseUser == null) {
-                        Toast.makeText(activity, "Kamu belum login!", Toast.LENGTH_LONG).show()
-                    } else {
-                        if (preferences!!.getValues("level") == "GURU") {
-                            Toast.makeText(activity, "Anda bukan walikelas!", Toast.LENGTH_LONG).show()
-                        } else {
-                            preferences!!.setValues("chatType", "walikelas")
-                            val i = Intent(activity, ChatActivity::class.java)
-                            startActivity(i)
-                        }
-                    }
-                }
-                Image8!!.setOnClickListener {
-                    val i = Intent(activity, QuizOnline::class.java)
-                    startActivity(i)
-                }
-                Image9!!.setOnClickListener {
-                    if (nmx == "SD") {
-                        val i = Intent(activity, MenuElearningSd::class.java)
-                        startActivity(i)
-                    } else {
-                        val i = Intent(activity, MenuElearning::class.java)
-                        startActivity(i)
-                    }
-                }
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
+        }
+        image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
+        image11!!.setOnClickListener {
+            if (preferences?.getValues("level").toString() == "SISWA"){
+                startActivity(Intent(context, StudentMeetActivity::class.java))
+            }else if (preferences?.getValues("level").toString() == "WALIKELAS" || preferences?.getValues("level").toString() == "GURU"){
+                startActivity(Intent(context, MeetActivity::class.java))
             }
-            R.id.image4 -> {
-                Image4!!.setOnClickListener {
-                    val i = Intent(activity, Harian::class.java)
-                    startActivity(i)
-                }
-                Image6!!.setOnClickListener {
-                    val i = Intent(activity, WaliKls::class.java)
-                    startActivity(i)
-                }
-                Image7!!.setOnClickListener {
-                    firebaseUser = FirebaseAuth.getInstance().currentUser
-                    Log.d("firebaseUser ", " $firebaseUser")
-                    if (firebaseUser == null) {
-                        Toast.makeText(activity, "Kamu belum login!", Toast.LENGTH_LONG).show()
-                    } else {
-                        if (preferences!!.getValues("level") == "GURU") {
-                            Toast.makeText(activity, "Anda bukan walikelas!", Toast.LENGTH_LONG).show()
-                        } else {
-                            preferences!!.setValues("chatType", "walikelas")
-                            val i = Intent(activity, ChatActivity::class.java)
-                            startActivity(i)
-                        }
-                    }
-                }
-                Image8!!.setOnClickListener {
-                    val i = Intent(activity, QuizOnline::class.java)
-                    startActivity(i)
-                }
-                Image9!!.setOnClickListener {
-                    if (nmx == "SD") {
-                        val i = Intent(activity, MenuElearningSd::class.java)
-                        startActivity(i)
-                    } else {
-                        val i = Intent(activity, MenuElearning::class.java)
-                        startActivity(i)
-                    }
-                }
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-            }
-            R.id.image6 -> {
-                Image6!!.setOnClickListener {
-                    val i = Intent(activity, WaliKls::class.java)
-                    startActivity(i)
-                }
-                Image7!!.setOnClickListener {
-                    firebaseUser = FirebaseAuth.getInstance().currentUser
-                    Log.d("firebaseUser ", " $firebaseUser")
-                    if (firebaseUser == null) {
-                        Toast.makeText(activity, "Kamu belum login!", Toast.LENGTH_LONG).show()
-                    } else {
-                        if (preferences!!.getValues("level") == "GURU") {
-                            Toast.makeText(activity, "Anda bukan walikelas!", Toast.LENGTH_LONG).show()
-                        } else {
-                            preferences!!.setValues("chatType", "walikelas")
-                            val i = Intent(activity, ChatActivity::class.java)
-                            startActivity(i)
-                        }
-                    }
-                }
-                Image8!!.setOnClickListener {
-                    val i = Intent(activity, QuizOnline::class.java)
-                    startActivity(i)
-                }
-                Image9!!.setOnClickListener {
-                    if (nmx == "SD") {
-                        val i = Intent(activity, MenuElearningSd::class.java)
-                        startActivity(i)
-                    } else {
-                        val i = Intent(activity, MenuElearning::class.java)
-                        startActivity(i)
-                    }
-                }
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-            }
-            R.id.image7 -> {
-                Image7!!.setOnClickListener {
-                    firebaseUser = FirebaseAuth.getInstance().currentUser
-                    Log.d("firebaseUser ", " $firebaseUser")
-                    if (firebaseUser == null) {
-                        Toast.makeText(activity, "Kamu belum login!", Toast.LENGTH_LONG).show()
-                    } else {
-                        if (preferences!!.getValues("level") == "GURU") {
-                            Toast.makeText(activity, "Anda bukan walikelas!", Toast.LENGTH_LONG).show()
-                        } else {
-                            preferences!!.setValues("chatType", "walikelas")
-                            val i = Intent(activity, ChatActivity::class.java)
-                            startActivity(i)
-                        }
-                    }
-                }
-                Image8!!.setOnClickListener {
-                    val i = Intent(activity, QuizOnline::class.java)
-                    startActivity(i)
-                }
-                Image9!!.setOnClickListener {
-                    if (nmx == "SD") {
-                        val i = Intent(activity, MenuElearningSd::class.java)
-                        startActivity(i)
-                    } else {
-                        val i = Intent(activity, MenuElearning::class.java)
-                        startActivity(i)
-                    }
-                }
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-            }
-            R.id.image8 -> {
-                Image8!!.setOnClickListener {
-                    val i = Intent(activity, QuizOnline::class.java)
-                    startActivity(i)
-                }
-                Image9!!.setOnClickListener {
-                    if (nmx == "SD") {
-                        val i = Intent(activity, MenuElearningSd::class.java)
-                        startActivity(i)
-                    } else {
-                        val i = Intent(activity, MenuElearning::class.java)
-                        startActivity(i)
-                    }
-                }
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-            }
-            R.id.image9 -> {
-                Image9!!.setOnClickListener {
-                    if (nmx == "SD") {
-                        val i = Intent(activity, MenuElearningSd::class.java)
-                        startActivity(i)
-                    } else {
-                        val i = Intent(activity, MenuElearning::class.java)
-                        startActivity(i)
-                    }
-                }
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-            }
-            R.id.image10 -> {
-                Image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-            }
-            R.id.image11 -> {
-                Image11!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-                Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
-            }
-            R.id.image12 -> Image12!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
+        }
+        image12!!.setOnClickListener {
+            startActivity(Intent(context, MapsActivity::class.java))
         }
     }
 
@@ -592,7 +305,7 @@ class CourseFragment : Fragment(), View.OnClickListener {
         NUM_PAGES = carouselBanners.size
         numpages = carouselBanners.size
         val handler = Handler()
-        val Update = Runnable {
+        val runnable = Runnable {
             if (currentPage == NUM_PAGES) {
                 currentPage = 0
             }
@@ -609,7 +322,7 @@ class CourseFragment : Fragment(), View.OnClickListener {
         timer.schedule(object : TimerTask() {
             // task to be scheduled
             override fun run() {
-                handler.post(Update)
+                handler.post(runnable)
             }
         }, DELAY_MS, PERIOD_MS)
     }

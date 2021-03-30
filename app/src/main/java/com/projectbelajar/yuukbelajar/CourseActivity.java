@@ -209,7 +209,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
             editTextName.setText(name);
             editTextSkl.setText(desg);
             //Toast.makeText(getApplicationContext(), "hallooo.."+pesan, Toast.LENGTH_LONG).show();
-            nmx = new String(tingkat);
+            nmx = tingkat;
 
             jumlah = Integer.parseInt(sal);
             jumlah2 = Integer.parseInt(uts);

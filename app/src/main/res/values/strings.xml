@@ -6,7 +6,20 @@
         <item>Orang Tua</item>
         <item>Wali Murid</item>
     </string-array>
+
+    <string-array name="android_dropdown_arrays_jitsi">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+
+    </string-array>
+
     <string name="title_activity_maps">Map</string>
+    <string name="text_forgot">Lupa password? Klik Disini</string>
+    <string name="introduce_smart_meet">Selamat Datang di smart meeting Silahkan masukan code Room yang sudah dibuat atau buat Code Room</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

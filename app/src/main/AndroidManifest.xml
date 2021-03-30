@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.projectbelajar.yuukbelajar">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
+        <activity android:name=".smartmeet.StudentMeetActivity"></activity>
+        <activity
+            android:name=".smartmeet.MeetActivity"
+            android:theme="@style/Material" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -35,14 +38,16 @@
 
         <activity
             android:name=".maps.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity android:name=".UploadFoto" />
         <activity android:name=".InfoGuru3" />
         <activity android:name=".MenuElearningSd" />
         <activity android:name=".InfoGuru2" />
         <activity android:name=".InfoGuru" />
         <activity android:name=".InfoKS" /> <!-- <activity android:name=".CourseActivityks" /> -->
-        <activity android:name=".Lupa" />
+        <activity
+            android:name=".Lupa"
+            android:theme="@style/Material" />
         <activity android:name=".MenuElearning" />
         <activity android:name=".LihatJwban" />
         <activity android:name=".QuizOnline" />
@@ -78,10 +83,12 @@
         <activity android:name=".InfoUts" />
         <activity android:name=".InfoSekolah" />
         <activity android:name=".tampilan" />
-        <activity android:name=".Registrasi" />
-        <activity android:name=".Login"
-                  android:theme="@style/Material"
-            />
+        <activity
+            android:name=".Registrasi"
+            android:theme="@style/Material" />
+        <activity
+            android:name=".Login"
+            android:theme="@style/Material" />
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

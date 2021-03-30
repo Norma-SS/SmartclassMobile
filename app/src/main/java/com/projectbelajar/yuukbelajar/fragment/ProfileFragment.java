@@ -123,11 +123,11 @@ public class ProfileFragment extends Fragment{
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(preferences.getValues("id"));
         preferences = new Preferences(getActivity());
         sessionManager.getUserDetails();
 
-        Foto =  view.findViewById(R.id.Fotox);
+        Foto =  view.findViewById(R.id.iv_Meet_photo);
         Nama = view.findViewById(R.id.Namax);
         Stts = view.findViewById(R.id.Sttsx);
         Kls = view.findViewById(R.id.Klsx);

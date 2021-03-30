@@ -155,9 +155,9 @@ public class QuizOnline extends AppCompatActivity implements ListView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, UjianOnline.class);
         HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String kdchatt = map.get(konfigurasi.TAG_LINK).toString();
-        String mulai = map.get(konfigurasi.TAG_MULAI).toString();
-        String cek = map.get(konfigurasi.TAG_CEK).toString();
+        String kdchatt = map.get(konfigurasi.TAG_LINK);
+        String mulai = map.get(konfigurasi.TAG_MULAI);
+        String cek = map.get(konfigurasi.TAG_CEK);
         int xx = Integer.parseInt(mulai);
         int ck = Integer.parseInt(cek);
 

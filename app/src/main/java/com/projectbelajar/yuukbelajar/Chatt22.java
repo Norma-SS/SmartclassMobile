@@ -117,8 +117,8 @@ public class Chatt22 extends AppCompatActivity implements View.OnClickListener{
     private void addEmployee(){
 
         final String epesan = Pesan.getText().toString().trim();
-        final String emlx = new String(emlku);
-        final String emltujuan = new String(eml);
+        final String emlx = emlku;
+        final String emltujuan = eml;
         //Toast.makeText(getApplicationContext(), kdchatt+" => "+eml, Toast.LENGTH_LONG).show();
 
         class AddEmployee extends AsyncTask<Void,Void,String>{
@@ -219,7 +219,7 @@ public class Chatt22 extends AppCompatActivity implements View.OnClickListener{
                 Keter2.setText(keter2);
                 Kls.setText(kls);
 
-                String pssx = new String(pss);
+                String pssx = pss;
 
                 //"http://192.168.1.9/kis24/wlkls/"+
 

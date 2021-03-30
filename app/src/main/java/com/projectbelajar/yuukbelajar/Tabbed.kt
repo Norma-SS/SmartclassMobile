@@ -2,18 +2,24 @@ package com.projectbelajar.yuukbelajar
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -33,7 +39,7 @@ class Tabbed : AppCompatActivity() {
     private val PERMISSION_ID = 1010
     private var database = FirebaseDatabase.getInstance()
     private lateinit var auth: FirebaseAuth
-    private lateinit var user: FirebaseUser
+    private var user: FirebaseUser? = null
     private var myRef = database.getReference("Users")
 
     var id: String? = null
@@ -58,6 +64,7 @@ class Tabbed : AppCompatActivity() {
         true
     }
 
+//    @RequiresApi(Build.VERSION_CODES.P)
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,11 +76,18 @@ class Tabbed : AppCompatActivity() {
             initFirebase()
             getLastLocation()
 
+//            var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+//                    || !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+//                showAlertLocation()
+//            }
+//            locationManager.isLocationEnabled
+
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
-                Log.d("Debug fused Location", "${location}")
-                Log.d("Location Provide", "berhasil masuk location Provide")
-                myRef.child(id ?: "").child("long").setValue(location?.longitude)
-                myRef.child(id ?:"").child("lat").setValue(location?.latitude)
+                    Log.d("Debug fused Location", "${location}")
+                    Log.d("Location Provide", "berhasil masuk location Provide")
+                    myRef.child(id ?: "").child("long").setValue(location?.longitude)
+                    myRef.child(id ?:"").child("lat").setValue(location?.latitude)
             }
         }
 
@@ -140,6 +154,20 @@ class Tabbed : AppCompatActivity() {
 //        tabhost.addTab(spec);
     }
 
+//    private fun showAlertLocation() {
+//        val dialog = AlertDialog.Builder(this)
+//        dialog.setMessage("Your location settings is set to Off, Please enable location to use this application")
+//        dialog.setPositiveButton("Settings") { _, _ ->
+//            val myIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+//            startActivity(myIntent)
+//        }
+//        dialog.setNegativeButton("Cancel") { _, _ ->
+//            finish()
+//        }
+//        dialog.setCancelable(false)
+//        dialog.show()
+//    }
+
     private fun initVar() {
         id = preference?.getValues("id")
     }
@@ -147,7 +175,7 @@ class Tabbed : AppCompatActivity() {
     private fun initFirebase() {
 
         auth = FirebaseAuth.getInstance()
-        user = auth.currentUser!!
+        user = auth.currentUser
     }
 
 
@@ -179,7 +207,6 @@ class Tabbed : AppCompatActivity() {
                         NewLocationData()
                     } else {
                         Log.d("Debug:", "Your Location:" + location.longitude)
-
                     }
                 }
             } else {
@@ -199,7 +226,7 @@ class Tabbed : AppCompatActivity() {
         locationRequest.fastestInterval = 0
         locationRequest.numUpdates = 1
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationProviderClient!!.requestLocationUpdates(
+        fusedLocationProviderClient.requestLocationUpdates(
                 locationRequest, locationCallback, Looper.myLooper()
         )
     }

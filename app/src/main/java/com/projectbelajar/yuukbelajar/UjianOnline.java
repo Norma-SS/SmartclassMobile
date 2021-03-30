@@ -45,15 +45,15 @@ public class UjianOnline extends AppCompatActivity {
     RadioButton rb1, rb2, rb3, rb4, rb5;
     ImageView img;
     EditText inputNama;
-    int jawabanYgDiPilih[] = null;
-    int jwb[] = null;
-    String jb[];
+    int[] jawabanYgDiPilih = null;
+    int[] jwb = null;
+    String[] jb;
     int jwb1,jwb2,jwb3,jwb4,jwb5,jwb6,jwb7,jwb8,jwb9,jwb10;
     int jwb11,jwb12,jwb13,jwb14,jwb15,jwb16,jwb17,jwb18,jwb19,jwb20;
     int jwb21,jwb22,jwb23,jwb24,jwb25,jwb26,jwb27,jwb28,jwb29,jwb30;
     int jwb31,jwb32,jwb33,jwb34,jwb35,jwb36,jwb37,jwb38,jwb39,jwb40;
     int jwb41,jwb42,jwb43,jwb44,jwb45,jwb46,jwb47,jwb48,jwb49,jwb50;
-    int jawabanYgBenar[] = null;
+    int[] jawabanYgBenar = null;
     boolean cekPertanyaan = false;
     int urutanPertanyaan = 0;
     List<Soal> listSoal;
@@ -191,8 +191,8 @@ public class UjianOnline extends AppCompatActivity {
 
     private void getJSON() {
 
-        final String kdsoalx = new String(kdsoal);
-        final String emlku = new String(eml);
+        final String kdsoalx = kdsoal;
+        final String emlku = eml;
 
         class GetJSON extends AsyncTask<Void, Void, String> {
 
