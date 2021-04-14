@@ -196,6 +196,15 @@ class Login : AppCompatActivity(){
 //                            Intent j = new Intent(Login.this, Tabbed.class);
 //                            j.putExtra("level", level);
 //                            startActivity(j);
+                        }
+                        else if (ket1 == "SUKSES" && level == "DOKTER") {
+                            Log.d("login ", " as $level")
+                            loginFireBase(email, password, level, loading)
+                            //                            sessionManager.createSession(editTextEmail.getText().toString());
+//                            Toast.makeText(getApplicationContext(), "LOGIN " + ket1, Toast.LENGTH_SHORT).show();
+//                            Intent j = new Intent(Login.this, Tabbed.class);
+//                            j.putExtra("level", level);
+//                            startActivity(j);
                         } else if (ket1 == "GAGAL") {
 
                             loading?.dismiss()
@@ -236,6 +245,8 @@ class Login : AppCompatActivity(){
         auth!!.signInWithEmailAndPassword(email1 ?: "", password1 ?: "")
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+
+                        GlobalScope.launch {
                             reference.addValueEventListener(object : ValueEventListener {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     for (data in dataSnapshot.children){
@@ -267,7 +278,6 @@ class Login : AppCompatActivity(){
                                     preferences?.setValues("password", password)
                                     preferences?.setValues("email", email)
                                     preferences?.setValues("nama", name)
-                                    preferences?.setValues("level", level1)
                                     preferences?.setValues("kodesekolah", kodesekolah)
                                     preferences?.setValues("nis", nis)
                                     preferences?.setValues("nip", nip)
@@ -276,6 +286,7 @@ class Login : AppCompatActivity(){
                                     preferences?.setValues("foto", foto)
                                     Log.d("LOGIN Firebase ", "Data success " + preferences!!.getValues("nama") + " " + kodesekolah)
                                     sessionManager?.createSession(binding?.etEmail?.text.toString())
+                                    preferences?.setValues("level", level1)
                                 }
 
                                 override fun onCancelled(databaseError: DatabaseError) {
@@ -283,11 +294,9 @@ class Login : AppCompatActivity(){
                                     Log.d("cancelled ", " true ")
                                 }
                             })
-
-                            GlobalScope.launch {
-                                delay(500)
-                                updateUi()
-                            }
+                            delay(1000)
+                            updateUi()
+                        }
 
                         //                            circularProgressBar.setVisibility(View.GONE);
 //                            bgLoad.setVisibility(View.GONE);

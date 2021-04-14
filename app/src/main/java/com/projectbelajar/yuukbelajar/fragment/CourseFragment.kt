@@ -65,10 +65,9 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
     private var numpages = 0
     private var firebaseUser: FirebaseUser? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences = Preferences(activity)
+        preferences = Preferences(context)
         firebaseUser = FirebaseAuth.getInstance().currentUser
         attachButton()
         when(preferences?.getValues("level")){

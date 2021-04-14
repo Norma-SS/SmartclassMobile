@@ -1,5 +1,6 @@
 package com.projectbelajar.yuukbelajar.smartmeet
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.database.DataSnapshot
@@ -14,9 +16,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.projectbelajar.yuukbelajar.Preferences
+import com.projectbelajar.yuukbelajar.data.network.NetworkConfig
 import com.projectbelajar.yuukbelajar.databinding.ActivityStudentMeetBinding
 import com.projectbelajar.yuukbelajar.smartmeet.adapter.StudentMeetAdapter
 import com.projectbelajar.yuukbelajar.smartmeet.model.RoomInfo
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import org.jitsi.meet.sdk.BroadcastEvent
 import org.jitsi.meet.sdk.JitsiMeet
 import org.jitsi.meet.sdk.JitsiMeetActivity
@@ -24,17 +29,22 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import timber.log.Timber
 import java.net.MalformedURLException
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class StudentMeetActivity : AppCompatActivity() {
 
     private var binding : ActivityStudentMeetBinding ?= null
     private var refrence = FirebaseDatabase.getInstance().getReference("Room")
     private var preferences : Preferences?= null
+    private var id : String ?= null
     private var nis : String ?= null
     private var nama : String ?= null
-    private var check_in : String ?= null
-    private var check_out : String ?= null
-
+    private var kodeSekolah : String ?= null
+    private var kelas : String ?= null
 
     private var listRoom =  ArrayList<RoomInfo>()
 
@@ -55,34 +65,14 @@ class StudentMeetActivity : AppCompatActivity() {
         initConf()
     }
 
-    private fun initConf() {
-        // Initialize default options for Jitsi Meet conferences.
-        val serverURL: URL
-        serverURL = try {
-            // When using JaaS, replace "https://meet.jit.si" with the proper serverURL
-            URL("https://meet.jit.si")
-        } catch (e: MalformedURLException) {
-            e.printStackTrace()
-            throw RuntimeException("Invalid server URL!")
-        }
-        val defaultOptions = JitsiMeetConferenceOptions.Builder()
-                .setServerURL(serverURL)
-                // When using JaaS, set the obtained JWT here
-                //.setToken("MyJWT")
-                // Different features flags can be set
-                //.setFeatureFlag("toolbox.enabled", false)
-//                .setFeatureFlag("filmstrip.enabled", false)
-                .setFeatureFlag("pip.enabled",false)
-                .setWelcomePageEnabled(false)
-                .build()
-        JitsiMeet.setDefaultConferenceOptions(defaultOptions)
-
-        registerForBroadcastMessages()
-    }
-
     private fun initVar() {
+
+        id = preferences?.getValues("id")
         nis = preferences?.getValues("nis")
         nama = preferences?.getValues("nama")
+        kodeSekolah = preferences?.getValues("kodesekolah")
+        kelas = preferences?.getValues("kelas")
+
         refrence.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@StudentMeetActivity, "Something Error...", Toast.LENGTH_SHORT).show()
@@ -113,11 +103,39 @@ class StudentMeetActivity : AppCompatActivity() {
                                             }
                                 }.show()
                             }
-                })
+                        })
 
             }
         })
     }
+
+
+    private fun initConf() {
+        // Initialize default options for Jitsi Meet conferences.
+        val serverURL: URL
+        serverURL = try {
+            // When using JaaS, replace "https://meet.jit.si" with the proper serverURL
+            URL("https://meet.jit.si")
+        } catch (e: MalformedURLException) {
+            e.printStackTrace()
+            throw RuntimeException("Invalid server URL!")
+        }
+        val defaultOptions = JitsiMeetConferenceOptions.Builder()
+                .setServerURL(serverURL)
+                // When using JaaS, set the obtained JWT here
+                //.setToken("MyJWT")
+                // Different features flags can be set
+                //.setFeatureFlag("toolbox.enabled", false)
+//                .setFeatureFlag("filmstrip.enabled", false)
+                .setFeatureFlag("pip.enabled",false)
+                .setFeatureFlag("kick-out.enabled", false)
+                .setWelcomePageEnabled(false)
+                .build()
+        JitsiMeet.setDefaultConferenceOptions(defaultOptions)
+
+        registerForBroadcastMessages()
+    }
+
 
     private fun startMeet(kodeRuangan: String?) {
         val options = JitsiMeetConferenceOptions.Builder()
@@ -152,15 +170,61 @@ class StudentMeetActivity : AppCompatActivity() {
             val event = BroadcastEvent(intent)
             when (event.type) {
 
-                BroadcastEvent.Type.CONFERENCE_TERMINATED ->Timber.i("Conference Joined with url%s", event.data.get("url"))
-                BroadcastEvent.Type.PARTICIPANT_JOINED -> Timber.i("Participant joined%s", event.data.get("name"))
+                BroadcastEvent.Type.CONFERENCE_TERMINATED ->{
+                    getTime("check_out")
+                    Timber.i("Conference Joined with url%s", event.data.get("url"))
+                }
+                BroadcastEvent.Type.PARTICIPANT_JOINED -> {
+                    getTime("check_in")
+                    Timber.i("Participant joined%s", event.data.get("name"))
+                }
             }
         }
     }
 
 
     override fun onDestroy() {
+
+//        val current = LocalDateTime.now()
+//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+//        val formatted = current.format(formatter)
+//        println("Current Date and Time is: $formatted")
+
         super.onDestroy()
         binding = null
     }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun getTime(type : String){
+
+        val date = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("HH:mm:ss")
+        val formatedDate = formatter.format(date)
+        Log.d("StudentMeetActivity", "$formatedDate")
+
+        when(type){
+            "check_in" -> {
+                NetworkConfig.service_absen().insert_chec_in(id ?:"", nis ?: "", nama ?: "", kodeSekolah ?: "", kelas ?: "", formatedDate ?: "")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            Toast.makeText(applicationContext, "berhasil record data", Toast.LENGTH_SHORT).show()
+                        },{
+
+                        })
+            }
+            "check_out" -> {
+                NetworkConfig.service_absen().insert_check_out(id ?: "", formatedDate ?: "")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+
+                        },{
+
+                        })
+            }
+        }
+
+    }
+
 }

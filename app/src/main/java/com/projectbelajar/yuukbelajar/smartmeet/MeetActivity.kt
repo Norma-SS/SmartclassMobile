@@ -5,16 +5,26 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.database.FirebaseDatabase
 import com.projectbelajar.yuukbelajar.Preferences
+import com.projectbelajar.yuukbelajar.data.network.NetworkConfig
+import com.projectbelajar.yuukbelajar.data.network.model.DatanyaItem
+import com.projectbelajar.yuukbelajar.data.network.model.ResponseGetKelas
+import com.projectbelajar.yuukbelajar.data.network.model.Result
 import com.projectbelajar.yuukbelajar.databinding.ActivityMeetBinding
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_meet.*
 import org.jitsi.meet.sdk.*
 import timber.log.Timber
 import java.net.MalformedURLException
+import java.net.NetworkInterface
 import java.net.URL
 import kotlin.random.Random
 
@@ -28,16 +38,13 @@ class MeetActivity : AppCompatActivity() {
     val randomInt : Int ?= Random.nextInt(1 , 9999999)
     private var codeSchool : String ?= null
     private var nipTeacher : String ?= null
+    private var listDataKelas : MutableList<String> = ArrayList()
 
     private var codeRoom : String ?= null
 
 
     init{
         preferences = Preferences(this@MeetActivity)
-
-        nipTeacher = preferences?.getValues("nip").toString()
-        codeSchool = preferences?.getValues("kodesekolah").toString()
-        codeRoom = randomInt.toString() + codeSchool + nipTeacher
     }
 
     private val broadcastReceiver = object : BroadcastReceiver() {
@@ -52,26 +59,48 @@ class MeetActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
 
-
+        initVar()
         initView()
         initConf()
         attahBtn()
 
     }
 
+    private fun initVar() {
+        nipTeacher = preferences?.getValues("nip").toString()
+        codeSchool = preferences?.getValues("kodesekolah").toString()
+        codeRoom = randomInt.toString() + codeSchool + nipTeacher
+    }
+
     private fun initView() {
-        binding?.etMeetRoom?.setText(codeRoom)
 
-        binding?.spinnerMeetKelas?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+        NetworkConfig.service_kelas().get_list_kelas(preferences?.getValues("kodesekolah").toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                   for (i in 0 until it?.result?.datanya?.size!!){
+                       listDataKelas.add(it.result.datanya.get(i)?.kelas ?: "")
+                   }
 
-            }
+                },{
 
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                abjadKelas = adapterView?.getItemAtPosition(position).toString()
-            }
+                })
 
-        }
+        val arrayAdapter = ArrayAdapter(this@MeetActivity,
+                android.R.layout.simple_list_item_1, listDataKelas)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        et_Meet_kelas?.setAdapter(arrayAdapter)
+
+//        binding?.spinnerMeetKelas?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//
+//            }
+//
+//            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                abjadKelas = adapterView?.getItemAtPosition(position).toString()
+//            }
+//
+//        }
     }
 
     private fun initConf() {
@@ -91,6 +120,7 @@ class MeetActivity : AppCompatActivity() {
                 // Different features flags can be set
                 //.setFeatureFlag("toolbox.enabled", false)
 //                .setFeatureFlag("filmstrip.enabled", false)
+                .setFeatureFlag("call-integration.enabled", false)
                 .setFeatureFlag("pip.enabled",false)
                 .setWelcomePageEnabled(false)
                 .build()
@@ -101,11 +131,8 @@ class MeetActivity : AppCompatActivity() {
 
     private fun attahBtn() {
         binding?.btnMeetJoin?.setOnClickListener {
-            if (binding?.etMeetRoom?.text.isNullOrEmpty() || binding?.etMeetRoom?.text?.trim() ==""){
-                binding?.etMeetRoom?.error = "Silahkan Masukan Code Room"
-            }else{
                 val options = JitsiMeetConferenceOptions.Builder()
-                        .setRoom(binding?.etMeetRoom?.text.toString())
+                        .setRoom(codeRoom)
                         // Settings for audio and video
                         //.setAudioMuted(true)
                         //.setVideoMuted(true)
@@ -113,9 +140,7 @@ class MeetActivity : AppCompatActivity() {
                 // Launch the new activity with the given options. The launch() method takes care
                 // of creating the required Intent and passing the options.
                 JitsiMeetActivity.launch(this, options)
-            }
         }
-
     }
 
     private fun onBroadcastReceived(intent: Intent?) {
@@ -133,7 +158,7 @@ class MeetActivity : AppCompatActivity() {
                     hashMap ["id"] = key ?: ""
                     hashMap["kode_ruangan"] = codeRoom.toString()
                     hashMap["kode_sekolah"] = preferences?.getValues("kodesekolah").toString()
-                    hashMap["kelas"] = binding?.etMeetKelas?.text.toString() + abjadKelas
+                    hashMap["kelas"] = binding?.etMeetKelas?.text.toString()
                     hashMap["nama_guru"] = preferences?.getValues("nama").toString()
                     hashMap["photo_guru"] = preferences?.getValues("foto").toString()
 
@@ -171,7 +196,7 @@ class MeetActivity : AppCompatActivity() {
     override fun onDestroy() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
         binding = null
-        JitsiMeetActivityDelegate.onHostDestroy(this@MeetActivity)
+        refrence?.child(key ?: "")?.removeValue()
         super.onDestroy()
     }
 
