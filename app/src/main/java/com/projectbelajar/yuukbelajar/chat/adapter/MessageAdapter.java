@@ -42,16 +42,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ChaterVi
     public void onBindViewHolder(@NonNull final ChaterViewHolder holder, int position) {
         Chat chat = chats.get(position);
         holder.showMessage.setText(chat.getMessage());
-        if (position == chats.size()-1){
-            if (chat.isIsseen()) {
-                holder.tvSeen.setText("Dibaca");
-            }else {
-                holder.tvSeen.setText("Terkirim");
-            }
-        }
-        else {
+//        if (position == chats.size()-1){
+////            if (chat.isIsseen()) {
+////                holder.tvSeen.setText("Dibaca");
+////            }else {
+////                holder.tvSeen.setText("Terkirim");
+////            }
+//        }
+//        else {
             holder.tvSeen.setVisibility(View.GONE);
-        }
+//        }
     }
 
     @Override

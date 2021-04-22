@@ -117,93 +117,93 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
         val prefs = activity?.getSharedPreferences(pref_name, Context.MODE_PRIVATE)
         eml = prefs?.getString(SessionManager.password, null)
 
-        class GetEmployee : AsyncTask<Void?, Void?, String?>() {
+//        class GetEmployee : AsyncTask<Void?, Void?, String?>() {
+//
+//            override fun onPostExecute(s: String?) {
+//                super.onPostExecute(s)
+//                try {
+//                    val jsonObject = JSONObject(s ?: "")
+//                    val result = jsonObject.getJSONArray(konfigurasi.TAG_JSON_ARRAY)
+//                    val c = result.getJSONObject(0)
+//                    //String id = c.getString(konfigurasi.TAG_ID);
+//                    val name = c.getString(konfigurasi.TAG_NAMA)
+//                    val desg = c.getString(konfigurasi.TAG_POSISI)
+//                    val tingkat = c.getString(konfigurasi.TAG_TINGKAT)
+//                    val sal = c.getString(konfigurasi.TAG_GAJIH)
+//                    val uts = c.getString(konfigurasi.TAG_UTS)
+//                    val uas = c.getString(konfigurasi.TAG_UAS)
+//                    val quiz = c.getString(konfigurasi.TAG_QUIZ)
+//                    val tugas = c.getString(konfigurasi.TAG_TUGAS)
+//                    val jmlchat = c.getString(konfigurasi.TAG_JMLCHAT)
+//                    val pesan = c.getString(konfigurasi.TAG_PESAN)
+//
+//                    //Toast.makeText(getApplicationContext(), "hallooo.."+pesan, Toast.LENGTH_LONG).show();
+//                    nmx = tingkat
+//                    jumlah = sal.toInt()
+//                    jumlah2 = uts.toInt()
+//                    jumlah3 = uas.toInt()
+//                    jumlah4 = quiz.toInt()
+//                    jumlah5 = tugas.toInt()
+//                    jumlah6 = jmlchat.toInt()
+//                    //        tmpilkan jumlah kedalam notifikasi
+//                    ly_notif = view.findViewById(R.id.ly_notif)
+//                    tv_notif = view.findViewById(R.id.tv_notif)
+//                    if (jumlah!! > 0) {
+//                        ly_notif?.visibility = View.VISIBLE
+//                        tv_notif?.text = "" + jumlah
+//                    } else {
+//                        ly_notif?.visibility = View.GONE
+//                        tv_notif?.text = "" + jumlah
+//                    }
+//                    ly_notif2 = view.findViewById(R.id.ly_notif2)
+//                    tv_notif2 = view.findViewById(R.id.tv_notif2)
+//                    if (jumlah2!! > 0) {
+//                        ly_notif2?.visibility = View.VISIBLE
+//                        tv_notif2?.text = "" + jumlah2
+//                    } else {
+//                        ly_notif2?.visibility = View.GONE
+//                        tv_notif2?.text = "" + jumlah2
+//                    }
+//                    ly_notif3 = view.findViewById(R.id.ly_notif3)
+//                    tv_notif3 = view.findViewById(R.id.tv_notif3)
+//                    if (jumlah3!! > 0) {
+//                        ly_notif3?.visibility = View.VISIBLE
+//                        tv_notif3?.text = "" + jumlah3
+//                    } else {
+//                        ly_notif3?.visibility = View.GONE
+//                        tv_notif3?.text = "" + jumlah3
+//                    }
+//                    ly_notif4 = view.findViewById(R.id.ly_notif4)
+//                    tv_notif4 = view.findViewById(R.id.tv_notif4)
+//                    if (jumlah4!! > 0) {
+//                        ly_notif4?.visibility = View.VISIBLE
+//                        tv_notif4?.text = "" + jumlah4
+//                    } else {
+//                        ly_notif4?.visibility = View.GONE
+//                        tv_notif4?.text = "" + jumlah4
+//                    }
+//                    ly_notif6 = view.findViewById(R.id.ly_notif6)
+//                    tv_notif6 = view.findViewById(R.id.tv_notif6)
+//                    if (jumlah6!! > 0) {
+//                        ly_notif6?.visibility = View.VISIBLE
+//                        tv_notif6?.text = "" + jumlah6
+//                    } else {
+//                        ly_notif6?.visibility = View.GONE
+//                        tv_notif6?.text = "" + jumlah6
+//                    }
+//                } catch (e: JSONException) {
+//                    e.printStackTrace()
+//                }
+//            }
+//
+//            override fun doInBackground(vararg params: Void?): String? {
+//                val rh = RequestHandler()
+//                return rh.sendGetRequestParam(konfigurasi.URL_GET_EMP, eml)
+//            }
+//        }
 
-            override fun onPostExecute(s: String?) {
-                super.onPostExecute(s)
-                try {
-                    val jsonObject = JSONObject(s ?: "")
-                    val result = jsonObject.getJSONArray(konfigurasi.TAG_JSON_ARRAY)
-                    val c = result.getJSONObject(0)
-                    //String id = c.getString(konfigurasi.TAG_ID);
-                    val name = c.getString(konfigurasi.TAG_NAMA)
-                    val desg = c.getString(konfigurasi.TAG_POSISI)
-                    val tingkat = c.getString(konfigurasi.TAG_TINGKAT)
-                    val sal = c.getString(konfigurasi.TAG_GAJIH)
-                    val uts = c.getString(konfigurasi.TAG_UTS)
-                    val uas = c.getString(konfigurasi.TAG_UAS)
-                    val quiz = c.getString(konfigurasi.TAG_QUIZ)
-                    val tugas = c.getString(konfigurasi.TAG_TUGAS)
-                    val jmlchat = c.getString(konfigurasi.TAG_JMLCHAT)
-                    val pesan = c.getString(konfigurasi.TAG_PESAN)
-
-                    //Toast.makeText(getApplicationContext(), "hallooo.."+pesan, Toast.LENGTH_LONG).show();
-                    nmx = tingkat
-                    jumlah = sal.toInt()
-                    jumlah2 = uts.toInt()
-                    jumlah3 = uas.toInt()
-                    jumlah4 = quiz.toInt()
-                    jumlah5 = tugas.toInt()
-                    jumlah6 = jmlchat.toInt()
-                    //        tmpilkan jumlah kedalam notifikasi
-                    ly_notif = view.findViewById(R.id.ly_notif)
-                    tv_notif = view.findViewById(R.id.tv_notif)
-                    if (jumlah!! > 0) {
-                        ly_notif?.visibility = View.VISIBLE
-                        tv_notif?.text = "" + jumlah
-                    } else {
-                        ly_notif?.visibility = View.GONE
-                        tv_notif?.text = "" + jumlah
-                    }
-                    ly_notif2 = view.findViewById(R.id.ly_notif2)
-                    tv_notif2 = view.findViewById(R.id.tv_notif2)
-                    if (jumlah2!! > 0) {
-                        ly_notif2?.visibility = View.VISIBLE
-                        tv_notif2?.text = "" + jumlah2
-                    } else {
-                        ly_notif2?.visibility = View.GONE
-                        tv_notif2?.text = "" + jumlah2
-                    }
-                    ly_notif3 = view.findViewById(R.id.ly_notif3)
-                    tv_notif3 = view.findViewById(R.id.tv_notif3)
-                    if (jumlah3!! > 0) {
-                        ly_notif3?.visibility = View.VISIBLE
-                        tv_notif3?.text = "" + jumlah3
-                    } else {
-                        ly_notif3?.visibility = View.GONE
-                        tv_notif3?.text = "" + jumlah3
-                    }
-                    ly_notif4 = view.findViewById(R.id.ly_notif4)
-                    tv_notif4 = view.findViewById(R.id.tv_notif4)
-                    if (jumlah4!! > 0) {
-                        ly_notif4?.visibility = View.VISIBLE
-                        tv_notif4?.text = "" + jumlah4
-                    } else {
-                        ly_notif4?.visibility = View.GONE
-                        tv_notif4?.text = "" + jumlah4
-                    }
-                    ly_notif6 = view.findViewById(R.id.ly_notif6)
-                    tv_notif6 = view.findViewById(R.id.tv_notif6)
-                    if (jumlah6!! > 0) {
-                        ly_notif6?.visibility = View.VISIBLE
-                        tv_notif6?.text = "" + jumlah6
-                    } else {
-                        ly_notif6?.visibility = View.GONE
-                        tv_notif6?.text = "" + jumlah6
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun doInBackground(vararg params: Void?): String? {
-                val rh = RequestHandler()
-                return rh.sendGetRequestParam(konfigurasi.URL_GET_EMP, eml)
-            }
-        }
-
-        val ge = GetEmployee()
-        ge.execute()
+//        val ge = GetEmployee()
+//        ge.execute()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

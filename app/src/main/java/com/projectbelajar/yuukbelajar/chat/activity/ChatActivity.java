@@ -157,7 +157,7 @@ public class ChatActivity extends AppCompatActivity {
     private void status(String status) {
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
+//        hashMap.put("status", status);
 
         reference.updateChildren(hashMap);
     }
@@ -165,12 +165,12 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        status("online");
+//        status("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        status("offline");
+//        status("offline");
     }
 }

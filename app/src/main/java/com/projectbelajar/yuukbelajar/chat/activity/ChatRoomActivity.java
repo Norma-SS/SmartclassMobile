@@ -226,7 +226,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Chat chat = snapshot.getValue(Chat.class);
                     if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)) {
                         HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("isseen", true);
+//                        hashMap.put("isseen", true);
                         snapshot.getRef().updateChildren(hashMap);
                     }
                 }
@@ -339,13 +339,13 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        status("online");
+//        status("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         reference.removeEventListener(seenListener);
-        status("offline");
+//        status("offline");
     }
 }
