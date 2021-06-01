@@ -20,9 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".smartmeet.StudentMeetActivity"></activity>
+        <activity android:name="com.projectbelajar.yuukbelajar.ui.smartmeet.StudentMeetActivity"></activity>
         <activity
-            android:name=".smartmeet.MeetActivity"
+            android:name="com.projectbelajar.yuukbelajar.ui.smartmeet.MeetActivity"
             android:theme="@style/Material" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -48,11 +48,11 @@
         <activity
             android:name=".Lupa"
             android:theme="@style/Material" />
-        <activity android:name=".MenuElearning" />
+        <activity android:name=".ui.elearning.menu.MenuElearning" />
         <activity android:name=".LihatJwban" />
         <activity android:name=".QuizOnline" />
         <activity android:name=".Belajar" />
-        <activity android:name=".Elearning" />
+        <activity android:name=".ui.elearning.Elearning" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".UjianOnline" /> <!-- <activity android:name=".SppOnline" /> -->
         <activity android:name=".Chatt22" />
@@ -76,12 +76,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Profil" />
         <activity android:name=".Chatt" />
-        <activity android:name=".Harian" />
+        <activity android:name=".ui.infoharian.Harian" />
         <activity android:name=".Perpus" />
-        <activity android:name=".WaliKls" />
-        <activity android:name=".InfoUas" />
-        <activity android:name=".InfoUts" />
-        <activity android:name=".InfoSekolah" />
+        <activity android:name=".ui.infotugas.Tugas" />
+        <activity android:name=".ui.infouas.InfoUas" />
+        <activity android:name=".ui.infouts.InfoUts" />
+        <activity android:name=".ui.infosekolah.InfoSekolah" />
         <activity android:name=".tampilan" />
         <activity
             android:name=".Registrasi"

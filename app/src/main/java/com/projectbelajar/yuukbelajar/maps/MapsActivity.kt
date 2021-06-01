@@ -78,7 +78,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 for (data in snapshot.children){
                     if (user?.email == data.child("email").value.toString()){
                         nis  = data.child("nis").value.toString()
-
+                        
                     }else if (nis == data.child("nis").value.toString()
                             && data.child("level").value.toString() == "SISWA"){
                         val name = data.child("nama").value.toString()

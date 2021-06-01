@@ -10,11 +10,8 @@ public class konfigurasi {
     public static final String URL_ADD="https://smartclass.co.id/pdf.php";
     public static final String URL_LUPA="https://smartclass.co.id/lupa.php";
     public static final String URL_LOGIN="https://smartclass.co.id/login.php";
-    public static final String URL_GET_ALL = "https://smartclass.co.id/infosekolah.php?eml=";
     public static final String URL_GET_TUGAS = "https://smartclass.co.id/infotugas.php?eml=";
     public static final String URL_GET_EMP = "https://smartclass.co.id/tampilPgw.php?eml=";
-    public static final String URL_GET_UTS = "https://smartclass.co.id/infouts.php?eml=";
-    public static final String URL_GET_UAS = "https://smartclass.co.id/infouas.php?eml=";
     public static final String URL_GET_QUIZ = "https://smartclass.co.id/infoquiz.php?eml=";
     public static final String URL_GET_CHATT = "https://smartclass.co.id/chatt.php?eml=";
     public static final String URL_GET_INFOGURU = "https://smartclass.co.id/infoguru.php?eml=";

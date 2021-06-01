@@ -14,6 +14,7 @@ public class Chat {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
+
 //        this.isseen = isseen;
 //        this.time = time;
     }

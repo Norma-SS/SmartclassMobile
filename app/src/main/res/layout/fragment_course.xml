@@ -217,6 +217,7 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
+                android:id="@+id/linear_line1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
@@ -448,7 +449,8 @@
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="20dp">
+                    android:minWidth="20dp"
+                    >
 
                     <ImageView
                         android:id="@+id/image6"
@@ -500,6 +502,7 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/frame_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="20dp">
@@ -608,6 +611,82 @@
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="20dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/image11"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/smart_meet" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="40dp">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/poppinslight"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="Smart Meet"
+                            android:textColor="@android:color/black"
+                            android:textSize="10sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_line3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-80dp"
+                    android:minWidth="20dp">
+
+                    <ImageView
+                        android:id="@+id/image10"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:src="@drawable/raport_online" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="40dp">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/poppinslight"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="Raport Online"
+                            android:textColor="@android:color/black"
+                            android:textSize="10sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:minWidth="20dp">
 
                     <ImageView
@@ -657,83 +736,15 @@
 
                 </FrameLayout>
 
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-80dp"
-                    android:minWidth="20dp">
-
-                    <ImageView
-                        android:id="@+id/image10"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:src="@drawable/raport_online" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="40dp">
-
-                        <TextView
-                            android:layout_width="80dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/poppinslight"
-                            android:gravity="center_vertical|center_horizontal"
-                            android:text="Raport Online"
-                            android:textColor="@android:color/black"
-                            android:textSize="10sp"
-                            android:textStyle="normal" />
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="20dp">
-
-                    <ImageView
-                        android:id="@+id/image11"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:src="@drawable/smart_meet" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="40dp">
-
-                        <TextView
-                            android:layout_width="80dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/poppinslight"
-                            android:gravity="center_vertical|center_horizontal"
-                            android:text="Smart Meet"
-                            android:textColor="@android:color/black"
-                            android:textSize="10sp"
-                            android:textStyle="normal" />
-                    </LinearLayout>
-
-                </FrameLayout>
 
                 <FrameLayout
                     android:id="@+id/btn_Course_track"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="20dp">
+                    android:minWidth="20dp"
+                    android:visibility="invisible"
+                    >
 
                     <ImageView
                         android:id="@+id/image12"

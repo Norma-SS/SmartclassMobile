@@ -141,7 +141,7 @@ public class QuizOnline extends AppCompatActivity implements ListView.OnItemClic
             protected String doInBackground(Void... params) {
                 RequestHandler rh = new RequestHandler();
                 String s = rh.sendGetRequestParam(konfigurasi.URL_GET_QUIZON, eml);
-                //String s = rh.sendGetRequestParam(konfigurasi.URL_GET_EMP,eml);
+//                String s = rh.sendGetRequestParam(konfigurasi.URL_GET_EMP,eml);
                 return s;
             }
         }

@@ -30,9 +30,9 @@ object NetworkConfig {
         return retrofit.create(APIService::class.java)
     }
 
-    fun service_kelas() : APIService{
+    fun service() : APIService{
         val retrofit = Retrofit.Builder()
-                .baseUrl("https://smartclass.co.id/dashboard/")
+                .baseUrl("https://smartclass.co.id/")
                 .client(interceptor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
@@ -40,5 +40,4 @@ object NetworkConfig {
 
         return retrofit.create(APIService::class.java)
     }
-
 }

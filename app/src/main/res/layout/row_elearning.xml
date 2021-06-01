@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:layout_marginBottom="15dp"
+    app:cardElevation="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showFullScreenButton="false" />
+
+        <TextView
+            android:id="@+id/nama_guru"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="15dp"
+            android:drawableStart="@drawable/ic_school_black"
+            android:drawablePadding="4dp"
+            android:text="Judul"
+            app:layout_constraintStart_toStartOf="@id/youtube_player_view"
+            app:layout_constraintTop_toBottomOf="@id/youtube_player_view" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:drawableStart="@drawable/ic_people_black"
+            android:drawablePadding="4dp"
+            android:text="Nama Guru "
+            app:layout_constraintStart_toStartOf="@id/nama_guru"
+            app:layout_constraintTop_toBottomOf="@id/nama_guru" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/ic_calendar_black"
+            android:drawablePadding="4dp"
+            android:text="Waktu Upload"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            android:text=":"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text=":"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/textView11"
+            app:layout_constraintEnd_toEndOf="@+id/textView12"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toTopOf="@id/textView11"
+            tools:layout_editor_absoluteY="205dp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text=":"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/nama_guru"
+            app:layout_constraintEnd_toEndOf="@id/textView13"
+            app:layout_constraintStart_toStartOf="@id/textView13"
+            app:layout_constraintTop_toTopOf="@id/nama_guru" />
+
+        <TextView
+            android:id="@+id/tv_judul"
+            android:layout_width="0dp"
+            android:textSize="9sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@id/textView16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toTopOf="@id/textView16" />
+
+        <TextView
+            android:id="@+id/tv_namaGuru"
+            android:layout_width="0dp"
+            android:textSize="9sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView13"
+            app:layout_constraintBottom_toBottomOf="@id/textView13"
+            />
+
+        <TextView
+            android:id="@+id/tv_waktu_upload"
+            android:layout_width="0dp"
+            android:textSize="9sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            app:layout_constraintTop_toTopOf="@id/textView12"
+            app:layout_constraintBottom_toBottomOf="@id/textView12"
+            app:layout_constraintStart_toEndOf="@id/textView12"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

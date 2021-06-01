@@ -1,76 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Elearning">
+    tools:context=".ui.elearning.Elearning">
+
+ <TextView
+     android:id="@+id/tv_ruang_belajar_online"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:text="Ruang Belajar Online"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     android:textSize="24sp"
+     android:gravity="center"
+     android:textStyle="bold"
+     android:background="@color/design_default_color_secondary_variant"
+     android:textColor="@color/white"
+     />
 
     <TextView
+        android:id="@+id/tv_sekolah"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="Connecting ..."
+        android:textSize="18sp"
+        android:gravity="center"
         android:background="@color/design_default_color_secondary_variant"
-        android:gravity="center|center_vertical"
-        android:paddingTop="10dp"
-        android:text="Ruang Belajar Online"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        app:layout_constraintTop_toBottomOf="@id/tv_ruang_belajar_online"
+        app:layout_constraintStart_toStartOf="@id/tv_ruang_belajar_online"
+        app:layout_constraintEnd_toEndOf="@id/tv_ruang_belajar_online"
+        />
 
     <TextView
-        android:id="@+id/NmSkl"
+        android:id="@+id/tv_mapel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sekolah"
+        android:text="Connecting ... "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/white"
         android:background="@color/design_default_color_secondary_variant"
-        android:gravity="center|center_vertical"
-        android:text="Nama Sekolah"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="55dp"
-        android:background="@color/design_default_color_secondary_variant"
-        android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mata Pelajaran"
-            android:textSize="13sp"
-            android:textColor="#FFFFFF"
-            android:gravity="center"
-            android:textStyle="bold"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_belajar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mapel"
+        tools:listitem="@layout/row_elearning" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" : "
-            android:textSize="13sp"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/mapel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        tools:layout_editor_absoluteX="745dp"
-        tools:layout_editor_absoluteY="-51dp" />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -181,7 +181,7 @@ public class ChatsFragment extends Fragment {
                                         chatersGuru.add(chater);
                                 } else {
                                     isWalikelas = false;
-                                    if (chatList.getLevel().equals("DOKTER") || chatList.getLevel().equals("WALI MURID") || chatList.getLevel().equals("SISWA") || chatList.getLevel().equals("ORANG TUA"))
+                                    if (preferences.getValues("level").equals("DOKTER") || chatList.getLevel().equals("WALI MURID") || chatList.getLevel().equals("SISWA") || chatList.getLevel().equals("ORANG TUA"))
                                         chatersDokter.add(chater);
                                 }
 

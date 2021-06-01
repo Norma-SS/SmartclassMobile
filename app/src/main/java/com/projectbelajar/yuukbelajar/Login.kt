@@ -286,7 +286,7 @@ class Login : AppCompatActivity(){
                                     preferences?.setValues("foto", foto)
                                     Log.d("LOGIN Firebase ", "Data success " + preferences!!.getValues("nama") + " " + kodesekolah)
                                     sessionManager?.createSession(binding?.etEmail?.text.toString())
-                                    preferences?.setValues("level", level1)
+                                    preferences?.setValues("level", level)
                                 }
 
                                 override fun onCancelled(databaseError: DatabaseError) {

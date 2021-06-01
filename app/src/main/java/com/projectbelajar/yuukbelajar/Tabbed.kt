@@ -34,8 +34,8 @@ import com.projectbelajar.yuukbelajar.model.User_Parent
 
 class Tabbed : AppCompatActivity() {
 
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    lateinit var locationRequest: LocationRequest
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
     private val PERMISSION_ID = 1010
     private var database = FirebaseDatabase.getInstance()
     private lateinit var auth: FirebaseAuth
@@ -45,7 +45,7 @@ class Tabbed : AppCompatActivity() {
     var id: String? = null
 
     var doubleBackToExitPressedOnce = false
-    private var preference : Preferences? = null
+    private var preference: Preferences? = null
 
     init {
         preference = Preferences(this)
@@ -64,7 +64,6 @@ class Tabbed : AppCompatActivity() {
         true
     }
 
-//    @RequiresApi(Build.VERSION_CODES.P)
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,10 +83,10 @@ class Tabbed : AppCompatActivity() {
 //            locationManager.isLocationEnabled
 
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
-                    Log.d("Debug fused Location", "${location}")
-                    Log.d("Location Provide", "berhasil masuk location Provide")
-                    myRef.child(id ?: "").child("long").setValue(location?.longitude)
-                    myRef.child(id ?:"").child("lat").setValue(location?.latitude)
+                Log.d("Debug fused Location", "${location}")
+                Log.d("Location Provide", "berhasil masuk location Provide")
+                myRef.child(id ?: "").child("long").setValue(location?.longitude)
+                myRef.child(id ?: "").child("lat").setValue(location?.latitude)
             }
         }
 
@@ -169,7 +168,7 @@ class Tabbed : AppCompatActivity() {
 //    }
 
     private fun initVar() {
-        id = preference?.getValues("id")
+        id = FirebaseAuth.getInstance().currentUser?.uid
     }
 
     private fun initFirebase() {

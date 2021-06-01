@@ -14,11 +14,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.projectbelajar.yuukbelajar.chat.activity.ChatActivity;
+import com.projectbelajar.yuukbelajar.ui.elearning.menu.MenuElearning;
+import com.projectbelajar.yuukbelajar.ui.infoharian.Harian;
+import com.projectbelajar.yuukbelajar.ui.infosekolah.InfoSekolah;
+import com.projectbelajar.yuukbelajar.ui.infouas.InfoUas;
+import com.projectbelajar.yuukbelajar.ui.infouts.InfoUts;
+import com.projectbelajar.yuukbelajar.ui.infotugas.Tugas;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -366,7 +371,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 Image6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(CourseActivity.this, WaliKls.class);
+                        Intent i = new Intent(CourseActivity.this, Tugas.class);
                         startActivity(i);
                     }
                 });
@@ -392,8 +397,8 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                     public void onClick(View v) {
                         //Toast.makeText(getApplicationContext(), "hallooo.."+nmx, Toast.LENGTH_LONG).show();
                         if(nmx.equals("SD")){
-                            Intent i = new Intent(CourseActivity.this, MenuElearningSd.class);
-                            startActivity(i);
+//                            Intent i = new Intent(CourseActivity.this, MenuElearningSd.class);
+//                            startActivity(i);
                         }else{
                             Intent i = new Intent(CourseActivity.this, MenuElearning.class);
                             startActivity(i);

@@ -2,13 +2,11 @@ package com.projectbelajar.yuukbelajar.fragment
 
 import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -23,12 +21,16 @@ import com.projectbelajar.yuukbelajar.*
 import com.projectbelajar.yuukbelajar.adapter.ViewPagerAdapter
 import com.projectbelajar.yuukbelajar.chat.activity.ChatActivity
 import com.projectbelajar.yuukbelajar.maps.MapsActivity
-import com.projectbelajar.yuukbelajar.smartmeet.MeetActivity
-import com.projectbelajar.yuukbelajar.smartmeet.StudentMeetActivity
+import com.projectbelajar.yuukbelajar.ui.elearning.menu.MenuElearning
+import com.projectbelajar.yuukbelajar.ui.infoharian.Harian
+import com.projectbelajar.yuukbelajar.ui.smartmeet.MeetActivity
+import com.projectbelajar.yuukbelajar.ui.smartmeet.StudentMeetActivity
+import com.projectbelajar.yuukbelajar.ui.infosekolah.InfoSekolah
+import com.projectbelajar.yuukbelajar.ui.infouas.InfoUas
+import com.projectbelajar.yuukbelajar.ui.infouts.InfoUts
+import com.projectbelajar.yuukbelajar.ui.infotugas.Tugas
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.android.synthetic.main.fragment_course.*
-import org.json.JSONException
-import org.json.JSONObject
 import java.util.*
 
 class CourseFragment : Fragment(R.layout.fragment_course) {
@@ -71,8 +73,16 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
         firebaseUser = FirebaseAuth.getInstance().currentUser
         attachButton()
         when(preferences?.getValues("level")){
-            "ORANG TUA", "WALI MURID"-> btn_Course_track.visibility = VISIBLE
-            else -> btn_Course_track.visibility = INVISIBLE
+            "ORANG TUA"-> btn_Course_track.visibility = VISIBLE
+            "GURU" -> {
+                linear_line1.visibility = GONE
+                linear_line3.visibility = GONE
+                frame_chat.visibility = GONE
+            }
+            "WALIKELAS" -> {
+                linear_line1.visibility = GONE
+                linear_line3.visibility = GONE
+            }
         }
 
 
@@ -253,7 +263,7 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
             startActivity(i)
         }
         image6!!.setOnClickListener {
-            val i = Intent(activity, WaliKls::class.java)
+            val i = Intent(activity, Tugas::class.java)
             startActivity(i)
         }
         image7!!.setOnClickListener {
@@ -280,8 +290,8 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
         }
         image9!!.setOnClickListener { //Toast.makeText(getApplicationContext(), "hallooo.."+nmx, Toast.LENGTH_LONG).show();
             if (nmx == "SD") {
-                val i = Intent(activity, MenuElearningSd::class.java)
-                startActivity(i)
+//                val i = Intent(activity, MenuElearningSd::class.java)
+//                startActivity(i)
             } else {
                 val i = Intent(activity, MenuElearning::class.java)
                 startActivity(i)

@@ -120,13 +120,14 @@ public class CustomChaterAdapter extends RecyclerView.Adapter<CustomChaterAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!currentLevel.equals("DOKTER")){
+//                    if (!currentLevel.equals("DOKTER")){
                         Intent toChatRoom = new Intent(itemView.getContext(), ChatRoomActivity.class);
                         toChatRoom.putExtra("userid", chater.getId());
                         toChatRoom.putExtra("level", chater.getLevel());
                         toChatRoom.putExtra("chatType", chatType);
-                        itemView.getContext().startActivity(toChatRoom);
-                    }
+                        toChatRoom.putExtra("name", chater.getNama());
+                    itemView.getContext().startActivity(toChatRoom);
+//                    }
                 }
             });
         }

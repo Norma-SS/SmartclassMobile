@@ -60,8 +60,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     ValueEventListener seenListener;
 
     FirebaseUser firebaseUser;
-    DatabaseReference reference;
-    private String userid, chatType, level;
+    DatabaseReference reference, reference_user;
+    private String userid, chatType, level, name;
     Intent intent;
 
     APIService apiService;
@@ -92,6 +92,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         level = intent.getStringExtra("level");
 
 
+
         tb.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,11 +120,21 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+        reference_user = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+
+
+
+
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Chater chater = dataSnapshot.getValue(Chater.class);
+
+                assert chater != null;
+                name = chater.getNama();
+
                 username.setText(chater.getNama());
                 if (chater.getImgUrl().equals("default")) {
                     imgProfil.setImageResource(R.drawable.ic_user);
@@ -157,7 +168,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 String msg = textSend.getText().toString();
                 String time = timestampToDateString(-1 * System.currentTimeMillis());
                 if (!msg.equals("")) {
-                    sendMessage(firebaseUser.getUid(), userid, msg, time);
+                    sendMessage(firebaseUser.getUid(), userid, msg, time, name);
                 } else {
                     Toast.makeText(ChatRoomActivity.this, "Kamu tidak bisa mengirim pesan kosong", Toast.LENGTH_SHORT).show();
                 }
@@ -173,7 +184,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         seenMessage(userid);
     }
     public static String timestampToDateString(long timestamp){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         Date date = new Date(timestamp);
         return dateFormat.format(date);
     }
@@ -239,15 +250,26 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String sender, final String receiver, String message, final String time) {
+    private void sendMessage(String sender, final String receiver, String message, final String time, final String name) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+        String roomname;
+
+        if (preferences.getValues("level").equals("DOKTER")){
+            roomname =  preferences.getValues("nama") +  name ;
+        }else{
+            roomname =  name + preferences.getValues("nama") ;
+        }
+
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
+        hashMap.put("nickname", preferences.getValues("nama"));
         hashMap.put("message", message);
+        hashMap.put("roomname", roomname);
         hashMap.put("isseen", false);
-        hashMap.put("time", time);
+        hashMap.put("date", time);
 
         reference.child("Chats").push().setValue(hashMap);
 
