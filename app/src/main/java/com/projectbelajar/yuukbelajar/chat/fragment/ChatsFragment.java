@@ -148,7 +148,7 @@ public class ChatsFragment extends Fragment {
     private void chatList(final ArrayList<Chatlist> list) {
         chatersDokter = new ArrayList<>();
         chatersGuru = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference("Users").orderByChild("time");
+        reference = FirebaseDatabase.getInstance().getReference("User").orderByChild("time");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -181,10 +181,9 @@ public class ChatsFragment extends Fragment {
                                         chatersGuru.add(chater);
                                 } else {
                                     isWalikelas = false;
-                                    if (preferences.getValues("level").equals("DOKTER") || chatList.getLevel().equals("WALI MURID") || chatList.getLevel().equals("SISWA") || chatList.getLevel().equals("ORANG TUA"))
+                                    if (chatList.getLevel().equals("DOKTER") || chatList.getLevel().equals("WALI MURID") || chatList.getLevel().equals("SISWA") || chatList.getLevel().equals("ORANG TUA"))
                                         chatersDokter.add(chater);
                                 }
-
                             }
                         }
                     } else {

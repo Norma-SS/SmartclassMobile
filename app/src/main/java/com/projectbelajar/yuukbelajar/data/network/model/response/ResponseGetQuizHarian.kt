@@ -8,11 +8,11 @@ import kotlinx.android.parcel.Parcelize
 data class ResponseGetQuizHarian(
 
 	@field:SerializedName("result")
-	val result: List<QuizHarianResult?>? = null
+	val result: List<QuizHarianItem>? = null
 ) : Parcelable
 
 @Parcelize
-data class QuizHarianResult(
+data class QuizHarianItem(
 
 	@field:SerializedName("kls")
 	val kls: String? = null,

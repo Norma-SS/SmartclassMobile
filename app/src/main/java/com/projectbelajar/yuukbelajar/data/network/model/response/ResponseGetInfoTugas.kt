@@ -14,15 +14,38 @@ data class ResponseGetInfoTugas(
 @Parcelize
 data class TugasItem(
 
-	@field:SerializedName("kls")
-	val kls: String? = null,
 
-	@field:SerializedName("tgl")
-	val tgl: String? = null,
+	@field:SerializedName("id")
+	val id: String? = null,
 
-	@field:SerializedName("nmssw")
-	val nmssw: String? = null,
+	@field:SerializedName("tglstart")
+	val tglstart: String? = null,
 
-	@field:SerializedName("ket")
-	val ket: String? = null
+	@field:SerializedName("tglend")
+	val tglend: String? = null,
+
+	@field:SerializedName("namaguru")
+	val namaguru: String? = null,
+
+	@field:SerializedName("wktstart")
+	val wktstart: String? = null,
+
+	@field:SerializedName("wktend")
+	val wktend: String? = null,
+
+	@field:SerializedName("deskripsi")
+	val deskripsi: String? = null,
+
+	@field:SerializedName("file")
+	val file: String? = null,
+
+	@field:SerializedName("link")
+	val link: String? = null,
+
+	@field:SerializedName("linkyt")
+	val linkyt: String? = null
+
+
+
+
 ) : Parcelable

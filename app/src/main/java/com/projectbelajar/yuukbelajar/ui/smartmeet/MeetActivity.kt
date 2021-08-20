@@ -6,11 +6,15 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.database.FirebaseDatabase
 import com.projectbelajar.yuukbelajar.Preferences
 import com.projectbelajar.yuukbelajar.data.network.NetworkConfig
+import com.projectbelajar.yuukbelajar.data.network.model.request.smartmeet.student.RequestCheckIn
+import com.projectbelajar.yuukbelajar.data.network.model.request.smartmeet.student.RequestCheckOut
+import com.projectbelajar.yuukbelajar.data.network.model.request.smartmeet.teacher.RequestInsertCheckin
 import com.projectbelajar.yuukbelajar.databinding.ActivityMeetBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -19,26 +23,32 @@ import org.jitsi.meet.sdk.*
 import timber.log.Timber
 import java.net.MalformedURLException
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.random.Random
 
 class MeetActivity : AppCompatActivity() {
 
-    private var binding : ActivityMeetBinding ?= null
+    private var binding: ActivityMeetBinding? = null
     private var refrence = FirebaseDatabase.getInstance().getReference("Room")
     private var key = refrence.push().key
-    private var preferences : Preferences?= null
-    private var abjadKelas : String ?= null
-    val randomInt : Int ?= Random.nextInt(1 , 9999999)
-    private var codeSchool : String ?= null
-    private var nipTeacher : String ?= null
-    private var listDataKelas : MutableList<String> = ArrayList()
+    private var preferences: Preferences? = null
+    private var nipTeacher: String? = null
+    private var listDataKelas: MutableList<String> = ArrayList()
 
-    private var codeRoom : String ?=null
-    private var timeStamp : String ?= "" + System.currentTimeMillis()
+    private var id: String? = null
+    private var nip: String? = null
+    private var nama: String? = null
+    private var kodeSekolah: String? = null
+    private var kelas: String? = null
+
+    private var codeRoom: String? = null
+    private var timeStamp: String? = "" + System.currentTimeMillis()
 
 
-
-    init{
+    init {
         preferences = Preferences(this@MeetActivity)
     }
 
@@ -53,17 +63,20 @@ class MeetActivity : AppCompatActivity() {
         binding = ActivityMeetBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-
         initVar()
         initView()
         initConf()
         attahBtn()
-
     }
 
     private fun initVar() {
         nipTeacher = preferences?.getValues("nip").toString()
         codeRoom = timeStamp + nipTeacher
+
+        nip = preferences?.getValues("nip")
+        nama = preferences?.getValues("nama")
+        kodeSekolah = preferences?.getValues("kodesekolah")
+        kelas = preferences?.getValues("kelas")
     }
 
     private fun initView() {
@@ -72,11 +85,11 @@ class MeetActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                   for (i in 0 until it?.result?.datanya?.size!!){
-                       listDataKelas.add(it.result.datanya.get(i)?.kelas ?: "")
-                   }
+                    for (i in 0 until it?.result?.datanya?.size!!) {
+                        listDataKelas.add(it.result.datanya.get(i)?.kelas ?: "")
+                    }
 
-                },{
+                }, {
 
                 })
 
@@ -115,7 +128,7 @@ class MeetActivity : AppCompatActivity() {
                 //.setFeatureFlag("toolbox.enabled", false)
 //                .setFeatureFlag("filmstrip.enabled", false)
                 .setFeatureFlag("call-integration.enabled", false)
-                .setFeatureFlag("pip.enabled",false)
+                .setFeatureFlag("pip.enabled", false)
                 .setWelcomePageEnabled(false)
                 .build()
         JitsiMeet.setDefaultConferenceOptions(defaultOptions)
@@ -125,15 +138,15 @@ class MeetActivity : AppCompatActivity() {
 
     private fun attahBtn() {
         binding?.btnMeetJoin?.setOnClickListener {
-                val options = JitsiMeetConferenceOptions.Builder()
-                        .setRoom(codeRoom)
-                        // Settings for audio and video
-                        //.setAudioMuted(true)
-                        //.setVideoMuted(true)
-                        .build()
-                // Launch the new activity with the given options. The launch() method takes care
-                // of creating the required Intent and passing the options.
-                JitsiMeetActivity.launch(this, options)
+            val options = JitsiMeetConferenceOptions.Builder()
+                    .setRoom(codeRoom)
+                    // Settings for audio and video
+                    //.setAudioMuted(true)
+                    //.setVideoMuted(true)
+                    .build()
+            // Launch the new activity with the given options. The launch() method takes care
+            // of creating the required Intent and passing the options.
+            JitsiMeetActivity.launch(this, options)
         }
     }
 
@@ -144,9 +157,11 @@ class MeetActivity : AppCompatActivity() {
 
                 BroadcastEvent.Type.CONFERENCE_TERMINATED -> {
                     refrence?.child(key ?: "")?.removeValue()
+                    postTime("check_out")
                 }
 
                 BroadcastEvent.Type.CONFERENCE_JOINED -> {
+                    postTime("check_in")
                     val hashMap = HashMap<String, Any>()
 
                     hashMap["kode_ruangan"] = codeRoom.toString()
@@ -158,40 +173,71 @@ class MeetActivity : AppCompatActivity() {
                     refrence?.child(key ?: "")?.setValue(hashMap)
                     Timber.i("Conference Joined with url%s", event.data.get("url"))
                 }
-                BroadcastEvent.Type.PARTICIPANT_JOINED -> Timber.i("Participant joined%s", event.data.get("name"))
             }
         }
     }
 
-    private fun registerForBroadcastMessages() {
-        val intentFilter = IntentFilter()
+    private fun postTime(type: String) {
 
-        /* This registers for every possible event sent from JitsiMeetSDK
+        val date = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("HH:mm:ss")
+        val formatedDate = formatter.format(date)
+
+        when (type) {
+            "check_in" -> {
+                NetworkConfig.service().insert_check_in_guru(RequestInsertCheckin(nip
+                        ?: "", nama
+                        ?: "", kodeSekolah ?: "", kelas ?: "",
+                        formatedDate ?: "", "-", codeRoom
+                        ?: ""))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            id = it.id
+                        }, {
+                            Toast.makeText(applicationContext, "${it.localizedMessage}", Toast.LENGTH_SHORT).show()
+                        })
+            }
+            "check_out" -> {
+                NetworkConfig.service().insert_check_out_guru(RequestCheckOut(id
+                        ?: "", formatedDate ?: ""))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+
+                        }, {
+                            Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_SHORT).show()
+                        })
+            }
+        }
+    }
+
+        private fun registerForBroadcastMessages() {
+            val intentFilter = IntentFilter()
+
+            /* This registers for every possible event sent from JitsiMeetSDK
            If only some of the events are needed, the for loop can be replaced
            with individual statements:
            ex:  intentFilter.addAction(BroadcastEvent.Type.AUDIO_MUTED_CHANGED.action);
                 intentFilter.addAction(BroadcastEvent.Type.CONFERENCE_TERMINATED.action);
                 ... other events
          */
-        for (type in BroadcastEvent.Type.values()) {
-            intentFilter.addAction(type.action)
+            for (type in BroadcastEvent.Type.values()) {
+                intentFilter.addAction(type.action)
+            }
+            LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter)
         }
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter)
+
+
+        private fun hangUp() {
+            val hangupBroadcastIntent: Intent = BroadcastIntentHelper.buildHangUpIntent()
+            LocalBroadcastManager.getInstance(org.webrtc.ContextUtils.getApplicationContext()).sendBroadcast(hangupBroadcastIntent)
+        }
+
+        override fun onDestroy() {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
+            binding = null
+            refrence?.child(key ?: "")?.removeValue()
+            super.onDestroy()
+        }
     }
-
-
-
-    private fun hangUp() {
-        val hangupBroadcastIntent: Intent = BroadcastIntentHelper.buildHangUpIntent()
-        LocalBroadcastManager.getInstance(org.webrtc.ContextUtils.getApplicationContext()).sendBroadcast(hangupBroadcastIntent)
-    }
-
-    override fun onDestroy() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
-        binding = null
-        refrence?.child(key ?: "")?.removeValue()
-        super.onDestroy()
-    }
-
-
-}

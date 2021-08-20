@@ -1,5 +1,6 @@
 package com.projectbelajar.yuukbelajar.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -17,10 +18,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.projectbelajar.yuukbelajar.*
+import com.projectbelajar.yuukbelajar.R
 import com.projectbelajar.yuukbelajar.adapter.ViewPagerAdapter
 import com.projectbelajar.yuukbelajar.chat.activity.ChatActivity
 import com.projectbelajar.yuukbelajar.maps.MapsActivity
+import com.projectbelajar.yuukbelajar.ui.absensi.AbsensiActivity
 import com.projectbelajar.yuukbelajar.ui.elearning.menu.MenuElearning
 import com.projectbelajar.yuukbelajar.ui.infoharian.Harian
 import com.projectbelajar.yuukbelajar.ui.smartmeet.MeetActivity
@@ -29,10 +33,20 @@ import com.projectbelajar.yuukbelajar.ui.infosekolah.InfoSekolah
 import com.projectbelajar.yuukbelajar.ui.infouas.InfoUas
 import com.projectbelajar.yuukbelajar.ui.infouts.InfoUts
 import com.projectbelajar.yuukbelajar.ui.infotugas.Tugas
+import com.projectbelajar.yuukbelajar.ui.ujianonline.QuizOnline
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.android.synthetic.main.fragment_course.*
+import kotlinx.android.synthetic.main.fragment_course.image1
+import kotlinx.android.synthetic.main.fragment_course.image2
+import kotlinx.android.synthetic.main.fragment_course.image3
+import kotlinx.android.synthetic.main.fragment_course.image4
+import kotlinx.android.synthetic.main.fragment_course.image7
+import kotlinx.android.synthetic.main.fragment_course.image8
+import kotlinx.android.synthetic.main.fragment_course.image9
 import java.util.*
+import kotlin.collections.ArrayList
 
+private const val TAG : String = "CourseFragment"
 class CourseFragment : Fragment(R.layout.fragment_course) {
     private var editTextName: TextView? = null
     private var editTextSkl: TextView? = null
@@ -40,6 +54,8 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
     //private EditText eml;
     private var eml: String? = null
     private var nmx: String? = null
+    private var status : String ?= null
+
     private var jumlah: Int? = null
     private var jumlah2: Int? = null
     private var jumlah3: Int? = null
@@ -65,47 +81,62 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
     var sessionManager: SessionManager? = null
     private var currentPos = 0
     private var numpages = 0
-    private var firebaseUser: FirebaseUser? = null
 
+    private var firebaseUser: FirebaseUser? = null
+    private var refrence = FirebaseDatabase.getInstance().getReference("Users")
+    private var tokenUser = FirebaseDatabase.getInstance().getReference("Tokens")
+    private var tokeList : MutableList<String> = ArrayList()
+    private var listUid : MutableList<String> = ArrayList()
+
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferences = Preferences(context)
         firebaseUser = FirebaseAuth.getInstance().currentUser
+        initFirebase()
         attachButton()
-        when(preferences?.getValues("level")){
+
+        status = preferences?.getValues("level")
+        when(status){
             "ORANG TUA"-> btn_Course_track.visibility = VISIBLE
+            "SISWA" -> {
+                btn_Course_track.visibility = VISIBLE
+                tv_track_lokasi.text = "Absensi"
+            }
             "GURU" -> {
                 linear_line1.visibility = GONE
                 linear_line3.visibility = GONE
                 frame_chat.visibility = GONE
+                attachButton("GURU")
             }
             "WALIKELAS" -> {
                 linear_line1.visibility = GONE
                 linear_line3.visibility = GONE
+                attachButton("WALIKELAS")
             }
         }
 
 
         carouselBanners = ArrayList()
-        carouselBanners.add("https://www.yuukbelajar.com/gbr/iklan.jpg")
-        carouselBanners.add("https://www.yuukbelajar.com/gbr/image1.jpg")
-        carouselBanners.add("https://www.yuukbelajar.com/gbr/image2.jpg")
-        carouselBanners.add("https://yuukbelajar.com/gbr/image3.png")
-        
+        carouselBanners.add("https://www.smartclass.co.id/gbr/image1.jpg")
+        carouselBanners.add("https://www.smartclass.co.id/gbr/image2.jpg")
+        carouselBanners.add("https://www.smartclass.co.id/gbr/image3.png")
+        carouselBanners.add("https://www.smartclass.co.id/gbr/image4.jpg")
+
         val Iklan = view.findViewById<ImageView>(R.id.Iklan)
-        Glide.with(activity).load("https://www.yuukbelajar.com/gbr/iklane1.jpg")
+        Glide.with(activity).load("https://www.smartclass.co.id/gbr/iklane1.jpg")
                 .fitCenter() //menyesuaikan ukuran imageview
                 .crossFade() //animasi
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(Iklan)
         val Iklan2 = view.findViewById<ImageView>(R.id.Iklan2)
-        Glide.with(activity).load("https://www.yuukbelajar.com/gbr/iklane2.jpg")
+        Glide.with(activity).load("https://www.smartclass.co.id/gbr/iklane2.jpg")
                 .fitCenter() //menyesuaikan ukuran imageview
                 .crossFade() //animasi
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(Iklan2)
         val Iklan3 = view.findViewById<ImageView>(R.id.Iklan3)
-        Glide.with(activity).load("https://image.freepik.com/free-vector/back-chool-template-wooden-board_1308-33554.jpg")
+        Glide.with(activity).load("https://www.smartclass.co.id/gbr/iklane3.jpg")
                 .fitCenter() //menyesuaikan ukuran imageview
                 .crossFade() //animasi
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -121,8 +152,8 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
         editTextName = view.findViewById(R.id.namasiswa)
         editTextSkl = view.findViewById(R.id.namasekolah)
 
-        editTextName?.text = "Halo, " + preferences!!.getValues("nama")
-        editTextSkl?.text = "Selamat Datang di " + preferences!!.getValues("namaSekolah")
+        editTextName?.text = "Halo, " + preferences?.getValues("nama")
+        editTextSkl?.text = "Selamat Datang di " + preferences?.getValues("namaSekolah")
         sessionManager = SessionManager(context)
         val prefs = activity?.getSharedPreferences(pref_name, Context.MODE_PRIVATE)
         eml = prefs?.getString(SessionManager.password, null)
@@ -216,6 +247,47 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
 //        ge.execute()
     }
 
+    private fun initFirebase() {
+
+
+        readData(tokenUser, object : OnGetDataListener{
+            override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                for (data in dataSnapshot!!.children){
+                        tokeList.add(data.child("token").value.toString())
+                }
+                Log.d(TAG, "Tokennya disini : ${tokeList.size}")
+            }
+
+            override fun onStart() {
+                Log.d("ONSTART", "Started")
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Failed")
+            }
+        })
+    }
+
+    private fun readData(tokenUser: DatabaseReference, listener: OnGetDataListener) {
+        listener.onStart()
+        tokenUser.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listener.onSuccess(snapshot)
+            }
+        })
+    }
+
+    interface OnGetDataListener {
+        //this is for callbacks
+        fun onSuccess(dataSnapshot: DataSnapshot?)
+        fun onStart()
+        fun onFailure()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         autoRunCarousel()
@@ -240,10 +312,13 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
     //    }
 
 
-    private fun attachButton(){
+    private fun attachButton(level : String ?= null){
 
         btn_Course_track.setOnClickListener{
-            startActivity(Intent(context, MapsActivity::class.java))
+            if (status == "SISWA")
+                startActivity(Intent(context, AbsensiActivity::class.java))
+            else
+                startActivity(Intent(context, MapsActivity::class.java))
         }
 
         image1!!.setOnClickListener {
@@ -262,11 +337,18 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
             val i = Intent(activity, Harian::class.java)
             startActivity(i)
         }
-        image6!!.setOnClickListener {
-            val i = Intent(activity, Tugas::class.java)
-            startActivity(i)
+        frame_tugas!!.setOnClickListener {
+            if (level != "GURU" && level != "WALIKELAS"){
+                val i = Intent(activity, Tugas::class.java)
+                startActivity(i)
+            }else{
+                Toast.makeText(context, "Fitur Sedang Maintance", Toast.LENGTH_SHORT).show()
+            }
+
         }
         image7!!.setOnClickListener {
+//            Toast.makeText(context, "Fitur Sedang Diperbaiki", Toast.LENGTH_SHORT).show()
+
             Log.d("firebaseUser ", " $firebaseUser")
             if (firebaseUser == null) {
                 Toast.makeText(activity, "Kamu belum login!", Toast.LENGTH_LONG).show()
@@ -279,9 +361,9 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
                     val i = Intent(context, ChatActivity::class.java)
                     startActivity(i)
                 }
-                //                            Toast.makeText(getActivity(), "chatType " + preferences.getValues("chatType"), Toast.LENGTH_SHORT).show();
-
-//                            getActivity().finish();
+//                //                            Toast.makeText(getActivity(), "chatType " + preferences.getValues("chatType"), Toast.LENGTH_SHORT).show();
+//
+////                            getActivity().finish();
             }
         }
         image8!!.setOnClickListener {
@@ -289,12 +371,16 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
             startActivity(i)
         }
         image9!!.setOnClickListener { //Toast.makeText(getApplicationContext(), "hallooo.."+nmx, Toast.LENGTH_LONG).show();
-            if (nmx == "SD") {
+            if (level != "GURU" && level != "WALIKELAS"){
+                if (nmx == "SD") {
 //                val i = Intent(activity, MenuElearningSd::class.java)
 //                startActivity(i)
-            } else {
-                val i = Intent(activity, MenuElearning::class.java)
-                startActivity(i)
+                } else {
+                    val i = Intent(activity, MenuElearning::class.java)
+                    startActivity(i)
+                }
+            }else{
+                Toast.makeText(context, "Fitur Sedang Maintaince", Toast.LENGTH_SHORT).show()
             }
         }
         image10!!.setOnClickListener { Toast.makeText(activity, "Sekolah Belum Registrasi", Toast.LENGTH_SHORT).show() }
@@ -304,9 +390,6 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
             }else if (preferences?.getValues("level").toString() == "WALIKELAS" || preferences?.getValues("level").toString() == "GURU"){
                 startActivity(Intent(context, MeetActivity::class.java))
             }
-        }
-        image12!!.setOnClickListener {
-            startActivity(Intent(context, MapsActivity::class.java))
         }
     }
 

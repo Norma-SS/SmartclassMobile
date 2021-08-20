@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back1"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.infotugas.UploadTugasActivity"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    >
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/il_comment"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_descTugas">
+
+    <EditText
+        android:id="@+id/et_komentar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top|left"
+        android:hint="Komentar"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:maxLines="10"
+        android:minLines="6"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <Button
+      android:id="@+id/btn_pilihFile"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:background="@drawable/background_button_nocolor"
+      android:backgroundTint="@android:color/holo_red_light"
+      android:drawableStart="@drawable/ic_cekujion"
+      android:padding="8dp"
+      android:text="Pilih File"
+      android:textColor="@color/background"
+      app:layout_constraintStart_toStartOf="@+id/il_comment"
+      app:layout_constraintTop_toBottomOf="@+id/il_comment" />
+
+  <TextView
+      android:id="@+id/tv_namaFile"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:text="Nama File"
+      android:textColor="@color/textStyle"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="@+id/btn_pilihFile"
+      app:layout_constraintEnd_toEndOf="@+id/il_comment"
+      app:layout_constraintStart_toEndOf="@+id/btn_pilihFile"
+      app:layout_constraintTop_toTopOf="@+id/btn_pilihFile" />
+
+  <Button
+      android:id="@+id/btn_uploadFile"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="32dp"
+      android:background="@drawable/background_button"
+      android:text="Upload File"
+      android:textColor="@color/background"
+      app:layout_constraintEnd_toEndOf="@+id/tv_namaFile"
+      app:layout_constraintStart_toStartOf="@+id/btn_pilihFile"
+      app:layout_constraintTop_toBottomOf="@+id/tv_namaFile" />
+
+  <TextView
+      android:id="@+id/tv_descTugas"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="16dp"
+      android:text="Isi Tugas"
+      android:textColor="@color/textStyle"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/titik_tugas"
+      app:layout_constraintTop_toBottomOf="@+id/tv_namaGuru" />
+
+  <TextView
+      android:id="@+id/textView29"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginBottom="16dp"
+      android:text="** maks 20 mb, jika didalam dokumen ada lambang matematika, fisika dll mk convert ke .pdf terlebih dahulu"
+      android:textColor="@color/textStyle"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/btn_uploadFile"
+      app:layout_constraintStart_toStartOf="@+id/btn_uploadFile"
+      app:layout_constraintTop_toBottomOf="@+id/btn_uploadFile" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/btn_fab_video"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:clickable="true"
+      app:layout_constraintTop_toBottomOf="@id/textView29"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginTop="8dp"
+      app:layout_goneMarginBottom="8dp"
+      app:srcCompat="@drawable/ic_video_white" />
+
+
+  <TextView
+      android:id="@+id/tv_namaGuru"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:text="Nama Guru"
+      android:textColor="@color/textStyle"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/titik_namaGuru"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/textView30"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:text="Nama Guru"
+      android:textColor="@color/textStyle"
+      android:textStyle="bold"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/textView31"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Tugas"
+      android:textColor="@color/textStyle"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toBottomOf="@id/titik_tugas"
+      app:layout_constraintStart_toStartOf="@+id/textView30"
+      app:layout_constraintTop_toTopOf="@id/titik_tugas" />
+
+  <TextView
+      android:id="@+id/titik_namaGuru"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:text=":"
+      android:textColor="@color/textStyle"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toBottomOf="@+id/textView30"
+      app:layout_constraintStart_toEndOf="@+id/textView30"
+      app:layout_constraintTop_toTopOf="@+id/textView30" />
+
+  <TextView
+      android:id="@+id/titik_tugas"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text=":"
+      android:textColor="@color/textStyle"
+      android:textStyle="bold"
+      app:layout_constraintTop_toTopOf="@id/tv_descTugas"
+      app:layout_constraintEnd_toEndOf="@+id/titik_namaGuru"
+      app:layout_constraintStart_toStartOf="@+id/titik_namaGuru"
+      tools:layout_editor_absoluteY="43dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

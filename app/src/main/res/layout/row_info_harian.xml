@@ -23,7 +23,7 @@
             android:drawableEnd="@drawable/ic_arrow_down_black"
             android:drawableTint="@color/black"
             android:padding="16dp"
-            android:text="Name_nilai"
+            android:text="Penilaian Sikap"
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold|italic"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="30dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_pengetahuan"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="Nilai Pengetahuan"
+                android:text="Penilaian Sikap Spiritual"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -65,31 +65,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/nilai"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_school_black"
-                android:drawablePadding="4dp"
-                android:paddingStart="16dp"
-                android:text="Nilai"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_pengetahuan"
-                tools:ignore="HardcodedText,RtlSymmetry" />
-
-            <TextView
                 android:id="@+id/predikat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:drawableStart="@drawable/ic_grade_black"
                 android:drawablePadding="4dp"
                 android:paddingStart="16dp"
                 android:text="Predikat"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/nilai"
-                app:layout_constraintTop_toBottomOf="@id/nilai"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_pengetahuan"
                 tools:ignore="HardcodedText,RtlSymmetry" />
 
             <TextView
@@ -131,32 +117,7 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text=":"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/nilai"
-                app:layout_constraintEnd_toEndOf="@id/double_dot2"
-                app:layout_constraintStart_toStartOf="@id/double_dot2"
-                app:layout_constraintTop_toTopOf="@id/nilai" />
-
-            <TextView
-                android:id="@+id/tv_nilai_pengetahuan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@id/tv_pengetahuan" />
-
-            <TextView
-                android:id="@+id/tv_predikat_pengetahuan"
+                android:id="@+id/tv_predikat_spiritual"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -168,7 +129,7 @@
                 app:layout_constraintTop_toTopOf="@+id/double_dot2" />
 
             <TextView
-                android:id="@+id/tv_deskripsi_pengetahuan"
+                android:id="@+id/tv_deskripsi_spiritual"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -185,55 +146,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="Nilai Keterampilan"
+                android:text="Penilaian Sikap Sosial"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@id/tv_deskripsi_pengetahuan"
+                app:layout_constraintEnd_toEndOf="@id/tv_deskripsi_spiritual"
                 app:layout_constraintStart_toStartOf="@id/deskripsi"
-                app:layout_constraintTop_toBottomOf="@id/tv_deskripsi_pengetahuan" />
+                app:layout_constraintTop_toBottomOf="@id/tv_deskripsi_spiritual" />
 
-
-            <TextView
-                android:id="@+id/nilai2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Nilai"
-                android:textSize="16sp"
-                android:paddingStart="16dp"
-                android:drawableStart="@drawable/ic_school_black"
-                android:drawablePadding="4dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_keterampilan"
-                app:layout_constraintStart_toStartOf="@id/tv_keterampilan"
-                />
 
             <TextView
                 android:id="@+id/predikat2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="16sp"
-                android:text="Predikat"
-                android:paddingStart="16dp"
+                android:layout_marginTop="16dp"
                 android:drawableStart="@drawable/ic_grade_black"
                 android:drawablePadding="4dp"
-                app:layout_constraintTop_toBottomOf="@id/nilai2"
-                app:layout_constraintStart_toStartOf="@id/nilai2"
-                />
+                android:paddingStart="16dp"
+                android:text="Predikat"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_keterampilan" />
 
             <TextView
                 android:id="@+id/deskripsi2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="Deskripsi"
-                android:drawableStart="@drawable/ic_description_black"
-                android:paddingStart="16dp"
-                android:drawablePadding="4dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/predikat2"
-                app:layout_constraintStart_toStartOf="@id/predikat2"/>
+                android:drawableStart="@drawable/ic_description_black"
+                android:drawablePadding="4dp"
+                android:paddingStart="16dp"
+                android:text="Deskripsi"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/predikat2"
+                app:layout_constraintTop_toBottomOf="@id/predikat2" />
 
             <TextView
                 android:id="@+id/tv_titik_desc"
@@ -257,32 +203,9 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_titik_desc"
                 app:layout_constraintTop_toTopOf="@id/predikat2" />
 
-            <TextView
-                android:id="@+id/tv_titik_nilai2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/nilai2"
-                app:layout_constraintTop_toTopOf="@id/nilai2"
-                app:layout_constraintEnd_toEndOf="@id/tv_titik_predikat2"
-                app:layout_constraintStart_toStartOf="@id/tv_titik_predikat2"/>
-
 
             <TextView
-                android:id="@+id/tv_nilai_keterampilan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="TextView"
-                android:layout_marginStart="8dp"
-                app:layout_constraintStart_toEndOf="@id/tv_titik_nilai2"
-                app:layout_constraintTop_toTopOf="@id/tv_titik_nilai2"
-                app:layout_constraintBottom_toBottomOf="@id/tv_titik_nilai2"
-                />
-
-            <TextView
-                android:id="@+id/tv_predikat_keterampilan"
+                android:id="@+id/tv_predikat_sosial"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -295,7 +218,7 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_titik_predikat2" />
 
             <TextView
-                android:id="@+id/tv_deskripsi_keterampilan"
+                android:id="@+id/tv_deskripsi_sosial"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

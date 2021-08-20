@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.projectbelajar.yuukbelajar.data.network.model.response.InfoUtsItem
 import com.projectbelajar.yuukbelajar.databinding.RowInfoUtsBinding
+import java.text.SimpleDateFormat
 
 class InfoUtsAdapter(val data: List<InfoUtsItem>) : RecyclerView.Adapter<InfoUtsAdapter.ViewHolder>() {
 
@@ -20,11 +21,11 @@ class InfoUtsAdapter(val data: List<InfoUtsItem>) : RecyclerView.Adapter<InfoUts
             binding.tvNilaiPengetahuan.text = item.nil1
             binding.tvPredikatPengetahuan.text = item.pre1
             binding.tvDeskripsiPengetahuan.text = item.dis1
-            binding.tvTgl.text = item.tgl
+            binding.tvTgl.text = item.tgl?.formatDate()
 
             binding.tvNilaiKeterampilan.text = item.nil2
             binding.tvPredikatKeterampilan.text = item.pre2
-            binding.tvDeskripsiKeterampilan.text = item.dis1
+            binding.tvDeskripsiKeterampilan.text = item.dis2
 
             binding.nilaiName.setOnClickListener {
                 if (isExpand){
@@ -36,6 +37,14 @@ class InfoUtsAdapter(val data: List<InfoUtsItem>) : RecyclerView.Adapter<InfoUts
                     isExpand = true
                 }
             }
+        }
+
+        @SuppressLint("SimpleDateFormat")
+        fun String.formatDate(output : String = "dd MMM yyyy", input : String = "dd-MM-yyyy") : String{
+            val inSdf = SimpleDateFormat(input)
+            val outSdf = SimpleDateFormat(output)
+            val date = inSdf.parse(this)
+            return outSdf.format(date)
         }
 
     }

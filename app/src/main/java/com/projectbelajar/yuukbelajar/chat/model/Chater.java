@@ -8,7 +8,7 @@ public class Chater {
     private String nama;
     private String level;
     private String kodeSekolah;
-    private String password;
+//    private String password;
     private String nis;
     private String nip;
     private String klinik;
@@ -28,7 +28,7 @@ public class Chater {
         this.nama = nama;
         this.level = level;
         this.kodeSekolah = kodeSekolah;
-        this.password = password;
+//        this.password = password;
         this.nis = nis;
         this.nip = nip;
         this.klinik = klinik;
@@ -85,21 +85,19 @@ public class Chater {
         this.level = level;
     }
 
-    public String getKodeSekolah() {
-        return kodeSekolah;
-    }
+    public String getKodeSekolah() { return kodeSekolah; }
 
     public void setKodeSekolah(String kodeSekolah) {
         this.kodeSekolah = kodeSekolah;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public String getNis() {
         return nis;

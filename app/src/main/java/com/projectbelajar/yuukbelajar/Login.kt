@@ -4,33 +4,30 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
-import android.os.AsyncTask.execute
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.FirebaseError
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.projectbelajar.yuukbelajar.databinding.ActivityLoginBinding
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.infoguru.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+
 
 class Login : AppCompatActivity(){
 
     // global var
     private var id : String ?= null
     private var name : String ?= null
-    private var level1 : String ?= null
+    private var level : String ?= null
     private var kodesekolah : String ?= null
     private var nis : String ?= null
     private var nip : String ?= null
@@ -40,8 +37,9 @@ class Login : AppCompatActivity(){
     private var email : String ?= null
     private var namaSekolah : String ?= null
     private var kelas : String ?= null
+    private var jurusan : String ?= null
 
-    var binding : ActivityLoginBinding  ?= null
+    var binding : ActivityLoginBinding?= null
 
     //Defining views
     var doubleBackToExitPressedOnce = false
@@ -52,10 +50,11 @@ class Login : AppCompatActivity(){
     //firebase
     private var firebaseUser: FirebaseUser? = null
     private var auth: FirebaseAuth? = null
-    private var reference = FirebaseDatabase.getInstance().getReference("Users")
+    private var reference = FirebaseDatabase.getInstance().getReference("User")
     private var preferences: Preferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
@@ -111,12 +110,12 @@ class Login : AppCompatActivity(){
              }
          }
 
-         binding?.tvLoginForgot?.setOnClickListener {
+         binding?.btnForgot?.setOnClickListener {
              startActivity(Intent(this@Login, Lupa::class.java))
          }
-         binding?.tvLoginRegister?.setOnClickListener {
-             startActivity(Intent(this@Login, Registrasi::class.java))
-         }
+        binding?.btnRegister?.setOnClickListener {
+            startActivity(Intent(this@Login, Registrasi::class.java))
+        }
     }
 
     override fun onBackPressed() {
@@ -161,7 +160,18 @@ class Login : AppCompatActivity(){
                     for (i in 0 until result.length()) {
                         val jo = result.getJSONObject(i)
                         val ket1 = jo.getString(konfigurasi.TAG_KET)
-                        val level = jo.getString(konfigurasi.TAG_POSISI)
+                        level = jo.getString(konfigurasi.TAG_POSISI)
+                        jurusan = jo.getString(konfigurasi.TAG_JURUSAN)
+                        name = jo.getString("name")
+                        nis = jo.getString("noinduk")
+                        namaSekolah = jo.getString("nmskl")
+                        email = jo.getString("email")
+                        kodesekolah = jo.getString("kdskl")
+                        kelas = jo.getString("kls")
+                        password = binding?.etPassword!!.text.toString().trim { it <= ' ' }
+
+
+
                         Log.d("JO", " $jo")
                         //Toast.makeText(Login.this,"ket "+ket1+" level "+level,Toast.LENGTH_LONG).show();
                         if (ket1 == "SUKSES" && level == "KS") {
@@ -172,8 +182,8 @@ class Login : AppCompatActivity(){
 //                            j.putExtra("level", level);
 //                            startActivity(j);
                         } else if (ket1 == "SUKSES" && level == "SISWA") {
-                            Log.d("login ", " as $level")
-                            loginFireBase(email, password, level, loading)
+                            Log.d("login ", " as $result")
+                            loginFireBase(email, password, level!!, loading)
 
                             //                            sessionManager.createSession(editTextEmail.getText().toString());
 //                            Toast.makeText(getApplicationContext(), "LOGIN " + ket1, Toast.LENGTH_SHORT).show();
@@ -182,7 +192,7 @@ class Login : AppCompatActivity(){
 //                            startActivity(j);
                         } else if (ket1 == "SUKSES" && (level == "ORANG TUA" || level == "WALI MURID")) {
                             Log.d("login ", " as $level")
-                            loginFireBase(email, password, level, loading)
+                            loginFireBase(email, password, level!!, loading)
                             //                            sessionManager.createSession(editTextEmail.getText().toString());
 //                            Toast.makeText(getApplicationContext(), "LOGIN " + ket1, Toast.LENGTH_SHORT).show();
 //                            Intent j = new Intent(Login.this, Tabbed.class);
@@ -190,7 +200,7 @@ class Login : AppCompatActivity(){
 //                            startActivity(j);
                         } else if (ket1 == "SUKSES" && level == "WALIKELAS" || level == "GURU") {
                             Log.d("login ", " as $level")
-                            loginFireBase(email, password, level, loading)
+                            loginFireBase(email, password, level!!, loading)
                             //                            sessionManager.createSession(editTextEmail.getText().toString());
 //                            Toast.makeText(getApplicationContext(), "LOGIN " + ket1, Toast.LENGTH_SHORT).show();
 //                            Intent j = new Intent(Login.this, Tabbed.class);
@@ -199,7 +209,7 @@ class Login : AppCompatActivity(){
                         }
                         else if (ket1 == "SUKSES" && level == "DOKTER") {
                             Log.d("login ", " as $level")
-                            loginFireBase(email, password, level, loading)
+                            loginFireBase(email, password, level!!, loading)
                             //                            sessionManager.createSession(editTextEmail.getText().toString());
 //                            Toast.makeText(getApplicationContext(), "LOGIN " + ket1, Toast.LENGTH_SHORT).show();
 //                            Intent j = new Intent(Login.this, Tabbed.class);
@@ -241,62 +251,54 @@ class Login : AppCompatActivity(){
     }
 
     //===============================================================================================
-    private fun loginFireBase(email1: String?, password1: String?, level: String, loading: ProgressDialog?) {
+    private fun loginFireBase(email1: String?, password1: String?, level: String, loading: ProgressDialog?= null) {
         auth!!.signInWithEmailAndPassword(email1 ?: "", password1 ?: "")
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
 
-                        GlobalScope.launch {
-                            reference.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    for (data in dataSnapshot.children){
-                                        if (auth?.currentUser?.email == data.child("email").value.toString()){
-                                            loading!!.dismiss()
-                                            id = data.key
-                                            name = data.child("nama").value.toString()
-                                            kodesekolah = data.child("kodeSekolah").value.toString()
-                                            nis = data.child("nis").value.toString()
-                                            nip = data.child("nip").value.toString()
-                                            foto = data.child("imgUrl").value.toString()
-                                            password = data.child("password").value.toString()
-                                            nohp = data.child("username").value.toString()
-                                            email = data.child("email").value.toString()
-                                            namaSekolah = data.child("namaSekolah").value.toString()
-                                            kelas = data.child("kelas").value.toString()
-                                            level1 = data.child("level").value.toString()
+                        readData(reference, object : OnGetDataListener {
+                            override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                                for (data in dataSnapshot?.children!!){
+                                    if (auth?.currentUser?.email == data.child("email").value.toString()){
+                                        loading!!.dismiss()
+                                        id = firebaseUser?.uid
+                                        name = data.child("nama").value.toString()
+                                        kodesekolah = data.child("kodeSekolah").value.toString()
+                                        nis = data.child("nis").value.toString()
+                                        nip = data.child("nip").value.toString()
+                                        foto = data.child("imgUrl").value.toString()
+                                        password = data.child("password").value.toString()
+                                        nohp = data.child("username").value.toString()
+                                        email = data.child("email").value.toString()
+//                                        namaSekolah = data.child("namaSekolah").value.toString()
+                                        kelas = data.child("kelas").value.toString()
+
+
+                                        when(kodesekolah){
+                                            "5114" -> namaSekolah = "SMAN 4 BANJARMASIN"
+                                            "5115" -> namaSekolah = "SMAN 5 BANJARMASIN"
+                                            "5116" -> namaSekolah = "SMAN 6 BANJARMASIN"
+                                            "5118" -> namaSekolah = "SMAN 8 BANJARMASIN"
+                                            "51110" -> namaSekolah = "SMAN 10 BANJARMASIN"
                                         }
+
+                                        setPreference()
+                                        updateUi()
                                     }
-                                    //                                    if (level1.equals("DOKTER")) {
-                                    //                                        String klinik = (String) dataSnapshot.child("klinik").getValue();
-                                    //                                        preferences.setValues("klinik", klinik);
-                                    //                                    }
-
-
-                                    //                                    String kodesekolahdokter =(String) dataSnapshot.child("kodesekolah").getValue();
-                                    preferences?.setValues("id", id)
-                                    preferences?.setValues("hp", nohp)
-                                    preferences?.setValues("password", password)
-                                    preferences?.setValues("email", email)
-                                    preferences?.setValues("nama", name)
-                                    preferences?.setValues("kodesekolah", kodesekolah)
-                                    preferences?.setValues("nis", nis)
-                                    preferences?.setValues("nip", nip)
-                                    preferences?.setValues("namaSekolah", namaSekolah)
-                                    preferences?.setValues("kelas", kelas)
-                                    preferences?.setValues("foto", foto)
-                                    Log.d("LOGIN Firebase ", "Data success " + preferences!!.getValues("nama") + " " + kodesekolah)
-                                    sessionManager?.createSession(binding?.etEmail?.text.toString())
-                                    preferences?.setValues("level", level)
                                 }
 
-                                override fun onCancelled(databaseError: DatabaseError) {
-                                    loading!!.dismiss()
-                                    Log.d("cancelled ", " true ")
-                                }
-                            })
-                            delay(1000)
-                            updateUi()
-                        }
+
+                            }
+
+                            override fun onStart() {
+                                //when starting
+                                Log.d("ONSTART", "Started")
+                            }
+
+                            override fun onFailure() {
+                                Log.d("onFailure", "Failed")
+                            }
+                        })
 
                         //                            circularProgressBar.setVisibility(View.GONE);
 //                            bgLoad.setVisibility(View.GONE);
@@ -312,18 +314,43 @@ class Login : AppCompatActivity(){
 
 
                     } else {
+
+                        registerFirebase("", email ?: "", password ?: "", level,
+                                kodesekolah ?: "", nis ?: "", name ?: "",
+                                    namaSekolah ?: "", kelas ?: ""
+                                )
+
 //                            circularProgressBar.setVisibility(View.GONE);
 //                            bgLoad.setVisibility(View.GONE);
-                        Log.d("LOGIN Firebase ", " failed")
-                        Toast.makeText(applicationContext, "Gagal login!", Toast.LENGTH_SHORT).show()
-                        loading!!.dismiss()
+//                        Log.d("LOGIN Firebase ", " failed")
+//                        Toast.makeText(applicationContext, "Gagal login!", Toast.LENGTH_SHORT).show()
+//                        loading!!.dismiss()
                         //                            Toast.makeText(Login.this, "Akun belum terdaftar, Silahkan daftar terlebih dahulu!", Toast.LENGTH_SHORT).show();
                     }
                 }
     }
 
+    private fun setPreference() {
+        preferences?.setValues("id", id)
+        preferences?.setValues("hp", nohp)
+        preferences?.setValues("password", password)
+        preferences?.setValues("email", email)
+        preferences?.setValues("nama", name)
+        preferences?.setValues("kodesekolah", kodesekolah)
+        preferences?.setValues("nis", nis)
+        preferences?.setValues("nip", nip)
+        preferences?.setValues("namaSekolah", namaSekolah)
+        preferences?.setValues("kelas", kelas)
+        preferences?.setValues("foto", foto)
+        Log.d("LOGIN Firebase ", "Data success " + preferences!!.getValues("nama") + " " + kodesekolah)
+        sessionManager?.createSession(binding?.etEmail?.text.toString())
+        preferences?.setValues("level", level)
+        preferences?.setValues("jurusan", jurusan)
+    }
+
     private fun updateUi() {
-        when (level1) {
+
+        when (level) {
             "DOKTER" -> {
                 val j = Intent(this@Login, TabbedDoktor::class.java)
                 //                                            Intent j = new Intent(Login.this, NewLayoutActivity.class);
@@ -355,10 +382,64 @@ class Login : AppCompatActivity(){
         }
     }
 
+    fun readData(ref: DatabaseReference, listener: OnGetDataListener) {
+        listener.onStart()
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
 
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                listener.onSuccess(dataSnapshot)
+            }
+        })
+    }
+
+    interface OnGetDataListener {
+        //this is for callbacks
+        fun onSuccess(dataSnapshot: DataSnapshot?)
+        fun onStart()
+        fun onFailure()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    private fun registerFirebase(username: String, email: String, password: String, level: String, kodeSekolah: String, nis: String, nama: String, namaSekolah: String, kelas: String) {
+        auth!!.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val firebaseUser = auth!!.currentUser
+                        id = firebaseUser!!.uid
+                        reference = FirebaseDatabase.getInstance().getReference("User").child(id ?: "")
+                        val hashMap = HashMap<String, Any>()
+                        hashMap["id"] = id ?: ""
+                        hashMap["username"] = username
+                        hashMap["level"] = level
+                        hashMap["kodeSekolah"] = kodeSekolah
+                        hashMap["nis"] = nis
+                        hashMap["nama"] = nama
+                        hashMap["sort_nama"] = nama.toLowerCase()
+                        hashMap["email"] = email
+                        hashMap["long"] = 0.1
+                        hashMap["lat"] = 0.1
+                        hashMap["namaSekolah"] = namaSekolah
+                        hashMap["kelas"] = kelas
+                        hashMap["status"] = "offline"
+                        hashMap["imgUrl"] = "default"
+                        reference!!.setValue(hashMap).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                setPreference()
+                                updateUi()
+                            } else {
+                                Toast.makeText(this@Login, "Failed", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(this@Login, "Registrasi gagal!", Toast.LENGTH_SHORT).show()
+                    }
+                }
     }
 }

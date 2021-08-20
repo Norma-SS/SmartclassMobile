@@ -106,7 +106,7 @@ class Registrasi : AppCompatActivity(), View.OnClickListener {
                         val ket1 = jo.getString(konfigurasi.TAG_KET)
                         val ket2 = jo.getString(konfigurasi.TAG_KETER2)
                         val namaSekolah = jo.getString("nmskl")
-                        val kelas = jo.getString("kls")
+                        val kelas = jo.getString("kelas")
 
 //                        Toast.makeText(getApplicationContext(), ket1, Toast.LENGTH_LONG).show();
 //                        Toast.makeText(getApplicationContext(), ket2, Toast.LENGTH_LONG).show();
@@ -114,8 +114,11 @@ class Registrasi : AppCompatActivity(), View.OnClickListener {
                         Log.d("ket 2 ", ket2)
                         if (ket2 == "Terima Kasih") {
                             registerFirebase(hp, email, password, stts2, kdskl, id, nama, namaSekolah, kelas)
-                        } else {
-                            Toast.makeText(applicationContext, "Cek kembali data anda atau hubungi admin!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, "Registrasi Berhasil", Toast.LENGTH_LONG).show()
+                        } else if (namaSekolah.isNotEmpty()) {
+                            Toast.makeText(applicationContext, "Anda Sudah Terdaftar di $namaSekolah pada kelas $kelas", Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(applicationContext, ket1, Toast.LENGTH_LONG).show()
                         }
                     }
                 } catch (e: JSONException) {
@@ -131,7 +134,7 @@ class Registrasi : AppCompatActivity(), View.OnClickListener {
                 params[konfigurasi.KEY_EMP_STTS] = stts2
                 params[konfigurasi.KEY_EMP_HP] = hp
                 params[konfigurasi.KEY_EMP_EMAIL] = email
-                params[konfigurasi.KEY_EMP_PASSWORD] = password
+                params[konfigurasi.KEY_EMP_PASSWORD_REGISTRASI] = password
                 val rh = RequestHandler()
                 return rh.sendPostRequest(konfigurasi.URL_ADD, params)
             }
@@ -178,7 +181,7 @@ class Registrasi : AppCompatActivity(), View.OnClickListener {
         auth!!.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-//                            Toast.makeText(Registrasi.this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(applicationContext, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
                         val firebaseUser = auth!!.currentUser
                         val userId = firebaseUser!!.uid
                         reference = FirebaseDatabase.getInstance().getReference("Users").child(userId)

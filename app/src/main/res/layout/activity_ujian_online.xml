@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back1"
     android:orientation="vertical"
-    tools:context=".UjianOnline">
+    tools:context=".ui.ujianonline.UjianOnline">
 
     <TextView
         android:id="@+id/judulquiz"
@@ -238,7 +238,7 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:id="@+id/buttonPrev"
+            android:id="@+id/btn_Prev"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -252,7 +252,7 @@
             android:text=" " />
 
         <Button
-            android:id="@+id/buttonSelesai"
+            android:id="@+id/btn_Finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/roundedshape"
@@ -265,7 +265,7 @@
             android:text=" " />
 
         <Button
-            android:id="@+id/buttonNext"
+            android:id="@+id/btn_Next"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:background="@drawable/roundedshape"

@@ -9,20 +9,30 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.projectbelajar.yuukbelajar.ui.smartmeet.StudentMeetActivity"></activity>
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:targetApi="q">
+        <activity android:name=".ui.absensi.AbsensiActivity"></activity>
         <activity
-            android:name="com.projectbelajar.yuukbelajar.ui.smartmeet.MeetActivity"
+            android:name=".ui.infotugas.UploadTugasActivity"
+            android:theme="@style/Material"></activity>
+        <activity android:name=".ui.webview.DownloadActivity" />
+        <activity android:name=".ui.smartmeet.StudentMeetActivity" />
+        <activity
+            android:name=".ui.smartmeet.MeetActivity"
             android:theme="@style/Material" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -50,11 +60,18 @@
             android:theme="@style/Material" />
         <activity android:name=".ui.elearning.menu.MenuElearning" />
         <activity android:name=".LihatJwban" />
-        <activity android:name=".QuizOnline" />
+        <activity android:name=".ui.ujianonline.QuizOnline" />
+        <activity
+            android:name=".ui.ujianonline.UjianOnline1"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true" />
         <activity android:name=".Belajar" />
-        <activity android:name=".ui.elearning.Elearning" />
+        <activity
+            android:name=".ui.elearning.Elearning"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true" />
         <activity android:name=".AboutActivity" />
-        <activity android:name=".UjianOnline" /> <!-- <activity android:name=".SppOnline" /> -->
+        <activity android:name=".ui.ujianonline.UjianOnline" /> <!-- <activity android:name=".SppOnline" /> -->
         <activity android:name=".Chatt22" />
         <activity android:name=".Chatt2" /> <!-- <activity android:name=".Klinik" /> -->
         <activity android:name=".Chatting" />

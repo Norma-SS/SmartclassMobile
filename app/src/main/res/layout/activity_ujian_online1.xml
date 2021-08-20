@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back1"
+    tools:context=".ui.ujianonline.UjianOnline1"
+    >
+
+    <TextView
+        android:id="@+id/tv_judul"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Judul Ulangan "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_NamaSekolah"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Nama Sekolah "
+        app:layout_constraintEnd_toEndOf="@+id/tv_judul"
+        app:layout_constraintStart_toStartOf="@+id/tv_judul"
+        app:layout_constraintTop_toBottomOf="@+id/tv_judul" />
+
+    <TextView
+        android:id="@+id/tv_namaMapel_depan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Mata Pelajaran "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_NamaSekolah" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Nama - Nis"
+        app:layout_constraintStart_toStartOf="@+id/tv_namaMapel_depan"
+        app:layout_constraintTop_toBottomOf="@+id/tv_namaMapel_depan" />
+
+    <TextView
+        android:id="@+id/tv_JmlSoal_depan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Jumlah Soal"
+        app:layout_constraintStart_toStartOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/tv_Durasi_Depan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Durasi "
+        app:layout_constraintStart_toStartOf="@+id/tv_JmlSoal_depan"
+        app:layout_constraintTop_toBottomOf="@+id/tv_JmlSoal_depan" />
+
+    <TextView
+        android:id="@+id/tv_NoSoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="1."
+        app:layout_constraintStart_toStartOf="@+id/tv_Durasi_Depan"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Durasi_Depan" />
+
+    <TextView
+        android:id="@+id/tv_soal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="loremzum ipsum dolor kot sit amet wauwauwauawua awuaw wa a wawdaw da wda wd aw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_NoSoal"
+        app:layout_constraintTop_toTopOf="@+id/tv_NoSoal" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_fab_video"
+        app:layout_constraintEnd_toEndOf="@id/tv_soal"
+        app:layout_constraintStart_toStartOf="@id/tv_soal"
+        app:layout_constraintTop_toBottomOf="@id/tv_soal"
+        android:fadeScrollbars="false"
+        >
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            >
+
+            <RadioButton
+                android:id="@+id/radio_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <RadioButton
+                android:id="@+id/radio_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radio_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radio_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radio_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RadioGroup>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_Prev"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/roundedshape"
+        android:drawableLeft="@drawable/ic_prev"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toStartOf="@+id/btn_Finish"
+        app:layout_constraintTop_toTopOf="@+id/btn_Finish" />
+
+    <Button
+        android:id="@+id/btn_Finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/roundedshape"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:text="selesai"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/btn_Next"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/roundedshape"
+        android:drawableRight="@drawable/ic_next"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_Finish"
+        app:layout_constraintStart_toEndOf="@+id/btn_Finish" />
+
+    <TextView
+        android:id="@+id/tv_titikMapel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text=":"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_namaMapel_depan"
+        app:layout_constraintStart_toEndOf="@+id/tv_namaMapel_depan"
+        app:layout_constraintTop_toTopOf="@+id/tv_namaMapel_depan" />
+
+    <TextView
+        android:id="@+id/tv_titikNama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":"
+        app:layout_constraintBottom_toBottomOf="@+id/textView24"
+        app:layout_constraintEnd_toEndOf="@+id/tv_titikMapel"
+        app:layout_constraintStart_toStartOf="@+id/tv_titikMapel"
+        app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/tv_titikJumlah"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_JmlSoal_depan"
+        app:layout_constraintEnd_toEndOf="@+id/tv_titikNama"
+        app:layout_constraintStart_toStartOf="@+id/tv_titikNama"
+        app:layout_constraintTop_toTopOf="@+id/tv_JmlSoal_depan" />
+
+    <TextView
+        android:id="@+id/tv_titikDurasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":"
+        app:layout_constraintEnd_toEndOf="@+id/tv_titikJumlah"
+        app:layout_constraintStart_toStartOf="@+id/tv_titikJumlah"
+        app:layout_constraintTop_toTopOf="@+id/tv_Durasi_Depan" />
+
+    <TextView
+        android:id="@+id/tv_NamaMapel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@id/tv_titikMapel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_titikMapel"
+        app:layout_constraintTop_toTopOf="@id/tv_titikMapel" />
+
+    <TextView
+        android:id="@+id/tv_NamaNis"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@id/tv_titikNama"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_titikNama"
+        app:layout_constraintTop_toTopOf="@id/tv_titikNama" />
+
+    <TextView
+        android:id="@+id/tv_JmlSoal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@id/tv_titikJumlah"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_titikJumlah"
+        app:layout_constraintTop_toTopOf="@id/tv_titikJumlah" />
+
+    <TextView
+        android:id="@+id/tv_Durasi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@id/tv_titikDurasi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_titikDurasi"
+        app:layout_constraintTop_toTopOf="@id/tv_titikDurasi" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_fab_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Finish"
+        app:layout_constraintEnd_toEndOf="@+id/btn_Next"
+        app:srcCompat="@drawable/ic_cekujion" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_fab_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Finish"
+        app:layout_constraintStart_toStartOf="@id/btn_Prev"
+        app:srcCompat="@drawable/ic_video_white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

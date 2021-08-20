@@ -45,6 +45,7 @@ public class konfigurasi {
     public static final String KEY_EMP_HP = "hp"; //salary itu variabel untuk gajih
     public static final String KEY_EMP_EMAIL = "email";
     public static final String KEY_EMP_PASSWORD = "password";
+    public static final String KEY_EMP_PASSWORD_REGISTRASI = "password2";
     public static final String KEY_EMP_PESAN = "pesan";
     public static final String KEY_EMP_EMAIL2 = "email2";
     public static final String KEY_EMP_KDSOALX = "kdsoalx";
@@ -113,6 +114,7 @@ public class konfigurasi {
     public static final String TAG_ID = "id";
     public static final String TAG_NAMA = "name";
     public static final String TAG_POSISI = "desg";
+    public static final String TAG_JURUSAN = "jurusan";
     public static final String TAG_GAJIH = "salary";
     public static final String TAG_UTS = "uts";
     public static final String TAG_UAS = "uas";

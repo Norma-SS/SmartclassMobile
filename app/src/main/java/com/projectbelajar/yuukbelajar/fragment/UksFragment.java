@@ -100,31 +100,31 @@ public class UksFragment extends Fragment implements View.OnClickListener {
         preferences = new Preferences(getActivity());
         carouselBanners = new ArrayList<>();
 
-        carouselBanners.add("https://www.yuukbelajar.com/gbr/iklan.jpg");
-        carouselBanners.add("https://www.yuukbelajar.com/gbr/image1.jpg");
-        carouselBanners.add("https://www.yuukbelajar.com/gbr/image2.jpg");
-        carouselBanners.add("https://yuukbelajar.com/gbr/image3.png");
+        carouselBanners.add("https://www.smartclass.co.id/gbr/image1.jpg");
+        carouselBanners.add("https://www.smartclass.co.id/gbr/image2.jpg");
+        carouselBanners.add("https://www.smartclass.co.id/gbr/image3.png");
+        carouselBanners.add("https://www.smartclass.co.id/gbr/image4.jpg");
 
 //        sliderView = view.findViewById(R.id.sliderUks);
 //        mLinearLayout = view.findViewById(R.id.pagesContainer);
 
 
         ImageView Iklan = view.findViewById(R.id.Iklan);
-        Glide.with(getActivity()).load("https://www.yuukbelajar.com/gbr/iklane1.jpg")
+        Glide.with(getActivity()).load("https://www.smartclass.co.id/gbr/iklane1.jpg")
                 .fitCenter() //menyesuaikan ukuran imageview
                 .crossFade() //animasi
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(Iklan);
 
         ImageView Iklan2 = view.findViewById(R.id.Iklan2);
-        Glide.with(getActivity()).load("https://www.yuukbelajar.com/gbr/iklane2.jpg")
+        Glide.with(getActivity()).load("https://www.smartclass.co.id/gbr/iklane2.jpg")
                 .fitCenter() //menyesuaikan ukuran imageview
                 .crossFade() //animasi
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(Iklan2);
 
         ImageView Iklan3 = view.findViewById(R.id.Iklan3);
-        Glide.with(getActivity()).load("https://image.freepik.com/free-vector/back-chool-template-wooden-board_1308-33554.jpg")
+        Glide.with(getActivity()).load("https://www.smartclass.co.id/gbr/iklane3.jpg")
                 .fitCenter() //menyesuaikan ukuran imageview
                 .crossFade() //animasi
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

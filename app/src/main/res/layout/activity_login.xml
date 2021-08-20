@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -123,11 +124,27 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/background_button"
             android:text="Login"
-            android:textColor="@color/textStyle"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
             tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_button_nocolor"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:padding="8dp"
+            android:text="Register"
+            android:textColor="@color/white"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btn_Login"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Login" />
 
         <TextView
             android:id="@+id/tv_Login_forgot"
@@ -136,6 +153,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/text_forgot"
             android:textColor="@color/textStyle"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/btn_Login"
             app:layout_constraintTop_toBottomOf="@+id/btn_Login" />
 
@@ -149,6 +167,7 @@
             android:textColor="@color/textStyle"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/btn_Login"
             app:layout_constraintStart_toStartOf="@+id/btn_Login"
             app:layout_constraintTop_toBottomOf="@+id/tv_Login_forgot"
@@ -164,11 +183,27 @@
             android:textColor="@color/textStyle"
             android:textSize="24sp"
             android:textStyle="bold|italic"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tv_Login_or"
             app:layout_constraintStart_toStartOf="@+id/tv_Login_or"
             app:layout_constraintTop_toBottomOf="@+id/tv_Login_or"
             tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btn_forgot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/background_button_nocolor"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:text="Forgot Password"
+            android:textColor="@color/white"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_register"
+            app:layout_constraintEnd_toEndOf="@+id/btn_Login"
+            app:layout_constraintStart_toEndOf="@+id/btn_register"
+            app:layout_constraintTop_toTopOf="@+id/btn_register" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

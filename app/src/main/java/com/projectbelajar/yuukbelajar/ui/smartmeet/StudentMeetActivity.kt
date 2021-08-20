@@ -40,6 +40,7 @@ class StudentMeetActivity : AppCompatActivity() {
     private var codeRoom: String? = null
     private var refrence = FirebaseDatabase.getInstance().getReference("Room")
     private var preferences: Preferences? = null
+
     private var id: String? = null
     private var nis: String? = null
     private var nama: String? = null
@@ -67,7 +68,6 @@ class StudentMeetActivity : AppCompatActivity() {
 
     private fun initVar() {
 
-        id = preferences?.getValues("id")
         nis = preferences?.getValues("nis")
         nama = preferences?.getValues("nama")
         kodeSekolah = preferences?.getValues("kodesekolah")
@@ -171,11 +171,11 @@ class StudentMeetActivity : AppCompatActivity() {
             when (event.type) {
 
                 BroadcastEvent.Type.CONFERENCE_TERMINATED -> {
-                    getTime("check_out")
+                    postTime("check_out")
                     Timber.i("Conference Joined with url%s", event.data.get("url"))
                 }
-                BroadcastEvent.Type.PARTICIPANT_JOINED -> {
-                    getTime("check_in")
+                BroadcastEvent.Type.CONFERENCE_JOINED -> {
+                    postTime("check_in")
                     Timber.i("Participant joined%s", event.data.get("name"))
                 }
             }
@@ -192,11 +192,11 @@ class StudentMeetActivity : AppCompatActivity() {
 
         super.onDestroy()
         binding = null
-        getTime("check_out")
+        postTime("check_out")
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun getTime(type: String) {
+    private fun postTime(type: String) {
 
         val date = Calendar.getInstance().time
         val formatter = SimpleDateFormat("HH:mm:ss")
@@ -207,12 +207,13 @@ class StudentMeetActivity : AppCompatActivity() {
             "check_in" -> {
                 NetworkConfig.service().insert_chec_in(RequestCheckIn(nis
                         ?: "", nama
-                        ?: "", kodeSekolah ?: "", kelas ?: "", formatedDate ?: "", "-", codeRoom
+                        ?: "", kodeSekolah ?: "", kelas ?: "",
+                        formatedDate ?: "", "-", codeRoom
                         ?: ""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
-                            Toast.makeText(applicationContext, "berhasil record data", Toast.LENGTH_SHORT).show()
+                            id = it.id
                         }, {
 
                         })
@@ -225,7 +226,7 @@ class StudentMeetActivity : AppCompatActivity() {
                         .subscribe({
 
                         }, {
-
+                           Toast.makeText(applicationContext,  it.localizedMessage, Toast.LENGTH_SHORT).show()
                         })
             }
         }

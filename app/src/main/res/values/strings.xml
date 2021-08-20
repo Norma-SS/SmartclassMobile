@@ -7,6 +7,13 @@
         <item>Wali Murid</item>
     </string-array>
 
+    <string-array name="android_dropdown_arrays_absensi">
+        <item>Pilih Keterangan</item>
+        <item>Hadir</item>
+        <item>Ijin</item>
+        <item>Sakit</item>
+    </string-array>
+
     <string-array name="android_dropdown_arrays_jitsi">
         <item>A</item>
         <item>B</item>

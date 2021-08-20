@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.projectbelajar.yuukbelajar.*
 import com.projectbelajar.yuukbelajar.data.network.NetworkConfig
@@ -23,6 +24,7 @@ class MenuElearning : AppCompatActivity(){
 
     private var binding : ActivityMenuElearningBinding ?= null
     private var preference : Preferences ?= null
+    private var progressDialog : ProgressDialog ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,11 @@ class MenuElearning : AppCompatActivity(){
     private fun initView() {
         binding?.tvNamaSekolah?.text = preference?.getValues("namaSekolah")
         binding?.tvKelas?.text = preference?.getValues("kelas")
+        progressDialog = ProgressDialog(this)
+        progressDialog?.setTitle("Loading...")
+        progressDialog?.setMessage("Sedang Memuat Data Mapel...")
+        progressDialog?.show()
+        progressDialog?.setCancelable(false)
     }
 
     private fun initNetwork() {
@@ -45,9 +52,11 @@ class MenuElearning : AppCompatActivity(){
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    progressDialog?.dismiss()
                     binding?.rvMenuElearning?.adapter = MenuElearningAdapter(this@MenuElearning, it.result?.datanya!!)
                 },{
-
+                    progressDialog?.dismiss()
+                    Toast.makeText(applicationContext, "something error", Toast.LENGTH_SHORT).show()
                 })
 
     }

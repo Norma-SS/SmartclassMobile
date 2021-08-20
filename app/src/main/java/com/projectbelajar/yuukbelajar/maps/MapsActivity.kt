@@ -34,6 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var long : Double ?= 0.0
     private var lat : Double ?= 0.0
     private var nis : String ?= null
+    private var kodeSekolah : String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,8 +79,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 for (data in snapshot.children){
                     if (user?.email == data.child("email").value.toString()){
                         nis  = data.child("nis").value.toString()
+                        kodeSekolah = data.child("kodeSekolah").value.toString()
                         
                     }else if (nis == data.child("nis").value.toString()
+                            && kodeSekolah == data.child("kodeSekolah").value.toString()
                             && data.child("level").value.toString() == "SISWA"){
                         val name = data.child("nama").value.toString()
                         long = data.child("long").value.toString().toDouble()

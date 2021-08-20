@@ -301,7 +301,7 @@
                             android:layout_marginTop="20dp"
                             android:fontFamily="@font/poppinslight"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="Penilaian Sikap"
+                            android:text="Nilai Sikap"
                             android:textColor="@android:color/black"
                             android:textSize="10sp"
                             android:textStyle="normal" />
@@ -453,7 +453,7 @@
                     >
 
                     <ImageView
-                        android:id="@+id/image6"
+                        android:id="@+id/frame_tugas"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_vertical|center_horizontal"
@@ -557,6 +557,7 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/frame_belajar_online"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="20dp">
@@ -760,6 +761,7 @@
                         android:paddingTop="40dp">
 
                         <TextView
+                            android:id="@+id/tv_track_lokasi"
                             android:layout_width="80dp"
                             android:layout_height="20dp"
                             android:layout_marginTop="20dp"

@@ -40,7 +40,8 @@ class Tabbed : AppCompatActivity() {
     private var database = FirebaseDatabase.getInstance()
     private lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
-    private var myRef = database.getReference("Users")
+    private var myRef = database.getReference("User")
+    private var myRefToken = database.getReference("Room")
 
     var id: String? = null
 
@@ -71,8 +72,8 @@ class Tabbed : AppCompatActivity() {
 
         if (preference?.getValues("level") == "SISWA") {
 
-            initVar()
             initFirebase()
+            initVar()
             getLastLocation()
 
 //            var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -168,7 +169,7 @@ class Tabbed : AppCompatActivity() {
 //    }
 
     private fun initVar() {
-        id = FirebaseAuth.getInstance().currentUser?.uid
+        id = user?.uid
     }
 
     private fun initFirebase() {

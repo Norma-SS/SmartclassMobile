@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#BEE4FA"
     android:orientation="vertical"
-    android:background="@drawable/back1"
     tools:context=".ui.elearning.menu.MenuElearning">
 
     <TextView
@@ -19,10 +18,10 @@
         android:text="Ruang Belajar Online"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textStyle="bold" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_nama_sekolah"
@@ -31,12 +30,12 @@
         android:background="@color/design_default_color_secondary_variant"
         android:gravity="center|center_vertical"
         android:text="Nama Sekolah"
-        android:textSize="16sp"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/tv_ruang_belajar_noline"
-        app:layout_constraintStart_toStartOf="@id/tv_ruang_belajar_noline"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/tv_ruang_belajar_noline"
-        android:textStyle="bold" />
+        app:layout_constraintStart_toStartOf="@id/tv_ruang_belajar_noline"
+        app:layout_constraintTop_toBottomOf="@id/tv_ruang_belajar_noline" />
 
 
     <TextView
@@ -47,23 +46,23 @@
         android:gravity="center|center_vertical"
         android:text="Kelas"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/tv_nama_sekolah"
-        app:layout_constraintStart_toStartOf="@id/tv_nama_sekolah"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/tv_nama_sekolah"
-        android:textStyle="bold" />
+        app:layout_constraintStart_toStartOf="@id/tv_nama_sekolah"
+        app:layout_constraintTop_toBottomOf="@id/tv_nama_sekolah" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_menuElearning"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/row_menu_elearning"
-        app:layout_constraintTop_toBottomOf="@+id/tv_kelas"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kelas"
+        app:spanCount="3"
+        tools:layout_editor_absoluteX="1dp"
+        tools:listitem="@layout/row_menu_elearning" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
