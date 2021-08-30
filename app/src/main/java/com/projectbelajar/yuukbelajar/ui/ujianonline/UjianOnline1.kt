@@ -1,20 +1,18 @@
 package com.projectbelajar.yuukbelajar.ui.ujianonline
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import com.projectbelajar.yuukbelajar.Preferences
 import com.projectbelajar.yuukbelajar.R
@@ -23,9 +21,11 @@ import com.projectbelajar.yuukbelajar.data.network.model.request.RequestDoneExam
 import com.projectbelajar.yuukbelajar.data.network.model.response.AcakSoalItem
 import com.projectbelajar.yuukbelajar.databinding.ActivityUjianOnline1Binding
 import com.projectbelajar.yuukbelajar.utils.FullScreenHelper
+import com.projectbelajar.yuukbelajar.utils.GlideHelper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.dialog_one_button.view.*
+import kotlinx.android.synthetic.main.dialog_picture.view.*
 import kotlinx.android.synthetic.main.dialog_review_ujian.view.*
 import kotlinx.android.synthetic.main.dialog_two_button.view.*
 import kotlinx.android.synthetic.main.dialog_two_button.view.btn_selesai
@@ -33,6 +33,8 @@ import kotlinx.android.synthetic.main.dialog_youtube.view.*
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "UjianOnline1"
+private const val baseLink = "https://smartclass.co.id"
+
 class UjianOnline1 : AppCompatActivity() {
 
     private var binding : ActivityUjianOnline1Binding ?= null
@@ -52,6 +54,9 @@ class UjianOnline1 : AppCompatActivity() {
 
     private lateinit var hashMap : HashMap<Int, Any>
 
+    private var currentAnimator: Animator? = null
+    private var shortAnimationDuration: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUjianOnline1Binding.inflate(layoutInflater)
@@ -60,6 +65,8 @@ class UjianOnline1 : AppCompatActivity() {
 
         initVar()
         initNetwork()
+
+
     }
 
 
@@ -109,6 +116,10 @@ class UjianOnline1 : AppCompatActivity() {
 
         bindUi(index, data)
 
+        binding?.ivSoal?.setOnClickListener {
+            showDialogPicture(index, data)
+        }
+
         binding?.btnNext?.setOnClickListener {
 
             checkRadio(index)
@@ -140,7 +151,6 @@ class UjianOnline1 : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Ini Soal yang Pertama", Toast.LENGTH_SHORT).show()
                 bindRadioSaved(hashMap, index)
             }
-
         }
 
         binding?.btnFinish?.setOnClickListener {
@@ -186,6 +196,7 @@ class UjianOnline1 : AppCompatActivity() {
 
     }
 
+
     override fun onBackPressed() {}
 
 
@@ -204,7 +215,7 @@ class UjianOnline1 : AppCompatActivity() {
             }
             override fun onFinish() {
                 Toast.makeText(applicationContext, "Waktu Ujian Sudah Habis", Toast.LENGTH_SHORT).show()
-                finish()
+//                finish()
             }
         }
         timer.start()
@@ -258,6 +269,12 @@ class UjianOnline1 : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun bindUi(index: Int, data: List<AcakSoalItem?>?) {
+//        val radio1 = data!![index]?.A
+//        val radio2 = data[index]?.B
+//        val radio3 = data[index]?.C
+//        val radio4 = data[index]?.D
+//        val radio5 = data[index]?.E
+
         noSoal = data!![index]?.nosoal
         binding?.tvNoSoal?.text = index.plus(1).toString() + "."
         binding?.tvSoal?.text = data[index]?.soal
@@ -267,8 +284,36 @@ class UjianOnline1 : AppCompatActivity() {
         binding?.radio3?.text = "C." + data[index]?.C
         binding?.radio4?.text = "D." + data[index]?.D
         binding?.radio5?.text = "E." + data[index]?.E
-    }
 
+        if (data[index]?.soal.toString()?.contains(baseLink)) {
+            GlideHelper.setImage(this, data[index]?.soal ?: "", binding?.ivSoal!!)
+            binding?.ivSoal?.visibility = View.VISIBLE
+        }
+        if (data!![index]?.A?.contains(baseLink) == true){
+            GlideHelper.setImage(this, data[index]?.A!!, binding?.ivJwbA!!)
+            binding?.radio1?.text = "A."
+        }
+
+        if (data!![index]?.B?.contains(baseLink) == true){
+            GlideHelper.setImage(this, data[index]?.B!!, binding?.ivJwbB!!)
+            binding?.radio2?.text = "B."
+        }
+
+        if (data!![index]?.C?.contains(baseLink) == true){
+            GlideHelper.setImage(this, data[index]?.C!!, binding?.ivJwbC!!)
+            binding?.radio3?.text = "C."
+        }
+
+        if (data!![index]?.D?.contains(baseLink) == true){
+            GlideHelper.setImage(this, data[index]?.D!!, binding?.ivJwbD!!)
+            binding?.radio4?.text = "D."
+        }
+
+        if (data!![index]?.E?.contains(baseLink) == true){
+            GlideHelper.setImage(this, data[index]?.E!!, binding?.ivJwbE!!)
+            binding?.radio5?.text = "E."
+        }
+    }
 
 
     private fun showDialogEnd(nilai : String){
@@ -315,7 +360,6 @@ class UjianOnline1 : AppCompatActivity() {
         dialog.setView(view_dialog)
         dialogView = dialog.create()
         dialogView = dialog.show()
-        dialogView.setCancelable(false)
 
         val link = data?.get(0)?.link
         val videoId: String? = link?.substringAfterLast("embed/")
@@ -326,13 +370,27 @@ class UjianOnline1 : AppCompatActivity() {
 
         view_dialog?.tv_ket?.text = data?.get(index)?.ketSoal
 
-        view_dialog?.youtube_player_dialog?.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                super.onReady(youTubePlayer)
+        if (link.isNullOrEmpty()){
+            Toast.makeText(applicationContext, "Tidak Ada Video Tersemat", Toast.LENGTH_SHORT).show()
+        }else{
+            view_dialog?.youtube_player_dialog?.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
 
-                youTubePlayer.loadOrCueVideo(lifecycle, videoId ?: "", 0f)
-            }
-        })
+                    youTubePlayer.loadOrCueVideo(lifecycle, videoId ?: "", 0f)
+                }
+            })
+        }
+    }
+
+    private fun showDialogPicture(index: Int, data: List<AcakSoalItem?>?) {
+        val dialog = AlertDialog.Builder(this)
+
+        val view_dialog = layoutInflater.inflate(R.layout.dialog_picture, null)
+        dialog.setView(view_dialog)
+        GlideHelper.setImage(this@UjianOnline1, data!![index]?.soal ?: "", view_dialog.iv_dialogPicture)
+        dialogView = dialog.create()
+        dialogView = dialog.show()
     }
 
     override fun onDestroy() {

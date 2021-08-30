@@ -392,7 +392,7 @@ public class ProfileFragment extends Fragment{
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
-                        reference = FirebaseDatabase.getInstance().getReference("User").child(fuser.getUid());
+                        reference = FirebaseDatabase.getInstance().getReference("dtUsers").child(fuser.getUid());
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("imgUrl", ""+mUri);
                         reference.updateChildren(map);

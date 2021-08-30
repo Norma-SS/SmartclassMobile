@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back1"
     tools:context=".ui.ujianonline.UjianOnline1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <TextView
@@ -73,41 +74,64 @@
         android:id="@+id/tv_NoSoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="1."
-        app:layout_constraintStart_toStartOf="@+id/tv_Durasi_Depan"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Durasi_Depan" />
+        app:layout_constraintEnd_toStartOf="@id/linear_judul"
+        app:layout_constraintTop_toTopOf="@id/linear_judul"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="170dp" />
 
-    <TextView
-        android:id="@+id/tv_soal"
+
+    <LinearLayout
+        android:id="@+id/linear_judul"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="loremzum ipsum dolor kot sit amet wauwauwauawua awuaw wa a wawdaw da wda wd aw"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_NoSoal"
-        app:layout_constraintTop_toTopOf="@+id/tv_NoSoal" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Durasi">
+
+        <TextView
+            android:id="@+id/tv_soal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="loremzum ipsum dolor kot sit amet wauwauwauawua awuaw wa a wawdaw da wda wd aw"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/iv_soal"
+            android:layout_width="50dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+    </LinearLayout>
 
     <ScrollView
+        android:id="@+id/sv_pilihanganda"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_fab_video"
-        app:layout_constraintEnd_toEndOf="@id/tv_soal"
-        app:layout_constraintStart_toStartOf="@id/tv_soal"
-        app:layout_constraintTop_toBottomOf="@id/tv_soal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
         android:fadeScrollbars="false"
-        >
+        app:layout_constraintBottom_toTopOf="@+id/btn_fab_video"
+        app:layout_constraintEnd_toEndOf="@id/linear_judul"
+        app:layout_constraintStart_toStartOf="@id/linear_judul"
+        app:layout_constraintTop_toBottomOf="@id/linear_judul">
 
         <RadioGroup
             android:id="@+id/radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/radio_1"
@@ -115,7 +139,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/iv_jwb_a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:srcCompat="@tools:sample/avatars" />
@@ -125,20 +149,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <ImageView
+                android:id="@+id/iv_jwb_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
+
             <RadioButton
                 android:id="@+id/radio_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/iv_jwb_c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <RadioButton
                 android:id="@+id/radio_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <ImageView
+                android:id="@+id/iv_jwb_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
+
             <RadioButton
                 android:id="@+id/radio_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/iv_jwb_e"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
 
         </RadioGroup>
     </ScrollView>

@@ -118,8 +118,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         rvChat.setLayoutManager(linearLayoutManager);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("User").child(userid);
-        reference_user = FirebaseDatabase.getInstance().getReference("User").child(firebaseUser.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("dtUsers").child(userid);
+        reference_user = FirebaseDatabase.getInstance().getReference("dtUsers").child(firebaseUser.getUid());
 
 
 
@@ -296,12 +296,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatRefReceiver.child("id").setValue(firebaseUser.getUid());
         chatRefReceiver.child("level").setValue(preferences.getValues("level"));
 
-        final DatabaseReference receiverUser = FirebaseDatabase.getInstance().getReference("User").child(userid);
+        final DatabaseReference receiverUser = FirebaseDatabase.getInstance().getReference("dtUsers").child(userid);
         receiverUser.child("time").setValue(time);
 
         final String msg = message;
 
-        reference = FirebaseDatabase.getInstance().getReference("User").child(firebaseUser.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("dtUsers").child(firebaseUser.getUid());
         final DatabaseReference finalReference = reference;
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -350,7 +350,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     private void status(String status) {
-        reference = FirebaseDatabase.getInstance().getReference("User").child(firebaseUser.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("dtUsers").child(firebaseUser.getUid());
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("status", status);
 

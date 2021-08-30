@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
@@ -22,6 +23,7 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
+private const val TAG = "QuizOnline"
 class QuizOnline : AppCompatActivity() {
 
     private var binding : ActivityQuizOnlineBinding ?= null
@@ -36,7 +38,7 @@ class QuizOnline : AppCompatActivity() {
         preferences = Preferences(this)
 
         initVar()
-       initNetwork()
+        initNetwork()
     }
 
     private fun initVar() {
@@ -52,6 +54,7 @@ class QuizOnline : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    Log.d(TAG, "Datanya : $it")
                     if (it.result?.isNotEmpty() == true){
                         if (it.result?.get(0)?.isSuccess == false){
                             setView("empty")

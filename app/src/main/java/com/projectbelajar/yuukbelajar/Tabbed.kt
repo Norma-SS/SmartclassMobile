@@ -40,7 +40,8 @@ class Tabbed : AppCompatActivity() {
     private var database = FirebaseDatabase.getInstance()
     private lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
-    private var myRef = database.getReference("User")
+    private var myRef = database.getReference("dtUsers")
+    private var refrenceUpdate = FirebaseDatabase.getInstance().getReference("UpdateInfo")
     private var myRefToken = database.getReference("Room")
 
     var id: String? = null
@@ -74,7 +75,7 @@ class Tabbed : AppCompatActivity() {
 
             initFirebase()
             initVar()
-            getLastLocation()
+//            getLastLocation()
 
 //            var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 //            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -83,12 +84,12 @@ class Tabbed : AppCompatActivity() {
 //            }
 //            locationManager.isLocationEnabled
 
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
-                Log.d("Debug fused Location", "${location}")
-                Log.d("Location Provide", "berhasil masuk location Provide")
-                myRef.child(id ?: "").child("long").setValue(location?.longitude)
-                myRef.child(id ?: "").child("lat").setValue(location?.latitude)
-            }
+//            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
+//                Log.d("Debug fused Location", "${location}")
+//                Log.d("Location Provide", "berhasil masuk location Provide")
+//                myRef.child(id ?: "").child("long").setValue(location?.longitude)
+//                myRef.child(id ?: "").child("lat").setValue(location?.latitude)
+//            }
         }
 
 
@@ -176,6 +177,29 @@ class Tabbed : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser
+
+        refrenceUpdate.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var update : String ?= null
+                var logout : String ?= null
+                for (data in snapshot.children){
+                    logout = data.child("logout").value.toString()
+                    update = data.child("update").value.toString()
+                }
+                Log.d("TABBED", "logout : $logout")
+                if (logout == "true"){
+                    preference?.logout()
+                    auth.signOut()
+                    startActivity(Intent(this@Tabbed, Login::class.java))
+                    finish()
+
+                }
+            }
+        })
     }
 
 

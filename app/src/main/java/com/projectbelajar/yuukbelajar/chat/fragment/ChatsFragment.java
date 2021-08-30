@@ -148,7 +148,7 @@ public class ChatsFragment extends Fragment {
     private void chatList(final ArrayList<Chatlist> list) {
         chatersDokter = new ArrayList<>();
         chatersGuru = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference("User").orderByChild("time");
+        reference = FirebaseDatabase.getInstance().getReference("dtUsers").orderByChild("time");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

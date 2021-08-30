@@ -250,6 +250,7 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
     private fun initFirebase() {
 
 
+
         readData(tokenUser, object : OnGetDataListener{
             override fun onSuccess(dataSnapshot: DataSnapshot?) {
                 for (data in dataSnapshot!!.children){

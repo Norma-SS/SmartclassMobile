@@ -50,7 +50,7 @@ class Login : AppCompatActivity(){
     //firebase
     private var firebaseUser: FirebaseUser? = null
     private var auth: FirebaseAuth? = null
-    private var reference = FirebaseDatabase.getInstance().getReference("User")
+    private var reference = FirebaseDatabase.getInstance().getReference("dtUsers")
     private var preferences: Preferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -413,7 +413,7 @@ class Login : AppCompatActivity(){
                     if (task.isSuccessful) {
                         val firebaseUser = auth!!.currentUser
                         id = firebaseUser!!.uid
-                        reference = FirebaseDatabase.getInstance().getReference("User").child(id ?: "")
+                        reference = FirebaseDatabase.getInstance().getReference("dtUsers").child(id ?: "")
                         val hashMap = HashMap<String, Any>()
                         hashMap["id"] = id ?: ""
                         hashMap["username"] = username

@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.dialog_youtube.view.*
 
+private const val TAG = "Tugas"
 class Tugas : AppCompatActivity(){
 
     private var binding : ActivityTugasBinding ?= null
@@ -72,6 +74,7 @@ class Tugas : AppCompatActivity(){
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
                         toast.show()
                     }
+                    Log.d(TAG, "List Tugasnya ${it.result?.size}")
                     progressDialog?.dismiss()
                     binding?.rvTugas?.adapter = TugasAdapter(it?.result!!.reversed(), object : TugasAdapter.OnClick{
                         override fun downloadFile(item: TugasItem) {

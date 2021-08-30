@@ -75,7 +75,7 @@ public class UserChatsFragment extends Fragment {
         currentKlinik = preferences.getValues("klinik");
         currentId = preferences.getValues("id");
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        final Query reference = FirebaseDatabase.getInstance().getReference("User").orderByChild("sort_nama");
+        final Query reference = FirebaseDatabase.getInstance().getReference("dtUsers").orderByChild("sort_nama");
 
 //        DatabaseReference kodeSekolahRef = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -170,7 +170,7 @@ public class UserChatsFragment extends Fragment {
     private void orderByDateUser() {
 
         final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference("User").orderByChild("time");
+        Query query = FirebaseDatabase.getInstance().getReference("dtUsers").orderByChild("time");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
