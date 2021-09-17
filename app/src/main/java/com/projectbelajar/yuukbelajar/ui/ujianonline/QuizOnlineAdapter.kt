@@ -26,7 +26,6 @@ class QuizOnlineAdapter(val context: Activity, val data : List<ResultQuizOnline>
 
             val convertTime = item?.tgl + " " + item?.wkt
             val timeStart = convertTime.formatDate()
-
             binding.tvNamaMapel.text = item.judul
             binding.tvNamaGuru.text = item.walikls
             binding.tvDurasi.text = item.tempo + " Menit "
@@ -38,8 +37,8 @@ class QuizOnlineAdapter(val context: Activity, val data : List<ResultQuizOnline>
                 binding.tvNilai.text = "Belum Ujian"
 
             binding.btnMulai.setOnClickListener {
-
-//                if (currentDate.compareTo(timeStart) >= 0){
+            Log.d(TAG, "$currentDate start : $timeStart")
+                if (currentDate.compareTo(timeStart) >= 0){
                     when (item?.nilai) {
                         null -> {
                             val intent = Intent(context, UjianOnline1::class.java)
@@ -49,15 +48,11 @@ class QuizOnlineAdapter(val context: Activity, val data : List<ResultQuizOnline>
                         }
                         else -> {
                             Toast.makeText(context, "Anda Sudah Melakukan Ujian Ini", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(context, UjianOnline1::class.java)
-                            intent.putExtra("soal_id", item.link)
-                            context.startActivity(intent)
-                            context.finish()
                         }
                     }
-//                }else{
-//                    Toast.makeText(context, "Waktu Ujian Belum Berlangsung", Toast.LENGTH_SHORT).show()
-//                }
+                }else{
+                    Toast.makeText(context, "Waktu Ujian Belum Berlangsung", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         @SuppressLint("SimpleDateFormat")

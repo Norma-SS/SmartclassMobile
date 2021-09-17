@@ -76,7 +76,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/popin"
         android:maxLines="1"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
     <RelativeLayout
         android:layout_width="match_parent"

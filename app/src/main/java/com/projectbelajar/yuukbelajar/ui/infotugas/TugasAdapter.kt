@@ -46,7 +46,6 @@ class TugasAdapter(val data : List<TugasItem>, val itemClick : OnClick) : Recycl
             val date = inSdf.parse(this)
             return outSdf.format(date)
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TugasAdapter.ViewHolder {

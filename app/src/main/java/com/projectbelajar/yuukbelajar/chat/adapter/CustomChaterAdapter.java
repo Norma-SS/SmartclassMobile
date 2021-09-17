@@ -83,7 +83,8 @@ public class CustomChaterAdapter extends RecyclerView.Adapter<CustomChaterAdapte
 
         void bind(final Chater chater) {
             tvName.setText(chater.getNama());
-            Log.d("image url nya", " "+chater.getImgUrl());
+            tvStatus.setText("Test Cungur");
+            Log.d("image url nya", " " + chater.getImgUrl());
 //            Log.d("username url nya", " "+chater.getUsername());
             if (chater.getImgUrl().equals("default")) {
                 imgProfil.setImageResource(R.drawable.profile);
@@ -102,15 +103,18 @@ public class CustomChaterAdapter extends RecyclerView.Adapter<CustomChaterAdapte
                 }
 
             }
-
-            imgOff.setVisibility(View.GONE);
-            imgOn.setVisibility(View.GONE);
+//            imgOff.setVisibility(View.GONE);
+//            imgOn.setVisibility(View.GONE);
             if (chater.getStatus().equals("online")) {
+                imgOff.setVisibility(View.GONE);
+                imgOn.setVisibility(View.VISIBLE);
                 tvStatus.setText(chater.getStatus());
                 tvStatus.setTextColor(Color.parseColor("#007B0C"));
                 tvStatus.setCompoundDrawablePadding(8);
                 tvStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_on, 0, 0, 0);
             } else {
+                imgOff.setVisibility(View.VISIBLE);
+                imgOn.setVisibility(View.GONE);
                 tvStatus.setText(chater.getStatus());
                 tvStatus.setTextColor(Color.parseColor("#FF5252"));
                 tvStatus.setCompoundDrawablePadding(8);
@@ -121,11 +125,11 @@ public class CustomChaterAdapter extends RecyclerView.Adapter<CustomChaterAdapte
                 @Override
                 public void onClick(View v) {
 //                    if (!currentLevel.equals("DOKTER")){
-                        Intent toChatRoom = new Intent(itemView.getContext(), ChatRoomActivity.class);
-                        toChatRoom.putExtra("userid", chater.getId());
-                        toChatRoom.putExtra("level", chater.getLevel());
-                        toChatRoom.putExtra("chatType", chatType);
-                        toChatRoom.putExtra("name", chater.getNama());
+                    Intent toChatRoom = new Intent(itemView.getContext(), ChatRoomActivity.class);
+                    toChatRoom.putExtra("userid", chater.getId());
+                    toChatRoom.putExtra("level", chater.getLevel());
+                    toChatRoom.putExtra("chatType", chatType);
+                    toChatRoom.putExtra("name", chater.getNama());
                     itemView.getContext().startActivity(toChatRoom);
 //                    }
                 }

@@ -2,9 +2,9 @@ package com.projectbelajar.yuukbelajar.chat.model;
 
 public class Chat {
 
-    private String sender;
-    private String receiver;
-    private String message;
+    public String sender;
+    public String receiver;
+    public String message;
 
 
 //    private boolean isseen;

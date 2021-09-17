@@ -6,31 +6,24 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.EmailAuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.projectbelajar.yuukbelajar.fragment.CourseFragment
 import com.projectbelajar.yuukbelajar.fragment.ProfileFragment
 import com.projectbelajar.yuukbelajar.fragment.UksFragment
-import com.projectbelajar.yuukbelajar.model.User_Parent
 
 class Tabbed : AppCompatActivity() {
 
@@ -38,10 +31,9 @@ class Tabbed : AppCompatActivity() {
     private lateinit var locationRequest: LocationRequest
     private val PERMISSION_ID = 1010
     private var database = FirebaseDatabase.getInstance()
-    private lateinit var auth: FirebaseAuth
-    private var user: FirebaseUser? = null
-    private var myRef = database.getReference("dtUsers")
-    private var refrenceUpdate = FirebaseDatabase.getInstance().getReference("UpdateInfo")
+//    private lateinit var auth: FirebaseAuth
+//    private var user: FirebaseUser? = null
+    private var myRef  : DatabaseReference ?= null
     private var myRefToken = database.getReference("Room")
 
     var id: String? = null
@@ -73,7 +65,7 @@ class Tabbed : AppCompatActivity() {
 
         if (preference?.getValues("level") == "SISWA") {
 
-            initFirebase()
+//            initFirebase()
             initVar()
 //            getLastLocation()
 
@@ -170,43 +162,16 @@ class Tabbed : AppCompatActivity() {
 //    }
 
     private fun initVar() {
-        id = user?.uid
+        id = preference?.getValues("id")
     }
 
-    private fun initFirebase() {
-
-        auth = FirebaseAuth.getInstance()
-        user = auth.currentUser
-
-        refrenceUpdate.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var update : String ?= null
-                var logout : String ?= null
-                for (data in snapshot.children){
-                    logout = data.child("logout").value.toString()
-                    update = data.child("update").value.toString()
-                }
-                Log.d("TABBED", "logout : $logout")
-                if (logout == "true"){
-                    preference?.logout()
-                    auth.signOut()
-                    startActivity(Intent(this@Tabbed, Login::class.java))
-                    finish()
-
-                }
-            }
-        })
-    }
-
-
+//    private fun initFirebase() {
+//        auth = FirebaseAuth.getInstance()
+//        user = auth.currentUser
+//    }
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
-            return
         }
         doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click Back again to exit", Toast.LENGTH_SHORT).show()

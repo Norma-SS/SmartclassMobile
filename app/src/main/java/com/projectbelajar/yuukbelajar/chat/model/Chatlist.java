@@ -1,8 +1,8 @@
 package com.projectbelajar.yuukbelajar.chat.model;
 
 public class Chatlist {
-    private String id;
-    private String level;
+    public String id;
+    public String level;
 
     public Chatlist() {
     }

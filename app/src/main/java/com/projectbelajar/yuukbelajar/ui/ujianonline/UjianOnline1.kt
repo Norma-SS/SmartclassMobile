@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -17,7 +19,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrC
 import com.projectbelajar.yuukbelajar.Preferences
 import com.projectbelajar.yuukbelajar.R
 import com.projectbelajar.yuukbelajar.data.network.NetworkConfig
-import com.projectbelajar.yuukbelajar.data.network.model.request.RequestDoneExam
+import com.projectbelajar.yuukbelajar.data.network.model.request.ujian.RequestDoneExam
+import com.projectbelajar.yuukbelajar.data.network.model.request.ujian.RequestJwb
 import com.projectbelajar.yuukbelajar.data.network.model.response.AcakSoalItem
 import com.projectbelajar.yuukbelajar.databinding.ActivityUjianOnline1Binding
 import com.projectbelajar.yuukbelajar.utils.FullScreenHelper
@@ -215,7 +218,7 @@ class UjianOnline1 : AppCompatActivity() {
             }
             override fun onFinish() {
                 Toast.makeText(applicationContext, "Waktu Ujian Sudah Habis", Toast.LENGTH_SHORT).show()
-//                finish()
+                finish()
             }
         }
         timer.start()
@@ -247,13 +250,13 @@ class UjianOnline1 : AppCompatActivity() {
     }
 
     private fun postAnswer(kdsoal : String, eml : String, noUrut : String, noSoal : String, answer : String){
-        NetworkConfig.service().saveJawaban(kdsoal, eml, noUrut, noSoal, answer)
+        NetworkConfig.service().saveJawaban(RequestJwb(eml, kdsoal, noUrut, noSoal, answer))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
 
                 },{
-
+//                    Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_SHORT).show()
                 })
     }
 
@@ -269,11 +272,11 @@ class UjianOnline1 : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun bindUi(index: Int, data: List<AcakSoalItem?>?) {
-//        val radio1 = data!![index]?.A
-//        val radio2 = data[index]?.B
-//        val radio3 = data[index]?.C
-//        val radio4 = data[index]?.D
-//        val radio5 = data[index]?.E
+
+        if (index == 0)
+            if (data!![index]?.link?.isNotEmpty() == true || data[index]?.ketSoal?.isNotEmpty() == true) showDialogVideo(data)
+        else
+            if (data!![index]?.ketSoal?.isNotEmpty() == true) showDialogVideo(data)
 
         noSoal = data!![index]?.nosoal
         binding?.tvNoSoal?.text = index.plus(1).toString() + "."
@@ -287,31 +290,52 @@ class UjianOnline1 : AppCompatActivity() {
 
         if (data[index]?.soal.toString()?.contains(baseLink)) {
             GlideHelper.setImage(this, data[index]?.soal ?: "", binding?.ivSoal!!)
-            binding?.ivSoal?.visibility = View.VISIBLE
+            binding?.ivSoal?.visibility = VISIBLE
+            binding?.tvSoal?.visibility = GONE
+            binding?.tvKetGambar?.visibility = VISIBLE
+        }else{
+            binding?.tvKetGambar?.visibility = GONE
+            binding?.ivSoal?.visibility = GONE
+            binding?.tvSoal?.visibility = VISIBLE
         }
         if (data!![index]?.A?.contains(baseLink) == true){
+            binding?.ivJwbA!!.visibility = VISIBLE
             GlideHelper.setImage(this, data[index]?.A!!, binding?.ivJwbA!!)
             binding?.radio1?.text = "A."
+        }else{
+            binding?.ivJwbA!!.visibility = GONE
         }
 
         if (data!![index]?.B?.contains(baseLink) == true){
+            binding?.ivJwbB!!.visibility = VISIBLE
             GlideHelper.setImage(this, data[index]?.B!!, binding?.ivJwbB!!)
             binding?.radio2?.text = "B."
+        }else{
+            binding?.ivJwbB!!.visibility = GONE
         }
 
         if (data!![index]?.C?.contains(baseLink) == true){
+            binding?.ivJwbC!!.visibility = VISIBLE
             GlideHelper.setImage(this, data[index]?.C!!, binding?.ivJwbC!!)
             binding?.radio3?.text = "C."
+        }else{
+            binding?.ivJwbC!!.visibility = GONE
         }
 
         if (data!![index]?.D?.contains(baseLink) == true){
+            binding?.ivJwbD!!.visibility = VISIBLE
             GlideHelper.setImage(this, data[index]?.D!!, binding?.ivJwbD!!)
             binding?.radio4?.text = "D."
+        }else{
+            binding?.ivJwbD!!.visibility = GONE
         }
 
         if (data!![index]?.E?.contains(baseLink) == true){
+            binding?.ivJwbE!!.visibility = VISIBLE
             GlideHelper.setImage(this, data[index]?.E!!, binding?.ivJwbE!!)
             binding?.radio5?.text = "E."
+        }else{
+            binding?.ivJwbE!!.visibility = GONE
         }
     }
 
@@ -370,16 +394,17 @@ class UjianOnline1 : AppCompatActivity() {
 
         view_dialog?.tv_ket?.text = data?.get(index)?.ketSoal
 
-        if (link.isNullOrEmpty()){
-            Toast.makeText(applicationContext, "Tidak Ada Video Tersemat", Toast.LENGTH_SHORT).show()
-        }else{
+        if (link?.isNotEmpty()!! && index == 0){
+            view_dialog?.youtube_player_dialog?.visibility = VISIBLE
             view_dialog?.youtube_player_dialog?.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
-
                     youTubePlayer.loadOrCueVideo(lifecycle, videoId ?: "", 0f)
                 }
             })
+        }else{
+            view_dialog?.youtube_player_dialog?.visibility = GONE
+            Toast.makeText(applicationContext, "Tidak Ada Video Tersemat", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -1,10 +1,11 @@
 package com.projectbelajar.yuukbelajar.data.network
 
-import com.projectbelajar.yuukbelajar.data.network.model.request.RequestDoneExam
+import com.projectbelajar.yuukbelajar.data.network.model.request.ujian.RequestDoneExam
 import com.projectbelajar.yuukbelajar.data.network.model.request.elearning.RequestElearning
 import com.projectbelajar.yuukbelajar.data.network.model.request.smartmeet.student.RequestCheckIn
 import com.projectbelajar.yuukbelajar.data.network.model.request.smartmeet.student.RequestCheckOut
 import com.projectbelajar.yuukbelajar.data.network.model.request.smartmeet.teacher.RequestInsertCheckin
+import com.projectbelajar.yuukbelajar.data.network.model.request.ujian.RequestJwb
 import com.projectbelajar.yuukbelajar.data.network.model.response.*
 import com.projectbelajar.yuukbelajar.data.network.model.response.ResponseAction
 import io.reactivex.rxjava3.core.Flowable
@@ -12,7 +13,6 @@ import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
-import java.io.File
 
 interface APIService {
 
@@ -121,14 +121,10 @@ interface APIService {
             @Field("kdsoalx") kdsoalx : String
     ) : Flowable<ResponseAcakSoal>
 
-    @FormUrlEncoded
-    @POST("jwbanx.php")
+
+    @POST("mobile/api/product/jwbanx.php")
     fun saveJawaban(
-        @Field("kdsoal") kdsoal : String,
-        @Field("eml") eml : String,
-        @Field("nourut") nourut : String,
-        @Field("nosoal") nosoal : String,
-        @Field("jwbn") jwbn : String
+        @Body req : RequestJwb
     ) : Single<ResponseAction>
 
     @GET("score.php")

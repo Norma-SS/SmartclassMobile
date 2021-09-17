@@ -360,13 +360,13 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        status("online");
+        status("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         reference.removeEventListener(seenListener);
-//        status("offline");
+        status("offline");
     }
 }

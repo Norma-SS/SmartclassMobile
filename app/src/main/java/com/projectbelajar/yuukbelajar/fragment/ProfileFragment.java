@@ -59,7 +59,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.app.Activity.RESULT_OK;
 import static com.projectbelajar.yuukbelajar.SessionManager.password;
 
-public class ProfileFragment extends Fragment{
+public class ProfileFragment extends Fragment {
 
     SharedPreferences.Editor editor;
     SharedPreferences pref;
@@ -123,11 +123,12 @@ public class ProfileFragment extends Fragment{
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("User").child(fuser.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("dtUsers").child(fuser.getUid());
+
         preferences = new Preferences(getActivity());
         sessionManager.getUserDetails();
 
-        Foto =  view.findViewById(R.id.iv_Meet_photo);
+        Foto = view.findViewById(R.id.iv_Meet_photo);
         Nama = view.findViewById(R.id.Namax);
         Stts = view.findViewById(R.id.Sttsx);
         Kls = view.findViewById(R.id.Klsx);
@@ -142,17 +143,17 @@ public class ProfileFragment extends Fragment{
         SharedPreferences prefs = getActivity().getSharedPreferences(pref_name, Context.MODE_PRIVATE);
         eml = prefs.getString(password, null);
         edit.setText("Edit");
-        Password.setText(preferences.getValues( "password"));
-        Hp.setText(preferences.getValues( "hp"));
-        Nama.setText(preferences.getValues( "nama"));
-        if (preferences.getValues("level").equals("KS")){
+        Password.setText(preferences.getValues("password"));
+        Hp.setText(preferences.getValues("hp"));
+        Nama.setText(preferences.getValues("nama"));
+        if (preferences.getValues("level").equals("KS")) {
             Stts.setText("Kepala Sekolah");
         } else {
             Stts.setText(preferences.getValues("level"));
         }
-        Email.setText(preferences.getValues( "email"));
-        if (preferences.getValues("level").equals("DOKTER")){
-            Skl.setText(preferences.getValues( "klinik"));
+        Email.setText(preferences.getValues("email"));
+        if (preferences.getValues("level").equals("DOKTER")) {
+            Skl.setText(preferences.getValues("klinik"));
         } else {
             Skl.setText(preferences.getValues("namaSekolah"));
         }
@@ -169,49 +170,49 @@ public class ProfileFragment extends Fragment{
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (!EDIT){
-                                            edit.setText("Simpan");
-                                            Email.setEnabled(true);
-                                            Hp.setEnabled(true);
-                                            Password.setEnabled(true);
-                                            EDIT = true;
-                                        } else  {
-                                            fuser.updateEmail(Email.getText().toString())
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-                                                                Log.d("TAG", "User email address updated.");
-                                                            }
-                                                        }
-                                                    });
-                                            fuser.updatePassword(Password.getText().toString())
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-                                                                Log.d("TAG", "User password updated.");
-                                                            }
-                                                        }
-                                                    });
-                                            reference.child("email").setValue(Email.getText().toString());
-                                            reference.child("username").setValue(Hp.getText().toString());
-                                            reference.child("password").setValue(Password.getText().toString());
-                                            Toast.makeText(getActivity(), "Berhasil Disimpan", Toast.LENGTH_SHORT).show();
-                                            edit.setText("Edit");
-                                            Email.setEnabled(false);
-                                            Hp.setEnabled(false);
-                                            Password.setEnabled(false);
-                                            EDIT = false;
-                                        }
+            @Override
+            public void onClick(View v) {
+                if (!EDIT) {
+                    edit.setText("Simpan");
+                    Email.setEnabled(true);
+                    Hp.setEnabled(true);
+                    Password.setEnabled(true);
+                    EDIT = true;
+                } else {
+                    fuser.updateEmail(Email.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("TAG", "User email address updated.");
                                     }
-                                });
+                                }
+                            });
+                    fuser.updatePassword(Password.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("TAG", "User password updated.");
+                                    }
+                                }
+                            });
+                    reference.child("email").setValue(Email.getText().toString());
+                    reference.child("username").setValue(Hp.getText().toString());
+                    reference.child("password").setValue(Password.getText().toString());
+                    Toast.makeText(getActivity(), "Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                    edit.setText("Edit");
+                    Email.setEnabled(false);
+                    Hp.setEnabled(false);
+                    Password.setEnabled(false);
+                    EDIT = false;
+                }
+            }
+        });
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(isAdded()){
+                if (isAdded()) {
                     String password = (String) dataSnapshot.child("password").getValue();
                     String nohp = (String) dataSnapshot.child("username").getValue();
                     String email = (String) dataSnapshot.child("email").getValue();
@@ -219,7 +220,7 @@ public class ProfileFragment extends Fragment{
                     preferences.setValues("password", password);
                     preferences.setValues("email", email);
 
-                    if (preferences.getValues("foto").equals("default")){
+                    if (preferences.getValues("foto").equals("default")) {
                         Foto.setImageResource(R.drawable.profile);
                     } else {
                         Glide.with(getActivity()).load(preferences.getValues("foto"))
@@ -237,7 +238,7 @@ public class ProfileFragment extends Fragment{
             }
         });
 
-        if (preferences.getValues("level").equals("DOKTER") || preferences.getValues("level").equals("GURU") || preferences.getValues("level").equals("KS")){
+        if (preferences.getValues("level").equals("DOKTER") || preferences.getValues("level").equals("GURU") || preferences.getValues("level").equals("KS")) {
             Kls.setText(preferences.getValues("nip"));
         } else {
             Kls.setText(preferences.getValues("kelas"));
@@ -258,7 +259,7 @@ public class ProfileFragment extends Fragment{
         });
         //=================================================================== getjson
 
-        class GetJSON extends AsyncTask<Void,Void,String> {
+        class GetJSON extends AsyncTask<Void, Void, String> {
 
             @Override
             protected void onPreExecute() {
@@ -274,12 +275,12 @@ public class ProfileFragment extends Fragment{
                 //================================================================ showemployee
 
                 JSONObject jsonObject = null;
-                ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
+                ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
                 try {
                     jsonObject = new JSONObject(JSON_STRING);
                     JSONArray result = jsonObject.getJSONArray(konfigurasi.TAG_JSON_ARRAY);
 
-                    for(int i = 0; i<result.length(); i++){
+                    for (int i = 0; i < result.length(); i++) {
                         JSONObject jo = result.getJSONObject(i);
                         String foto = jo.getString(konfigurasi.TAG_FOTO);
                         String nm = jo.getString(konfigurasi.TAG_NAMA);
@@ -317,7 +318,7 @@ public class ProfileFragment extends Fragment{
 
                         //Toast.makeText(getApplicationContext(), foto, Toast.LENGTH_LONG).show();
 
-                        HashMap<String,String> employees = new HashMap<>();
+                        HashMap<String, String> employees = new HashMap<>();
                         //employees.put(konfigurasi.TAG_TGL,tgl);
                         //employees.put(konfigurasi.TAG_KET,ket);
                         //employees.put(konfigurasi.TAG_MPEL,mpel);
@@ -337,7 +338,7 @@ public class ProfileFragment extends Fragment{
             protected String doInBackground(Void... params) {
 
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendGetRequestParam(konfigurasi.URL_GET_PROFIL,eml);
+                String s = rh.sendGetRequestParam(konfigurasi.URL_GET_PROFIL, eml);
                 //String s = rh.sendGetRequestParam(konfigurasi.URL_GET_EMP,eml);
                 return s;
             }
@@ -351,6 +352,7 @@ public class ProfileFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
 
     }
+
     private void openImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -358,43 +360,43 @@ public class ProfileFragment extends Fragment{
         startActivityForResult(intent, IMAGE_REQUEST);
     }
 
-    private String getFileExtension(Uri uri){
+    private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContext().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-    private void uploadImage(){
+    private void uploadImage() {
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setIndeterminateDrawable(getResources().getDrawable(R.drawable.ic_picture));
 
         pd.setMessage("Uploading...");
         pd.show();
 
-        if (imageUri != null){
+        if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
-                    +"."+getFileExtension(imageUri));
+                    + "." + getFileExtension(imageUri));
 
             uploadTask = fileReference.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()){
-                        throw  task.getException();
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
                     }
 
-                    return  fileReference.getDownloadUrl();
+                    return fileReference.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
                         reference = FirebaseDatabase.getInstance().getReference("dtUsers").child(fuser.getUid());
                         HashMap<String, Object> map = new HashMap<>();
-                        map.put("imgUrl", ""+mUri);
+                        map.put("imgUrl", "" + mUri);
                         reference.updateChildren(map);
 
                         pd.dismiss();
@@ -402,11 +404,11 @@ public class ProfileFragment extends Fragment{
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                String foto =(String) dataSnapshot.child("imgUrl").getValue();
-                                preferences.setValues("foto", foto );
+                                String foto = (String) dataSnapshot.child("imgUrl").getValue();
+                                preferences.setValues("foto", foto);
 
-                                if(isAdded()){
-                                    if (reference.child("imgUrl").equals("default")){
+                                if (isAdded()) {
+                                    if (reference.child("imgUrl").equals("default")) {
                                         Foto.setImageResource(R.drawable.profile);
                                     } else {
                                         Glide.with(getActivity()).load(preferences.getValues("foto"))

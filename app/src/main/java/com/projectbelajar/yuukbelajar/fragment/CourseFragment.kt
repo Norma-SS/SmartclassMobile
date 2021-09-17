@@ -83,7 +83,8 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
     private var numpages = 0
 
     private var firebaseUser: FirebaseUser? = null
-    private var refrence = FirebaseDatabase.getInstance().getReference("Users")
+    private var firebaseAuth : FirebaseAuth ?= null
+
     private var tokenUser = FirebaseDatabase.getInstance().getReference("Tokens")
     private var tokeList : MutableList<String> = ArrayList()
     private var listUid : MutableList<String> = ArrayList()
@@ -226,7 +227,7 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
 //                    ly_notif6 = view.findViewById(R.id.ly_notif6)
 //                    tv_notif6 = view.findViewById(R.id.tv_notif6)
 //                    if (jumlah6!! > 0) {
-//                        ly_notif6?.visibility = View.VISIBLE
+                        ly_notif6?.visibility = View.VISIBLE
 //                        tv_notif6?.text = "" + jumlah6
 //                    } else {
 //                        ly_notif6?.visibility = View.GONE
@@ -246,10 +247,7 @@ class CourseFragment : Fragment(R.layout.fragment_course) {
 //        val ge = GetEmployee()
 //        ge.execute()
     }
-
     private fun initFirebase() {
-
-
 
         readData(tokenUser, object : OnGetDataListener{
             override fun onSuccess(dataSnapshot: DataSnapshot?) {

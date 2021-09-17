@@ -1,20 +1,20 @@
 package com.projectbelajar.yuukbelajar.chat.model;
 
 public class Chater {
-    private String id;
-    private String username;
-    private String imgUrl;
-    private String status;
-    private String nama;
-    private String level;
-    private String kodeSekolah;
+    public String id;
+    public String username;
+    public String imgUrl;
+    public String status;
+    public String nama;
+    public String level;
+    public String kodeSekolah;
 //    private String password;
-    private String nis;
-    private String nip;
-    private String klinik;
-    private String namaSekolah;
-    private String kelas;
-    private String time;
+    public String nis;
+    public String nip;
+    public String klinik;
+    public String namaSekolah;
+    public String kelas;
+    public String time;
 
     public Chater() {
 
